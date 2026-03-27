@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+
+/* Reset básico e cores de fundo */
+* {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Kdam Thmor Pro", sans-serif;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+/* Header - Consistente com styles.css */
+header {
+    height: 90px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #0d0d0d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header a { background-color: transparent; }
+
+#logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+nav { width: 60%; }
+
+ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+li {
+    list-style: none;
+    color: aliceblue;
+    cursor: pointer;
+    font-size: 19px;
+    transition: .5s;
+    font-family: "Kdam Thmor Pro", sans-serif;
+}
+
+li:hover {
+    color: yellow;
+}
+
+/* Estilos de Seção de Página */
+.page-section {
+    padding: 60px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #1a1a1a;
+}
+
+.content-container {
+    width: 80%;
+    max-width: 900px;
+    background-color: #0d0d0d; /* Fundo para o container de conteúdo */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    color: #e0e0e0;
+}
+
+.content-container h2 {
+    font-size: 2.2em;
+    color: #ffcc00; /* Cor de destaque para títulos */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Estilos para o Formulário de Comentários */
+#comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: transparent;
+}
+
+.form-group label {
+    font-size: 1.1em;
+    color: #e0e0e0;
+    background-color: transparent;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    font-size: 1em;
+    resize: vertical; /* Permite que o usuário redimensione verticalmente */
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ffcc00; /* Borda de destaque no foco */
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+
+.button {
+    padding: 12px 25px;
+    background-color: #ffcc00; /* Cor amarela para o botão */
+    color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start; /* Alinha o botão à esquerda */
+}
+
+.button:hover {
+    background-color: #e6b800; /* Escurece um pouco no hover */
+    transform: translateY(-2px); /* Efeito de "levantar" */
+}
+
+/* Estilos para a Seção de Comentários */
+.comments-section {
+    margin-top: -30px; /* Reduz o espaço entre as seções */
+}
+
+#comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-item {
+    background-color: #1a1a1a; /* Fundo para cada comentário */
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #ffcc00; /* Cor de destaque para o nome do autor */
+    margin-bottom: 5px;
+    background-color: transparent;
+    font-size: 1.1em;
+}
+
+.comment-text {
+    color: #c0c0c0;
+    background-color: transparent;
+    font-size: 1em;
+}
+
+/* Estilos do Rodapé */
+footer {
+    height: 300px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #0d0d0d;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+}
+
+#logo-footer {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+footer p {
+    color: #e0e0e0;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    font-size: 0.9em;
+    margin: 5px 0;
+    background-color: transparent;
+}
+
+.footer-navigation { display: none; }
+
+.footer-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    background-color: transparent;
+}
+
+.footer-list li {
+    padding: 8px 0;
+    font-size: 17px;
+    background-color: transparent;
+}
+
+/* Media Queries */
+@media(max-width: 1024px) {
+    .content-container {
+        width: 95%;
+        padding: 30px;
+    }
+}
+
+@media(max-width: 768px){
+    header {
+        height: auto;
+        padding: 15px 10px;
+        flex-direction: column;
+        position: relative;
+        box-shadow: none;
+    }
+    #logo { margin-bottom: 15px; }
+    .footer-navigation { display: block; width: 100%; text-align: center; }
+    nav { display: none; }
+
+    .page-section { padding: 40px 0; }
+    .content-container {
+        width: 95%;
+        padding: 20px;
+    }
+    .content-container h2 {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        font-size: 1em;
+    }
+    .form-group input[type="text"],
+    .form-group textarea {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    .button {
+        width: 100%;
+        font-size: 0.9em;
+    }
+    .comment-item {
+        padding: 10px 15px;
+    }
+    .comment-author {
+        font-size: 1em;
+    }
+    .comment-text {
+        font-size: 0.9em;
+    }
+
+    footer {
+        height: auto;
+        padding: 30px 10px;
+    }
+
+    .footer-list li {
+        padding: 5px 0;
+        font-size: 15px;
+    }
+}

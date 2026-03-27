@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+
+/* Reset básico e cores de fundo */
+* {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    line-height: 1.6;
+}
+
+/* Header - Consistente com styles.css */
+header {
+    height: 90px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #0d0d0d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header a { background-color: transparent; }
+
+#logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+nav { width: 60%; }
+
+ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+li {
+    list-style: none;
+    color: aliceblue;
+    cursor: pointer;
+    font-size: 19px;
+    transition: .5s;
+    font-family: "Kdam Thmor Pro", sans-serif;
+}
+
+li:hover {
+    color: yellow;
+}
+
+/* Estilos de Seção de Página */
+.page-section {
+    padding: 60px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #1a1a1a;
+}
+
+.content-container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: #0d0d0d;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    color: #e0e0e0;
+    margin-bottom: 40px; /* Espaço entre os carrosséis */
+}
+
+.content-container:last-child {
+    margin-bottom: 0; /* Remove margem do último container */
+}
+
+.content-container h2 {
+    font-size: 2.2em;
+    color: #ffcc00;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Estilos para o carrossel Slick */
+.slick-slider {
+    padding: 0 50px; /* Espaço para as setas de navegação */
+}
+
+.slider img {
+    width: 100%;
+    height: 350px; /* Altura fixa para as imagens */
+    object-fit: cover; /* Recorta a imagem para cobrir a área */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.slider img:hover {
+    transform: scale(1.03); /* Leve zoom no hover */
+}
+
+/* Estilos para as setas de navegação */
+.slick-prev,
+.slick-next {
+    font-size: 0; /* Esconde o texto "Previous"/"Next" */
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+    color: #ffcc00; /* Cor amarela para as setas */
+    border: none;
+    outline: none;
+    background: transparent;
+    z-index: 10;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'Font Awesome 5 Free'; /* Usa a fonte Font Awesome */
+    font-weight: 900; /* Para ícones sólidos */
+    font-size: 30px;
+    color: #ffcc00; /* Cor do ícone */
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.slick-prev:hover:before,
+.slick-next:hover:before {
+    opacity: 1;
+}
+
+.slick-prev {
+    left: -70px; /* Posição da seta anterior */
+}
+.slick-prev:before {
+    content: '\f053'; /* Código do ícone chevron-left do Font Awesome */
+}
+
+.slick-next {
+    right: -70px; /* Posição da seta próxima */
+}
+.slick-next:before {
+    content: '\f054'; /* Código do ícone chevron-right do Font Awesome */
+}
+
+/* Estilos para os dots de navegação */
+.slick-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.slick-dots li {
+    margin: 0 5px;
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 12px;
+    height: 12px;
+    padding: 5px;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    background: #555; /* Cor dos dots inativos */
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.slick-dots li.slick-active button {
+    background: #ffcc00; /* Cor dos dots ativos */
+}
+
+/* Estilos do Rodapé */
+footer {
+    height: 300px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #0d0d0d;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+}
+
+#logo-footer {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+footer p {
+    color: #e0e0e0;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    font-size: 0.9em;
+    margin: 5px 0;
+    background-color: transparent;
+}
+
+.footer-navigation { display: none; }
+
+.footer-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    background-color: transparent;
+}
+
+.footer-list li {
+    padding: 8px 0;
+    font-size: 17px;
+    background-color: transparent;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+    .slick-prev { left: -60px; }
+    .slick-next { right: -60px; }
+}
+
+@media screen and (max-width: 1024px) {
+    .content-container {
+        width: 95%;
+        padding: 30px;
+    }
+    .slick-prev { left: -40px; }
+    .slick-next { right: -40px; }
+    .slick-slider { padding: 0 40px; } /* Ajuste de padding para caber setas */
+    .slider img { height: 300px; }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        height: auto;
+        padding: 15px 10px;
+        flex-direction: column;
+        position: relative;
+        box-shadow: none;
+    }
+    #logo { margin-bottom: 15px; }
+    .footer-navigation { display: block; width: 100%; text-align: center; }
+    nav { display: none; }
+
+    .page-section { padding: 40px 0; }
+    .content-container {
+        width: 95%;
+        padding: 20px;
+    }
+    .content-container h2 {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .slick-slider { padding: 0 10px; } /* Reduz ainda mais o padding */
+    .slick-prev, .slick-next {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+    .slick-prev { left: 0px; } /* Posição para mobile */
+    .slick-next { right: 0px; } /* Posição para mobile */
+
+    .slider img {
+        height: 250px;
+    }
+
+    footer {
+        height: auto;
+        padding: 30px 10px;
+    }
+
+    .footer-list li {
+        padding: 5px 0;
+        font-size: 15px;
+    }
+}

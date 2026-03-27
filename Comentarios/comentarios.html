@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bocchi The Rock! - Comentários</title>
+    <link rel="stylesheet" href="./comentarios.css" />
+</head>
+<body>
+    <header>
+        <a href="../index.html" aria-label="Página inicial">
+            <img id="logo" src="../assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock! Logo" />
+        </a>
+        <nav aria-label="Navegação principal">
+            <ul>
+                <a href="../index.html">
+                    <li>Home</li>
+                </a>
+                <a href="../Contato/contato.html">
+                    <li>Contato</li>
+                </a>
+                <a href="../Fotos/fotos.html">
+                    <li>Fotos</li>
+                </a>
+                <a href="comentarios.html">
+                    <li>Comentários</li>
+                </a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-section"> <div class="content-container"> <h2>Deixe seu comentário</h2>
+                <form id="comment-form">
+                    <div class="form-group">
+                        <label for="name">Nome:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comentário:</label>
+                        <textarea id="comment" name="comment" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="button">Enviar</button> </form>
+            </div>
+        </section>
+
+        <section class="page-section comments-section"> <div class="content-container"> <h2>Comentários</h2>
+                <ul id="comment-list">
+                    </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('comment-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Impedir o envio padrão do formulário
+
+            // Obter os valores do formulário
+            var name = document.getElementById('name').value;
+            var comment = document.getElementById('comment').value;
+
+            // Criar um novo elemento de lista para o comentário
+            if (name && comment) {
+                var listItem = document.createElement('li');
+                listItem.classList.add('comment-item');
+                listItem.innerHTML = '<p class="comment-author"><strong>' + name + ':</strong></p><p class="comment-text">' + comment + '</p>';
+
+                document.getElementById('comment-list').prepend(listItem); // Adicionar no início da lista
+
+                document.getElementById('name').value = '';
+                document.getElementById('comment').value = '';
+            } else {
+                alert('Por favor, preencha todos os campos!');
+            }
+        });
+    </script>
+    <footer>
+        <a href="../index.html" aria-label="Página inicial">
+            <img id="logo-footer" src="../assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock! Logo" />
+        </a>
+        <p>Todos os Direitos reservados ©</p>
+        <p>Desenvolvido por: Gabriel Rizzo</p>
+
+        <nav class="footer-navigation" aria-label="Navegação do rodapé">
+            <ul class="footer-list">
+                <a href="../index.html">
+                    <li>Home</li>
+                </a>
+                <a href="../Contato/contato.html">
+                    <li>Contato</li>
+                </a>
+                <a href="../Fotos/fotos.html">
+                    <li>Fotos</li>
+                </a>
+                <a href="comentarios.html">
+                    <li>Comentários</li>
+                </a>
+            </ul>
+        </nav>
+    </footer>
+</body>
+</html>
