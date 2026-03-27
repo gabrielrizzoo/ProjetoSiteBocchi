@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bocchi The Rock! - Anime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="./fotos.css" />
+</head>
+<body>
+    <header>
+        <img id="logo" src="Logo Bocchi 2.png" />
+        <nav>
+            <ul>
+                <a href="./index.html">
+                    <li>Home</li>
+                </a>
+                <a href="./contato.html">
+                    <li>Contato</li>
+                </a>
+                <a href="./fotos.html">
+                    <li>Fotos</li>
+                </a>
+                <a href="./comentarios.html">
+                    <li>Comentários</li>
+                </a>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="carousel">
+        <h2>Anime</h2>
+        <div class="slider">
+            <div><img src="anime1.jpg" alt="Anime 1"></div>
+            <div><img src="anime2.jpg" alt="Anime 2"></div>
+            <div><img src="anime3.jpg" alt="Anime 3"></div>
+            <!-- Adicione mais imagens do anime conforme necessário -->
+        </div>
+    </div>
+
+    <div class="carousel">
+        <h2>Shows da Banda</h2>
+        <div class="slider">
+            <div><img src="show1.jpg" alt="Show 1"></div>
+            <div><img src="show2.jpg" alt="Show 2"></div>
+            <div><img src="show3.jpg" alt="Show 3"></div>
+            <!-- Adicione mais imagens dos shows conforme necessário -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+                nextArrow: '<button type="button" class="slick-next">Next</button>'
+            });
+        });
+    </script>
+    <footer>
+        <img style="object-fit: container;" id="logo" src="Logo Bocchi 2.png">
+        <spam>Todos os Direitos reservados ©</spam>
+        <spam>Desenvolvido por: Gabriel Rizzo</spam>
+
+        <nav class="footer-navigation">
+            <ul class="footer-list">
+                <a href="./index.html">
+                    <li>Home</li>
+                </a>
+                <a href="./contato.html">
+                    <li>Contato</li>
+                </a>
+                <a href="./fotos.html">
+                    <li>Fotos</li>
+                </a>
+                <a href="./comentarios.html">
+                    <li>Comentários</li>
+                </a>
+            </ul>
+        </nav>
+    </footer>
+</body>
+</html>

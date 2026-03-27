@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    list-style: none;
+    text-decoration: none;
+}
+
+header {
+    height: 90px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav {
+    width: 60%;
+}
+
+ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+li {
+    list-style: none;
+    color: aliceblue;
+    cursor: pointer;
+    font-size: 19px;
+    transition: .5s;
+    font-family: "Kdam Thmor Pro", sans-serif;
+}
+
+li:hover {
+    color: yellow;
+}
+
+#logo {
+    width: 150px;
+    height: auto;
+}
+
+/* Estilo para as imagens dentro do carrossel */
+.slider img {
+    width: 100%; /* Garante que as imagens ocupem 100% da largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Estilos para dispositivos móveis */
+@media screen and (max-width: 600px) {
+    header {
+        height: 120px; /* Ajusta a altura do cabeçalho para dispositivos móveis */
+    }
+
+    #logo {
+        width: 100px; /* Reduz o tamanho do logo para dispositivos móveis */
+    }
+
+    nav {
+        width: 100%; /* Define a largura do menu de navegação para ocupar toda a largura da tela */
+    }
+
+    ul {
+        flex-direction: column; /* Altera a direção do menu de navegação para vertical */
+        align-items: center; /* Centraliza os itens do menu */
+        padding: 10px 0; /* Adiciona um espaçamento interno ao menu */
+    }
+
+    li {
+        margin-bottom: 10px; /* Adiciona um espaçamento entre os itens do menu */
+    }
+
+    .carousel {
+        padding: 20px 0; /* Adiciona um espaçamento interno ao carrossel */
+    }
+
+    .slider img {
+        max-width: 100%; /* Garante que as imagens do carrossel se ajustem ao tamanho da tela */
+        height: auto; /* Mantém a proporção da imagem */
+    }
+}
+
+footer {
+    height: 300px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+spam {
+    color: #fff;
+    font-family: "Kdam Thmor Pro", sans-serif;
+}
+
+.footer-navigation {
+    display: none;
+}
+
+.footer-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media(max-width: 768px){
+    .footer-navigation {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+}

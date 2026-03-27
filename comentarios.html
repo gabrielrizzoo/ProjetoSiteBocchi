@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bocchi The Rock! - Comentários</title>
+    <link rel="stylesheet" href="./comentarios.css" />
+</head>
+<body>
+    <header>
+        <img id="logo" src="Logo Bocchi 2.png" />
+        <nav>
+            <ul>
+                <a href="./index.html">
+                    <li>Home</li>
+                </a>
+                <a href="./contato.html">
+                    <li>Contato</li>
+                </a>
+                <a href="./fotos.html">
+                    <li>Fotos</li>
+                </a>
+                <a href="./comentarios.html">
+                    <li>Comentários</li>
+                </a>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="comment-form">
+        <h2>Deixe seu comentário</h2>
+        <form id="comment-form">
+            <label for="name">Nome:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="comment">Comentário:</label><br>
+            <textarea id="comment" name="comment" rows="4" required></textarea><br><br>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <div class="comments">
+        <h2>Comentários</h2>
+        <ul id="comment-list">
+            <!-- Os comentários serão exibidos aqui -->
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('comment-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            // Obter os valores do formulário
+            var name = document.getElementById('name').value;
+            var comment = document.getElementById('comment').value;
+
+            // Criar um novo elemento de lista para o comentário
+            var listItem = document.createElement('li');
+            listItem.innerHTML = '<strong>' + name + ':</strong> ' + comment;
+
+            // Adicionar o novo comentário à lista de comentários
+            document.getElementById('comment-list').appendChild(listItem);
+
+            // Limpar os campos do formulário
+            document.getElementById('name').value = '';
+            document.getElementById('comment').value = '';
+        });
+    </script>
+    <footer>
+        <img style="object-fit: container;" id="logo" src="Logo Bocchi 2.png">
+        <spam>Todos os Direitos reservados ©</spam>
+        <spam>Desenvolvido por: Gabriel Rizzo</spam>
+
+        <nav class="footer-navigation">
+            <ul class="footer-list">
+                <a href="./index.html">
+                    <li>Home</li>
+                </a>
+                <a href="./contato.html">
+                    <li>Contato</li>
+                </a>
+                <a href="./fotos.html">
+                    <li>Fotos</li>
+                </a>
+                <a href="./comentarios.html">
+                    <li>Comentários</li>
+                </a>
+            </ul>
+        </nav>
+    </footer>
+</body>
+</html>
