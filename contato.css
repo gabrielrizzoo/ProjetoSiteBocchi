@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
 
-/* Reset básico e cores de fundo */
 * {
     margin: 0;
     padding: 0;
@@ -34,13 +33,6 @@ header a {
     background-color: transparent;
 }
 
-#logo {
-    width: 150px;
-    height: auto;
-    object-fit: contain;
-    background-color: transparent;
-}
-
 nav {
     width: 60%;
 }
@@ -53,24 +45,32 @@ ul {
 
 li {
     list-style: none;
-    color: aliceblue;
+    color: #cccccc;
     cursor: pointer;
     font-size: 19px;
-    transition: .5s;
+    transition: all .4s ease-in-out;
     font-family: "Kdam Thmor Pro", sans-serif;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: transparent;
 }
 
 li:hover {
-    color: yellow;
+    color: #FFD700;
+    background-color: rgba(255, 215, 0, 0.15);
+    transform: translateY(-2px);
 }
 
-/* Estilos do Banner (se presente no HTML de contato) */
+#logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    background-color: transparent;
+}
+
 #banner-section {
     width: 100%;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: transparent;
 }
 
 #banner {
@@ -78,111 +78,127 @@ li:hover {
     background-position: 50% 50%;
     background-size: cover;
     width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    height: 600px;
+    position: relative;
 }
 
-/* Estilos da Seção de Formulário */
+#banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para o formulário de contato */
 #form-section {
-    padding: 60px 0;
+    padding: 80px 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     background-color: #1a1a1a;
 }
 
 #form-container {
-    width: 80%;
-    max-width: 700px;
-    background-color: #0d0d0d;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    color: #e0e0e0;
+    width: 90%;
+    max-width: 600px; /* Largura ajustada */
+    padding: 30px;
+    background-color: #222222; /* Fundo escuro sutil */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: #f0f0f0; /* Cor do texto dentro do formulário */
 }
 
 #form-container h2 {
-    font-size: 2.2em;
-    color: #ffcc00;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-#contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #FFD700; /* Título em amarelo */
 }
 
 #contact-form label {
-    font-size: 1.1em;
-    color: #e0e0e0;
-    background-color: transparent;
+    display: block;
+    margin-bottom: 10px;
+    color: #e0e0e0; /* Cor do texto das labels */
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #contact-form input[type="email"],
 #contact-form textarea {
+    width: 100%;
     padding: 12px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 1em;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #444; /* Borda sutil */
+    background-color: #333; /* Fundo escuro */
+    color: #f0f0f0; /* Cor do texto dentro dos campos de entrada */
+    font-size: 17px;
+}
+
+#contact-form textarea {
+    min-height: 120px; /* Altura mínima para textarea */
     resize: vertical;
 }
 
-#contact-form input[type="email"]:focus,
-#contact-form textarea:focus {
-    outline: none;
-    border-color: #ffcc00;
-    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
-}
-
-#contact-form button {
-    padding: 12px 25px;
-    background-color: #ffcc00;
+#contact-form .button { /* Usando a classe 'button' geral */
+    width: 220px;
+    height: 60px;
+    background-color: #FFD700;
     color: #1a1a1a;
-    border: none;
-    border-radius: 5px;
+    padding: 8px 10px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 1em;
+    transition: all .5s ease;
+    font-size: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    align-self: flex-start;
+    border: none;
+    outline: none;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-#contact-form button:hover {
-    background-color: #e6b800;
-    transform: translateY(-2px);
+#contact-form .button:hover {
+    background-color: #FFF;
+    color: #000;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Estilos do Rodapé */
+/* Estilos para o rodapé */
 footer {
-    height: 300px;
+    height: auto;
+    min-height: 200px;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     background-color: #0d0d0d;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
-    padding: 20px;
+    border-top: 1px solid #333333;
+    padding: 30px 20px;
+    text-align: center;
 }
 
-#logo-footer {
-    width: 150px;
+footer #logo-footer {
+    width: 120px;
     height: auto;
     object-fit: contain;
     background-color: transparent;
+    margin-bottom: 15px;
 }
 
 footer p {
-    color: #e0e0e0;
+    color: #aaaaaa;
     font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 0.9em;
-    margin: 5px 0;
+    font-size: 15px;
+    margin-bottom: 8px;
     background-color: transparent;
 }
 
@@ -208,7 +224,6 @@ footer p {
 @media(max-width: 1024px) {
     #form-container {
         width: 95%;
-        padding: 30px;
     }
 }
 
@@ -250,32 +265,33 @@ footer p {
     }
 
     #form-container h2 {
-        font-size: 28px;
-        margin-bottom: 25px;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
 
     #contact-form label {
-        font-size: 1em;
+        font-size: 16px;
     }
 
     #contact-form input[type="email"],
     #contact-form textarea {
         padding: 10px;
-        font-size: 0.9em;
+        font-size: 15px;
+        margin-bottom: 15px;
     }
 
-    #contact-form button {
-        width: 100%;
-        font-size: 0.9em;
+    #contact-form .button {
+        width: 180px;
+        height: 50px;
+        font-size: 17px;
+        margin-top: 15px;
     }
 
     footer {
-        height: auto;
-        padding: 30px 10px;
+        padding: 25px 15px;
     }
 
-    .footer-list li {
-        padding: 5px 0;
-        font-size: 15px;
+    footer p {
+        font-size: 14px;
     }
 }

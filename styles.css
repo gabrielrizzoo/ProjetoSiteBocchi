@@ -34,13 +34,6 @@ header a {
     background-color: transparent;
 }
 
-#logo {
-    width: 150px;
-    height: auto;
-    object-fit: contain;
-    background-color: transparent;
-}
-
 nav {
     width: 60%;
 }
@@ -53,24 +46,32 @@ ul {
 
 li {
     list-style: none;
-    color: aliceblue;
+    color: #cccccc; /* Cor mais suave para o texto */
     cursor: pointer;
     font-size: 19px;
-    transition: .5s;
+    transition: all .4s ease-in-out; /* Transição mais suave para o hover */
     font-family: "Kdam Thmor Pro", sans-serif;
+    padding: 5px 15px; /* Aumentado o padding para melhor área de clique */
+    border-radius: 5px;
+    background-color: transparent; /* Assegura que o hover do li não afete o background geral */
 }
 
 li:hover {
-    color: yellow;
+    color: #FFD700; /* Amarelo vibrante no hover */
+    background-color: rgba(255, 215, 0, 0.15); /* Leve background no hover para destaque */
+    transform: translateY(-2px); /* Pequeno efeito de elevação */
 }
 
-/* Estilos do Banner */
+#logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain; /* Garante que o logo seja contido */
+    background-color: transparent;
+}
+
 #banner-section {
     width: 100%;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: transparent;
 }
 
 #banner {
@@ -78,122 +79,156 @@ li:hover {
     background-position: 50% 50%;
     background-size: cover;
     width: 100%;
-    height: 100%;
-    border-radius: 8px; /* Cantos arredondados para o banner */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Sombra mais suave */
+    height: 600px;
+    position: relative;
 }
 
-/* Estilos do Trailer e Sinopse */
+#banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay escuro mais intenso */
+}
+
 #trailer-cotainer {
     width: 100%;
-    height: 400px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 80px 0; /* Espaçamento vertical */
-    background-color: #0d0d0d; /* Fundo para esta seção */
+    align-items: center; /* Centralizar verticalmente o conteúdo */
+    padding: 80px 0; /* Aumentado o padding vertical para mais espaço */
+    background-color: #1a1a1a;
 }
 
 .content {
-    width: 80%;
+    width: 70%; /* Aumentado a largura para melhor visualização */
+    max-width: 1200px; /* Adicionado max-width */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 40px; /* Espaço entre o vídeo e a sinopse */
-    background-color: transparent;
+    padding: 30px; /* Aumentado o espaçamento interno */
+    border-radius: 12px; /* Borda mais arredondada */
+    background-color: #222222; /* Sutil background para a seção de conteúdo */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
+    gap: 40px; /* Espaçamento entre os itens flex */
 }
 
 .trailer {
     width: 50%;
-    min-width: 400px; /* Garante um tamanho mínimo para o vídeo */
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px; /* Borda mais arredondada */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Sombra mais forte para o vídeo */
+    background-color: transparent;
+    min-width: 300px; /* Para evitar que o vídeo fique muito pequeno em telas médias */
 }
 
 #sinopse {
-    width: 45%;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
+    justify-content: center; /* Centralizar verticalmente */
     background-color: transparent;
 }
 
 .description {
-    font-size: 1.1em;
-    color: #c0c0c0;
-    margin-bottom: 30px; /* Espaço abaixo da descrição */
-    text-align: justify;
-}
-
-.button {
-    padding: 12px 25px;
-    background-color: #ffcc00; /* Cor amarela para o botão */
-    color: #1a1a1a;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.button:hover {
-    background-color: #e6b800; /* Escurece um pouco no hover */
-    transform: translateY(-2px); /* Efeito de "levantar" */
-}
-
-/* Estilos dos Cartões de Ator/Personagem */
-.actor-cards-section {
-    padding: 60px 0;
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.actor-cards-container {
-    width: 80%;
-    max-width: 1200px;
+    color: #f0f0f0; /* Cor mais clara para o texto da sinopse */
+    font-size: 20px; /* Aumentado o tamanho da fonte */
+    font-family: "Kdam Thmor Pro", sans-serif;
+    width: 100%; /* Ocupar a largura total disponível */
+    line-height: 1.7; /* Melhorar legibilidade */
     background-color: transparent;
 }
 
-.cards-content {
+.button {
+    width: 220px; /* Ligeiramente mais largo */
+    height: 60px;
+    background-color: #FFD700; /* Amarelo ouro para o botão */
+    color: #1a1a1a; /* Texto mais escuro para contraste */
+    padding: 8px 10px;
+    border-radius: 30px; /* Botão mais arredondado (pill shape) */
+    cursor: pointer;
+    transition: all .5s ease; /* Transição mais suave */
+    font-size: 19px; /* Aumentado o tamanho da fonte */
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Permite que os cartões quebrem linha */
-    gap: 30px; /* Espaço entre os cartões */
+    align-items: center;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    margin-top: 35px; /* Aumentado o espaçamento superior */
+    text-transform: uppercase; /* Texto em maiúsculas */
+    letter-spacing: 1.5px; /* Leve espaçamento entre letras */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Sombra para o botão */
+}
+
+.button:hover {
+    background-color: #FFF;
+    color: #000;
+    transform: translateY(-5px) scale(1.02); /* Efeito de elevação mais pronunciado */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.actor-cards-section {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 80px 0; /* Padding vertical para a seção */
+}
+
+.actor-cards-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0; /* Removido margin-top, usando padding da seção */
+}
+
+.cards-content {
+    width: 90%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Mais responsivo */
+    gap: 40px; /* Aumentado o espaçamento entre cards */
+    padding: 0 20px; /* Padding horizontal */
 }
 
 .card {
-    width: 300px; /* Largura fixa para os cartões */
-    height: 400px;
-    background-color: #333;
+    width: 100%;
+    height: 550px; /* Altura ajustada para os cards */
     background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    background-position: 50% 50%;
+    border-radius: 15px; /* Borda mais arredondada */
+    cursor: pointer;
+    transition: transform 0.8s ease-in-out, box-shadow 0.5s ease; /* Transições combinadas e mais rápidas */
     display: flex;
-    justify-content: center;
-    align-items: flex-end; /* Alinha o texto na parte inferior */
-    padding-bottom: 20px;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #e0e0e0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 25px 25px; /* Aumentado o padding interno */
+    color: #ffffff;
+    font-size: 24px; /* Aumentado o tamanho da fonte */
+    font-family: "Kdam Thmor Pro", sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
+    position: relative;
+    overflow: hidden; /* Para garantir que o gradiente não vaze */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; /* Altura do gradiente um pouco maior */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); /* Gradiente escuro mais intenso */
 }
 
 .card:hover {
-    transform: translateY(-10px); /* Efeito de "levantar" no hover */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Sombra mais intensa */
+    transform: scale(1.05); /* Efeito de zoom mais pronunciado */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7); /* Sombra mais intensa no hover */
 }
 
-/* Imagens de fundo para os cartões */
+/* As URLs das imagens de fundo dos banners estão corretas no seu HTML, mantidas aqui */
 .banner-1 {
-    background-image: url(https://garotasquecurtemanimes.com.br/wp-content/uploads/2023/10/Bocchi-the-Rock-imagem-cp-noticia-filme-compilatorio-animes-GQCA.webp)
+    background-image: url(https://garotasquecurtemanimes.com.br/wp-content/uploads/2023/10/Bocchi-the-Rock-imagem-cp-noticia-filme-compilatorio-animes-GQCA.webp);
 }
 
 .banner-2 {
@@ -208,48 +243,50 @@ li:hover {
     background-image: url(https://static.zerochan.net/Kita.Ikuyo.full.3778457.jpg)
 }
 
-/* Estilos do Rodapé */
 footer {
-    height: 300px;
+    height: auto; /* Altura automática para o rodapé */
+    min-height: 200px;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: #0d0d0d; /* Fundo do rodapé */
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4); /* Sombra para o rodapé */
-    padding: 20px;
+    background-color: #0d0d0d; /* Fundo do rodapé mais escuro */
+    border-top: 1px solid #333333; /* Borda superior para separar */
+    padding: 30px 20px; /* Padding ajustado */
+    text-align: center;
 }
 
-#logo-footer { /* ID para o logo no rodapé */
-    width: 150px;
+footer #logo-footer { /* Novo ID para o logo do footer */
+    width: 120px; /* Tamanho ajustado */
     height: auto;
-    object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+    object-fit: contain;
     background-color: transparent;
+    margin-bottom: 15px; /* Espaçamento abaixo do logo */
 }
 
-footer p { /* Alterado de spam para p */
-    color: #e0e0e0;
+footer p { /* Estilizado os parágrafos do footer */
+    color: #aaaaaa; /* Cor mais suave para o texto do rodapé */
     font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 0.9em;
-    margin: 5px 0;
+    font-size: 15px; /* Tamanho da fonte ajustado */
+    margin-bottom: 8px; /* Espaçamento entre os parágrafos */
     background-color: transparent;
 }
 
 .footer-navigation {
-    display: none; /* Esconder por padrão em desktop */
+    display: none; /* Mantido como display none para desktop */
 }
 
 .footer-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: transparent;
     margin-top: 20px;
+    background-color: transparent;
 }
 
 .footer-list li {
-    padding: 8px 0;
+    padding: 8px 0; /* Aumentado padding para links do rodapé */
     font-size: 17px;
     background-color: transparent;
 }
@@ -257,32 +294,13 @@ footer p { /* Alterado de spam para p */
 /* Media Queries para Responsividade */
 @media(max-width: 1024px) {
     .content {
-        width: 95%;
-        flex-direction: column;
-        padding: 30px;
-    }
-
-    .trailer {
-        width: 100%;
-        min-width: unset;
-    }
-
-    #sinopse {
-        width: 100%;
-        margin-left: 0;
-        align-items: center;
-    }
-
-    .actor-cards-container {
-        width: 95%;
+        width: 85%;
+        gap: 30px;
     }
 
     .cards-content {
-        gap: 20px;
-    }
-
-    .card {
-        width: calc(50% - 10px); /* Duas colunas em tablets */
+        width: 95%;
+        gap: 30px;
     }
 }
 
@@ -291,12 +309,23 @@ footer p { /* Alterado de spam para p */
         height: auto;
         padding: 15px 10px;
         flex-direction: column;
-        position: relative;
-        box-shadow: none;
+        position: relative; /* Remove sticky em telas menores se preferir */
+        box-shadow: none; /* Remover sombra em telas menores */
     }
-    #logo { margin-bottom: 15px; }
-    .footer-navigation { display: block; width: 100%; text-align: center; } /* Mostrar navegação no rodapé */
-    nav { display: none; } /* Esconder navegação principal */
+
+    #logo {
+        margin-bottom: 15px;
+    }
+
+    .footer-navigation {
+        display: block; /* Mostrar navegação do rodapé */
+        width: 100%;
+        text-align: center;
+    }
+
+    nav {
+        display: none; /* Esconder navegação principal */
+    }
 
     #banner {
         background-position: 40%;
@@ -342,24 +371,27 @@ footer p { /* Alterado de spam para p */
     }
 
     .cards-content {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
+        grid-template-columns: 1fr; /* Uma coluna para os cards */
+        width: 85%;
+        gap: 40px;
     }
 
     .card {
-        width: 90%; /* Ocupar largura total em mobile */
-        height: 300px;
-        font-size: 1.3em;
+        height: 400px; /* Altura ajustada para os cards em mobile */
+        font-size: 20px; /* Fonte menor para os nomes */
+        padding: 0 0 20px 20px;
     }
 
     footer {
-        height: auto;
-        padding: 30px 10px;
+        padding: 25px 15px;
     }
 
-    .footer-list li {
-        padding: 5px 0;
-        font-size: 15px;
+    footer p {
+        font-size: 14px;
     }
+}
+
+/* Efeito de scroll suave */
+html {
+    scroll-behavior: smooth;
 }

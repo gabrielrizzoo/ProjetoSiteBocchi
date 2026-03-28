@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
 
-/* Reset básico e cores de fundo */
 * {
     margin: 0;
     padding: 0;
@@ -50,157 +49,182 @@ ul {
 
 li {
     list-style: none;
-    color: aliceblue;
+    color: #cccccc;
     cursor: pointer;
     font-size: 19px;
-    transition: .5s;
+    transition: all .4s ease-in-out;
     font-family: "Kdam Thmor Pro", sans-serif;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: transparent;
 }
 
 li:hover {
-    color: yellow;
+    color: #FFD700;
+    background-color: rgba(255, 215, 0, 0.15);
+    transform: translateY(-2px);
 }
 
-/* Estilos de Seção de Página */
+/* Seções da Página de Comentários */
 .page-section {
-    padding: 60px 0;
+    padding: 60px 0; /* Padding vertical para todas as seções principais */
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     background-color: #1a1a1a;
 }
 
 .content-container {
-    width: 80%;
-    max-width: 900px;
-    background-color: #0d0d0d; /* Fundo para o container de conteúdo */
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    color: #e0e0e0;
-}
-
-.content-container h2 {
-    font-size: 2.2em;
-    color: #ffcc00; /* Cor de destaque para títulos */
-    margin-bottom: 30px;
+    width: 90%;
+    max-width: 800px; /* Largura máxima para centralizar o conteúdo */
+    padding: 40px; /* Aumentado o padding interno */
+    background-color: #222222; /* Fundo do container */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     text-align: center;
 }
 
-/* Estilos para o Formulário de Comentários */
+.content-container h2 {
+    margin-bottom: 30px;
+    font-size: 32px; /* Título maior e mais impactante */
+    color: #FFD700;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para o título */
+}
+
+/* Formulário de Comentários */
 #comment-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center; /* Centralizar itens do formulário */
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background-color: transparent;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left; /* Alinhar labels à esquerda */
 }
 
 .form-group label {
-    font-size: 1.1em;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
     color: #e0e0e0;
-    background-color: transparent;
+    font-size: 18px;
 }
 
 .form-group input[type="text"],
 .form-group textarea {
-    padding: 12px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 1em;
-    resize: vertical; /* Permite que o usuário redimensione verticalmente */
+    width: 100%;
+    padding: 15px; /* Aumentado padding */
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #333;
+    color: #f0f0f0;
+    font-size: 17px;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input[type="text"]:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #ffcc00; /* Borda de destaque no foco */
-    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    border-color: #FFD700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3); /* Efeito de foco amarelo */
 }
 
-.button {
-    padding: 12px 25px;
-    background-color: #ffcc00; /* Cor amarela para o botão */
+.button { /* Botão geral - consistente com styles.css */
+    width: 280px; /* Largura ajustada para o botão de enviar */
+    height: 60px;
+    background-color: #FFD700;
     color: #1a1a1a;
-    border: none;
-    border-radius: 5px;
+    padding: 8px 10px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 1em;
+    transition: all .5s ease;
+    font-size: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    align-self: flex-start; /* Alinha o botão à esquerda */
+    border: none;
+    outline: none;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 .button:hover {
-    background-color: #e6b800; /* Escurece um pouco no hover */
-    transform: translateY(-2px); /* Efeito de "levantar" */
+    background-color: #FFF;
+    color: #000;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Estilos para a Seção de Comentários */
-.comments-section {
-    margin-top: -30px; /* Reduz o espaço entre as seções */
+/* Lista de Comentários */
+.comments-list-section {
+    margin-top: 40px; /* Espaço entre o formulário e a lista */
 }
 
 #comment-list {
     list-style: none;
     padding: 0;
+    margin-top: 30px; /* Espaço abaixo do título da lista */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os comentários */
+    text-align: left; /* Alinhar o texto dos comentários à esquerda */
 }
 
 .comment-item {
-    background-color: #1a1a1a; /* Fundo para cada comentário */
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px; /* Aumentado padding */
+    background-color: #333333; /* Fundo escuro para cada comentário */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para o item do comentário */
+    display: flex;
+    flex-direction: column;
 }
 
-.comment-author {
+.comment-item .comment-author {
     font-weight: bold;
-    color: #ffcc00; /* Cor de destaque para o nome do autor */
-    margin-bottom: 5px;
-    background-color: transparent;
-    font-size: 1.1em;
+    color: #FFD700;
+    font-size: 18px;
+    margin-bottom: 8px; /* Espaçamento entre autor e texto */
 }
 
-.comment-text {
-    color: #c0c0c0;
-    background-color: transparent;
-    font-size: 1em;
+.comment-item .comment-text {
+    color: #e0e0e0;
+    font-size: 17px;
+    line-height: 1.5;
 }
 
-/* Estilos do Rodapé */
+/* Footer - Consistente com styles.css */
 footer {
-    height: 300px;
-    margin-top: 50px;
+    height: auto;
+    min-height: 200px;
+    margin-top: 80px; /* Mais espaço antes do rodapé */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     background-color: #0d0d0d;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
-    padding: 20px;
+    border-top: 1px solid #333333;
+    padding: 30px 20px;
+    text-align: center;
 }
 
-#logo-footer {
-    width: 150px;
+footer #logo-footer {
+    width: 120px;
     height: auto;
     object-fit: contain;
     background-color: transparent;
+    margin-bottom: 15px;
 }
 
 footer p {
-    color: #e0e0e0;
+    color: #aaaaaa;
     font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 0.9em;
-    margin: 5px 0;
+    font-size: 15px;
+    margin-bottom: 8px;
     background-color: transparent;
 }
 
@@ -249,36 +273,24 @@ footer p {
         font-size: 28px;
         margin-bottom: 25px;
     }
-
-    .form-group label {
-        font-size: 1em;
-    }
+    .form-group label { font-size: 16px; }
     .form-group input[type="text"],
     .form-group textarea {
-        padding: 10px;
-        font-size: 0.9em;
+        padding: 12px;
+        font-size: 15px;
     }
     .button {
         width: 100%;
-        font-size: 0.9em;
+        height: 55px;
+        font-size: 18px;
     }
+    .comments-list-section { margin-top: 30px; }
     .comment-item {
-        padding: 10px 15px;
+        padding: 15px;
+        font-size: 16px;
     }
-    .comment-author {
-        font-size: 1em;
-    }
-    .comment-text {
-        font-size: 0.9em;
-    }
+    .comment-item .comment-author { font-size: 17px; }
 
-    footer {
-        height: auto;
-        padding: 30px 10px;
-    }
-
-    .footer-list li {
-        padding: 5px 0;
-        font-size: 15px;
-    }
+    footer { padding: 25px 15px; margin-top: 60px; }
+    footer p { font-size: 14px; }
 }

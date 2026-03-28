@@ -4,17 +4,22 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: transparent;
+    background-color: transparent; /* Alterado para transparent */
     list-style: none;
     text-decoration: none;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Adicionado box-sizing */
 }
 
 body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    background-color: #1a1a1a; /* Cor de fundo principal mais escura e consistente */
+    color: #e0e0e0; /* Cor de texto padrão para o corpo */
     font-family: "Kdam Thmor Pro", sans-serif;
     line-height: 1.6;
+}
+
+/* Classe para desabilitar o scroll do body quando o modal estiver aberto */
+body.modal-open {
+    overflow: hidden;
 }
 
 /* Header - Consistente com styles.css */
@@ -23,24 +28,28 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #0d0d0d;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background-color: #0d0d0d; /* Fundo do cabeçalho um pouco mais escuro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Sombra mais forte para destaque */
     padding: 0 20px;
-    position: sticky;
+    position: sticky; /* Cabeçalho fixo no topo */
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
 }
 
-header a { background-color: transparent; }
+header a {
+    background-color: transparent;
+}
 
 #logo {
     width: 150px;
     height: auto;
-    object-fit: contain;
+    object-fit: contain; /* Garante que o logo mantenha proporção */
     background-color: transparent;
 }
 
-nav { width: 60%; }
+nav {
+    width: 60%;
+}
 
 ul {
     display: flex;
@@ -55,142 +64,298 @@ li {
     font-size: 19px;
     transition: .5s;
     font-family: "Kdam Thmor Pro", sans-serif;
+    background-color: transparent;
 }
 
 li:hover {
     color: yellow;
 }
 
-/* Estilos de Seção de Página */
+/* Estrutura de Seção (consistente com outros arquivos) */
 .page-section {
     padding: 60px 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: #1a1a1a;
+    background-color: transparent;
 }
 
 .content-container {
-    width: 90%;
     max-width: 1200px;
-    background-color: #0d0d0d;
+    margin: 0 auto;
     padding: 40px;
+    background-color: #0d0d0d; /* Fundo do container para contraste */
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    color: #e0e0e0;
-    margin-bottom: 40px; /* Espaço entre os carrosséis */
-}
-
-.content-container:last-child {
-    margin-bottom: 0; /* Remove margem do último container */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    text-align: center; /* Centraliza o título */
 }
 
 .content-container h2 {
-    font-size: 2.2em;
-    color: #ffcc00;
-    margin-bottom: 30px;
-    text-align: center;
+    color: #FFD700;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.4);
+    background-color: transparent;
 }
 
-/* Estilos para o carrossel Slick */
-.slick-slider {
-    padding: 0 50px; /* Espaço para as setas de navegação */
+
+/* Estilos para o Slider (Carrossel Slick) */
+.slider {
+    position: relative;
+    margin: 0 auto;
+    /* Adiciona padding para as setas não ficarem grudadas nas bordas */
+    padding: 0 50px;
+    background-color: transparent;
 }
 
+.slick-track {
+    display: flex !important; /* Garante que os itens do slick fiquem lado a lado */
+    align-items: center; /* Centraliza verticalmente as imagens no carrossel */
+}
+
+.slick-slide {
+    display: flex !important; /* Faz com que o slide seja um flex container */
+    justify-content: center; /* Centraliza a imagem horizontalmente */
+    align-items: center; /* Centraliza a imagem verticalmente */
+    height: auto; /* Permite que a altura do slide se ajuste ao conteúdo */
+    padding: 10px; /* Espaçamento entre as imagens no carrossel */
+}
+
+/* Ajuste para as imagens do carrossel: manter proporção original e caber */
 .slider img {
-    width: 100%;
-    height: 350px; /* Altura fixa para as imagens */
-    object-fit: cover; /* Recorta a imagem para cobrir a área */
+    width: 100%; /* Ocupa 100% da largura do slide */
+    max-width: 350px; /* Limita a largura máxima da imagem no slide */
+    height: 200px; /* Define uma altura fixa para as imagens no carrossel */
+    object-fit: contain; /* ESSENCIAL: Mantém a proporção original, escalando para caber no container */
+    background-color: #000; /* Fundo preto para o espaço vazio ao redor da imagem */
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .slider img:hover {
-    transform: scale(1.03); /* Leve zoom no hover */
+    transform: scale(1.05); /* Leve zoom ao passar o mouse */
 }
 
-/* Estilos para as setas de navegação */
+/* Estilos das setas de navegação do Slick Carousel */
 .slick-prev,
 .slick-next {
-    font-size: 0; /* Esconde o texto "Previous"/"Next" */
-    line-height: 1;
+    font-size: 0;
+    line-height: 0;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     padding: 0;
     cursor: pointer;
-    color: #ffcc00; /* Cor amarela para as setas */
+    background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente e escuro */
+    border-radius: 50%; /* Torna o botão redondo */
     border: none;
     outline: none;
-    background: transparent;
-    z-index: 10;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+    display: flex; /* Para centralizar o ícone */
+    justify-content: center; /* Para centralizar o ícone */
+    align-items: center; /* Para centralizar o ícone */
 }
 
-.slick-prev:before,
-.slick-next:before {
-    font-family: 'Font Awesome 5 Free'; /* Usa a fonte Font Awesome */
-    font-weight: 900; /* Para ícones sólidos */
-    font-size: 30px;
-    color: #ffcc00; /* Cor do ícone */
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+.slick-prev:hover,
+.slick-next:hover {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
-.slick-prev:hover:before,
-.slick-next:hover:before {
-    opacity: 1;
+/* Estilos para os ícones Font Awesome dentro das setas */
+.slick-prev i,
+.slick-next i {
+    font-size: 28px;
+    color: yellow; /* Cor das setas */
+    background-color: transparent; /* Garante que o ícone não tenha fundo */
 }
 
 .slick-prev {
-    left: -70px; /* Posição da seta anterior */
+    left: 0px; /* Posição à esquerda do slider (dentro do padding do .slider) */
 }
-.slick-prev:before {
-    content: '\f053'; /* Código do ícone chevron-left do Font Awesome */
-}
-
 .slick-next {
-    right: -70px; /* Posição da seta próxima */
-}
-.slick-next:before {
-    content: '\f054'; /* Código do ícone chevron-right do Font Awesome */
+    right: 0px; /* Posição à direita do slider (dentro do padding do .slider) */
 }
 
-/* Estilos para os dots de navegação */
+/* Remover os dots de navegação se eles aparecerem, embora o JS já desabilite */
 .slick-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    padding: 0;
+    display: none !important;
 }
 
-.slick-dots li {
-    margin: 0 5px;
+/* --- Estilos do Modal (Lightbox) --- */
+.modal {
+    display: none; /* ESSENCIAL: Garante que o modal esteja escondido por padrão */
+    position: fixed; /* Fica no topo da página */
+    z-index: 9999; /* Z-index muito alto para ficar acima de tudo */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Habilita scroll se necessário */
+    background-color: rgba(0,0,0,0.9); /* Fundo preto semi-transparente */
+    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+    -webkit-backdrop-filter: blur(5px); /* Para compatibilidade com navegadores WebKit */
+    /* Estas propriedades flex serão ativadas via JavaScript quando o modal for exibido */
+    /* display: flex;  REMOVA OU COMENTE ESTA LINHA SE ESTIVER AQUI */
+    align-items: center; /* Centraliza a imagem verticalmente */
+    justify-content: center; /* Centraliza a imagem horizontalmente */
+    flex-direction: column; /* Para a legenda ficar abaixo da imagem */
 }
 
-.slick-dots li button {
-    font-size: 0;
-    line-height: 0;
+.modal-content {
+    margin: auto; /* Centraliza a imagem */
     display: block;
-    width: 12px;
-    height: 12px;
-    padding: 5px;
+    max-width: 80vw; /* Largura máxima de 80% da largura da tela */
+    max-height: 80vh; /* Altura máxima de 80% da altura da tela */
+    object-fit: contain; /* Garante que a imagem se ajuste sem cortar, mantendo a proporção */
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+}
+
+.modal-caption {
+    margin-top: 15px;
+    color: #ccc;
+    font-size: 1.2em;
+    text-align: center;
+    background-color: transparent;
+    padding: 0 20px;
+    max-width: 90%;
+}
+
+/* Estilos para as setas do modal */
+.modal-prev, .modal-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
     cursor: pointer;
-    border: 0;
-    outline: none;
-    background: #555; /* Cor dos dots inativos */
-    border-radius: 50%;
+    z-index: 100;
+    font-size: 20px;
     transition: background-color 0.3s ease;
+    outline: none; /* Remove a borda de foco padrão */
+    border-radius: 50%; /* Torna os botões redondos, se preferir */
+    width: 40px; /* Largura fixa para o botão */
+    height: 40px; /* Altura fixa para o botão */
+    display: flex; /* Para centralizar o ícone */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 
-.slick-dots li.slick-active button {
-    background: #ffcc00; /* Cor dos dots ativos */
+.modal-prev:hover, .modal-next:hover {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
-/* Estilos do Rodapé */
+.modal-prev {
+    left: 20px;
+}
+
+.modal-next {
+    right: 20px;
+}
+
+.modal-prev i, .modal-next i {
+    margin: 0;
+    background-color: transparent; /* Garante que o ícone não tenha background */
+}
+
+/* Esconde as setas se houver apenas uma imagem (classe adicionada via JS) */
+.modal.single-image .modal-prev,
+.modal.single-image .modal-next {
+    display: none !important;
+}
+
+/* Ajuste para o modal-caption */
+.modal-caption {
+    margin-top: 15px; /* Espaçamento entre a imagem e a legenda */
+    color: #e0e0e0;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+/* Estilo para o modal (o overlay de fundo) */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica por cima de todo o conteúdo */
+    z-index: 1001; /* Z-index alto para ficar na frente de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilita scroll se a imagem for maior que a tela (mas max-width/height previnem isso) */
+    background-color: rgba(0, 0, 0, 0.9); /* Fundo preto semitransparente */
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+    justify-content: center; /* Centraliza horizontalmente o conteúdo */
+    flex-direction: column; /* Organiza a imagem e legenda em coluna */
+}
+
+/* Botão de fechar (x) */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 101; /* Garante que o botão de fechar esteja acima das setas */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    background-color: transparent;
+    border: none; /* Remove borda padrão do botão */
+    line-height: 1; /* Alinha o 'x' corretamente */
+    padding: 5px 10px; /* Adiciona um pouco de padding para área de clique */
+    border-radius: 5px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    outline: none; /* Remove outline ao focar */
+}
+
+/* Animação para o modal */
+.modal-content, .modal-caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+
+/* Footer - Consistente com outros arquivos */
 footer {
     height: 300px;
     margin-top: 50px;
@@ -198,9 +363,9 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: #0d0d0d;
+    background-color: #0d0d0d; /* Fundo do footer mais escuro */
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
-    padding: 20px;
+    padding: 20px 0;
 }
 
 #logo-footer {
@@ -211,47 +376,44 @@ footer {
 }
 
 footer p {
-    color: #e0e0e0;
+    color: #fff;
     font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 0.9em;
-    margin: 5px 0;
     background-color: transparent;
+    margin: 5px 0; /* Espaçamento entre os parágrafos */
 }
 
-.footer-navigation { display: none; }
+.footer-navigation {
+    display: block; /* Visível por padrão para consistência */
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
 
 .footer-list {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: center; /* Centraliza os itens do footer */
+    flex-wrap: wrap; /* Quebra linha se necessário */
     background-color: transparent;
 }
 
 .footer-list li {
-    padding: 8px 0;
+    padding: 0 15px; /* Espaçamento entre os itens */
     font-size: 17px;
     background-color: transparent;
 }
 
-/* Media Queries */
+
+/* Media Queries para Responsividade */
 @media screen and (max-width: 1200px) {
-    .slick-prev { left: -60px; }
-    .slick-next { right: -60px; }
+    .content-container {
+        padding: 30px;
+    }
+    /* As setas agora estão dentro do padding do .slider */
+    .slick-prev { left: 0px; }
+    .slick-next { right: 0px; }
 }
 
 @media screen and (max-width: 1024px) {
-    .content-container {
-        width: 95%;
-        padding: 30px;
-    }
-    .slick-prev { left: -40px; }
-    .slick-next { right: -40px; }
-    .slick-slider { padding: 0 40px; } /* Ajuste de padding para caber setas */
-    .slider img { height: 300px; }
-}
-
-@media screen and (max-width: 768px) {
     header {
         height: auto;
         padding: 15px 10px;
@@ -260,8 +422,7 @@ footer p {
         box-shadow: none;
     }
     #logo { margin-bottom: 15px; }
-    .footer-navigation { display: block; width: 100%; text-align: center; }
-    nav { display: none; }
+    nav { display: none; } /* Oculta a navegação principal em mobile */
 
     .page-section { padding: 40px 0; }
     .content-container {
@@ -269,30 +430,72 @@ footer p {
         padding: 20px;
     }
     .content-container h2 {
-        font-size: 28px;
-        margin-bottom: 25px;
+        font-size: 2em;
+        margin-bottom: 30px;
     }
 
-    .slick-slider { padding: 0 10px; } /* Reduz ainda mais o padding */
+    .slider {
+        padding: 0 10px; /* Reduz o padding para as setas */
+    }
+    /* Ajuste as setas para ficarem mais próximas nas laterais em telas menores */
     .slick-prev, .slick-next {
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
+        width: 35px;
+        height: 35px;
     }
-    .slick-prev { left: 0px; } /* Posição para mobile */
-    .slick-next { right: 0px; } /* Posição para mobile */
-
+    .slick-prev i, .slick-next i {
+        font-size: 22px;
+    }
     .slider img {
-        height: 250px;
+        height: 180px; /* Ajusta a altura da imagem no carrossel para tablets */
     }
 
-    footer {
-        height: auto;
-        padding: 30px 10px;
+    .modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+    }
+    .modal-caption {
+        font-size: 1em;
+    }
+    .close-button {
+        font-size: 35px;
+        top: 15px;
+        right: 25px;
     }
 
+    .footer-navigation {
+        display: block; /* Mostra a navegação no rodapé em mobile */
+        width: 100%;
+        text-align: center;
+    }
+    .footer-list {
+        flex-direction: column;
+    }
     .footer-list li {
-        padding: 5px 0;
-        font-size: 15px;
+        padding: 8px 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .slider {
+        padding: 0 0px; /* Remove padding extra para as setas ficarem mais próximas da borda */
+    }
+    .slick-prev { left: -10px; }
+    .slick-next { right: -10px; }
+    .slider img {
+        height: 150px; /* Altura ainda menor para mobile */
+    }
+    .close-button {
+        font-size: 30px;
+        top: 10px;
+        right: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .content-container h2 {
+        font-size: 1.8em;
+    }
+    .slider img {
+        height: 120px; /* Altura mínima para as imagens */
     }
 }
