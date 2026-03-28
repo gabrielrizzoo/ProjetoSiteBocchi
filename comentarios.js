@@ -1,21 +1,51 @@
 document.getElementById('comment-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Impedir o envio padrão do formulário
+    event.preventDefault();
 
-            // Obter os valores do formulário
-            var name = document.getElementById('name').value;
-            var comment = document.getElementById('comment').value;
+    var nameInput = document.getElementById('name');
+    var commentInput = document.getElementById('comment');
 
-            // Criar um novo elemento de lista para o comentário
-            if (name && comment) {
-                var listItem = document.createElement('li');
-                listItem.classList.add('comment-item');
-                listItem.innerHTML = '<p class="comment-author"><strong>' + name + ':</strong></p><p class="comment-text">' + comment + '</p>';
+    var name = nameInput.value.trim();
+    var comment = commentInput.value.trim();
 
-                document.getElementById('comment-list').prepend(listItem); // Adicionar no início da lista
+    if (name && comment) {
+        var listItem = document.createElement('li');
+        listItem.className = 'comment-card';
 
-                document.getElementById('name').value = '';
-                document.getElementById('comment').value = '';
-            } else {
-                alert('Por favor, preencha todos os campos!');
-            }
+        // Escape basic HTML to prevent injection
+        name = name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        comment = comment.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        listItem.innerHTML = `
+            <h3>${name}</h3>
+            <p>${comment}</p>
+        `;
+
+        var list = document.getElementById('comment-list');
+        list.insertBefore(listItem, list.firstChild);
+
+        // Clear and visually highlight form reset
+        nameInput.value = '';
+        commentInput.value = '';
+
+        // Focus state reset
+        document.activeElement.blur();
+    }
+});
+
+// Optionally load some initial dummy comments
+document.addEventListener('DOMContentLoaded', () => {
+    const list = document.getElementById('comment-list');
+    if (list && list.children.length === 0) {
+        const dummyComments = [
+            { name: 'Gabriel', comment: 'Esse anime é fantástico! As músicas da Kessoku Band são incríveis.' },
+            { name: 'Maria', comment: 'A evolução da Bocchi é muito boa. Me identifico muito com ela.' }
+        ];
+
+        dummyComments.forEach(c => {
+            const li = document.createElement('li');
+            li.className = 'comment-card';
+            li.innerHTML = `<h3>${c.name}</h3><p>${c.comment}</p>`;
+            list.appendChild(li);
         });
+    }
+});

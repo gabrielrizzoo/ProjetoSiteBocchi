@@ -1,297 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+/* CONTATO SPECIFIC STYLES */
 
-* {
-    margin: 0;
-    padding: 0;
-    background-color: transparent; /* Alterado para transparent */
-    list-style: none;
-    text-decoration: none;
-    box-sizing: border-box; /* Adicionado box-sizing */
-}
-
-body {
-    background-color: #1a1a1a; /* Cor de fundo consistente */
-    color: #e0e0e0; /* Cor de texto padrão */
-    font-family: "Kdam Thmor Pro", sans-serif;
-    line-height: 1.6;
-}
-
-header {
-    height: 90px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #0d0d0d;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    padding: 0 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-header a {
-    background-color: transparent;
-}
-
-nav {
-    width: 60%;
-}
-
-ul {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-
-li {
-    list-style: none;
-    color: #cccccc;
-    cursor: pointer;
-    font-size: 19px;
-    transition: all .4s ease-in-out;
-    font-family: "Kdam Thmor Pro", sans-serif;
-    padding: 5px 15px;
-    border-radius: 5px;
-    background-color: transparent;
-}
-
-li:hover {
-    color: #FFD700;
-    background-color: rgba(255, 215, 0, 0.15);
-    transform: translateY(-2px);
-}
-
-#logo {
-    width: 150px;
-    height: auto;
-    object-fit: contain;
-    background-color: transparent;
-}
-
+/* --- HEADER BANNER --- */
 #banner-section {
     width: 100%;
-    background-color: transparent;
+    position: relative;
 }
 
 #banner {
     background-image: url('https://www.tadaima.com.mx/wp-content/uploads/2023/05/BocchiTheRock_top.jpg');
-    background-position: 50% 50%;
+    background-position: center;
     background-size: cover;
+    background-attachment: fixed;
     width: 100%;
-    height: 600px;
+    height: 40vh;
+    min-height: 300px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #banner::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 15, 19, 0.4) 0%, rgba(15, 15, 19, 1) 100%);
 }
 
-/* Estilos para o formulário de contato */
+.banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+.banner-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 20px var(--neon-pink);
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- FORM SECTION --- */
 #form-section {
-    padding: 80px 0;
+    padding: 60px 5%;
     display: flex;
     justify-content: center;
-    background-color: #1a1a1a;
+    background-color: var(--bg-color);
+    position: relative;
+}
+
+#form-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 300px;
+    height: 300px;
+    background: var(--neon-pink);
+    filter: blur(150px);
+    opacity: 0.1;
+    z-index: 0;
 }
 
 #form-container {
-    width: 90%;
-    max-width: 600px; /* Largura ajustada */
-    padding: 30px;
-    background-color: #222222; /* Fundo escuro sutil */
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    color: #f0f0f0; /* Cor do texto dentro do formulário */
+    width: 100%;
+    max-width: 650px;
+    padding: 50px;
+    background: var(--bg-surface);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 1;
 }
 
 #form-container h2 {
-    margin-bottom: 25px;
-    font-size: 28px;
-    color: #FFD700; /* Título em amarelo */
-}
-
-#contact-form label {
-    display: block;
-    margin-bottom: 10px;
-    color: #e0e0e0; /* Cor do texto das labels */
-    font-size: 18px;
-    font-weight: bold;
-}
-
-#contact-form input[type="email"],
-#contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid #444; /* Borda sutil */
-    background-color: #333; /* Fundo escuro */
-    color: #f0f0f0; /* Cor do texto dentro dos campos de entrada */
-    font-size: 17px;
-}
-
-#contact-form textarea {
-    min-height: 120px; /* Altura mínima para textarea */
-    resize: vertical;
-}
-
-#contact-form .button { /* Usando a classe 'button' geral */
-    width: 220px;
-    height: 60px;
-    background-color: #FFD700;
-    color: #1a1a1a;
-    padding: 8px 10px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all .5s ease;
-    font-size: 19px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    margin-top: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-}
-
-#contact-form .button:hover {
-    background-color: #FFF;
-    color: #000;
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Estilos para o rodapé */
-footer {
-    height: auto;
-    min-height: 200px;
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #0d0d0d;
-    border-top: 1px solid #333333;
-    padding: 30px 20px;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #fff;
     text-align: center;
 }
 
-footer #logo-footer {
-    width: 120px;
-    height: auto;
-    object-fit: contain;
-    background-color: transparent;
-    margin-bottom: 15px;
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
 }
 
-footer p {
-    color: #aaaaaa;
-    font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 15px;
+.form-group label {
+    display: block;
     margin-bottom: 8px;
-    background-color: transparent;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color var(--transition-fast);
 }
 
-.footer-navigation {
-    display: none;
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-fast);
 }
 
-.footer-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    background-color: transparent;
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
 }
 
-.footer-list li {
-    padding: 8px 0;
-    font-size: 17px;
-    background-color: transparent;
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--neon-pink);
+    background-color: rgba(255, 75, 152, 0.05);
+    box-shadow: 0 0 15px rgba(255, 75, 152, 0.2);
 }
 
-/* Media Queries para Responsividade */
-@media(max-width: 1024px) {
+.form-group input:focus+label,
+.form-group textarea:focus+label {
+    color: var(--neon-pink);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+#contact-form .btn-primary {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* RESPONSIVENESS */
+@media(max-width: 768px) {
     #form-container {
-        width: 95%;
-    }
-}
-
-@media(max-width: 768px){
-    header {
-        height: auto;
-        padding: 15px 10px;
-        flex-direction: column;
-        position: relative;
-        box-shadow: none;
+        padding: 30px 20px;
     }
 
-    #logo {
-        margin-bottom: 15px;
-    }
-
-    .footer-navigation {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-
-    nav {
-        display: none;
-    }
-
-    #banner {
-        background-position: 40%;
-        height: 350px;
-    }
-
-    #form-section {
-        padding: 50px 0;
-    }
-
-    #form-container {
-        width: 95%;
-        padding: 20px;
-    }
-
-    #form-container h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-
-    #contact-form label {
-        font-size: 16px;
-    }
-
-    #contact-form input[type="email"],
-    #contact-form textarea {
-        padding: 10px;
-        font-size: 15px;
-        margin-bottom: 15px;
-    }
-
-    #contact-form .button {
-        width: 180px;
-        height: 50px;
-        font-size: 17px;
-        margin-top: 15px;
-    }
-
-    footer {
-        padding: 25px 15px;
-    }
-
-    footer p {
-        font-size: 14px;
+    .banner-content h1 {
+        font-size: 2rem;
     }
 }

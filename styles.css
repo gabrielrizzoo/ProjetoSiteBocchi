@@ -1,397 +1,279 @@
-@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+/* INDEX SPECIFIC STYLES (HOME) */
 
-/* Reset básico e cores de fundo */
-* {
-    margin: 0;
-    padding: 0;
-    background-color: transparent; /* Alterado para transparent para que o background do body funcione */
-    list-style: none;
-    text-decoration: none;
-    box-sizing: border-box; /* Adicionado box-sizing para facilitar o layout */
-}
-
-body {
-    background-color: #1a1a1a; /* Cor de fundo principal mais escura e consistente */
-    color: #e0e0e0; /* Cor de texto padrão para o corpo */
-    font-family: "Kdam Thmor Pro", sans-serif;
-    line-height: 1.6;
-}
-
-header {
-    height: 90px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #0d0d0d; /* Fundo do cabeçalho um pouco mais escuro */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Sombra mais forte para destaque */
-    padding: 0 20px;
-    position: sticky; /* Cabeçalho fixo no topo */
-    top: 0;
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-}
-
-header a {
-    background-color: transparent;
-}
-
-nav {
-    width: 60%;
-}
-
-ul {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-
-li {
-    list-style: none;
-    color: #cccccc; /* Cor mais suave para o texto */
-    cursor: pointer;
-    font-size: 19px;
-    transition: all .4s ease-in-out; /* Transição mais suave para o hover */
-    font-family: "Kdam Thmor Pro", sans-serif;
-    padding: 5px 15px; /* Aumentado o padding para melhor área de clique */
-    border-radius: 5px;
-    background-color: transparent; /* Assegura que o hover do li não afete o background geral */
-}
-
-li:hover {
-    color: #FFD700; /* Amarelo vibrante no hover */
-    background-color: rgba(255, 215, 0, 0.15); /* Leve background no hover para destaque */
-    transform: translateY(-2px); /* Pequeno efeito de elevação */
-}
-
-#logo {
-    width: 150px;
-    height: auto;
-    object-fit: contain; /* Garante que o logo seja contido */
-    background-color: transparent;
-}
-
+/* --- HERO BANNER --- */
 #banner-section {
     width: 100%;
-    background-color: transparent;
+    position: relative;
+    background-color: var(--bg-color);
 }
 
 #banner {
     background-image: url('https://store.aniplexusa.com/bocchi-the-rock/images/header.jpg');
-    background-position: 50% 50%;
+    background-position: center;
     background-size: cover;
+    background-attachment: fixed;
     width: 100%;
-    height: 600px;
+    height: 70vh;
+    min-height: 500px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #banner::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Overlay escuro mais intenso */
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 15, 19, 0.3) 0%, rgba(15, 15, 19, 1) 100%);
 }
 
-#trailer-cotainer {
+.banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+.banner-content h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- TRAILER & SYNOPSIS --- */
+#trailer-container {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center; /* Centralizar verticalmente o conteúdo */
-    padding: 80px 0; /* Aumentado o padding vertical para mais espaço */
-    background-color: #1a1a1a;
+    padding: 80px 5%;
+    background-color: var(--bg-color);
+    position: relative;
 }
 
-.content {
-    width: 70%; /* Aumentado a largura para melhor visualização */
-    max-width: 1200px; /* Adicionado max-width */
+#trailer-container::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    background: var(--neon-pink);
+    filter: blur(150px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#trailer-container .content {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 30px; /* Aumentado o espaçamento interno */
-    border-radius: 12px; /* Borda mais arredondada */
-    background-color: #222222; /* Sutil background para a seção de conteúdo */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
-    gap: 40px; /* Espaçamento entre os itens flex */
+    gap: 50px;
+    background: var(--bg-surface);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 1;
 }
 
 .trailer {
-    width: 50%;
-    border-radius: 10px; /* Borda mais arredondada */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Sombra mais forte para o vídeo */
-    background-color: transparent;
-    min-width: 300px; /* Para evitar que o vídeo fique muito pequeno em telas médias */
+    flex: 1;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    width: 100%;
 }
 
 #sinopse {
-    width: 50%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centralizar verticalmente */
-    background-color: transparent;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .description {
-    color: #f0f0f0; /* Cor mais clara para o texto da sinopse */
-    font-size: 20px; /* Aumentado o tamanho da fonte */
-    font-family: "Kdam Thmor Pro", sans-serif;
-    width: 100%; /* Ocupar a largura total disponível */
-    line-height: 1.7; /* Melhorar legibilidade */
-    background-color: transparent;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 30px;
 }
 
-.button {
-    width: 220px; /* Ligeiramente mais largo */
-    height: 60px;
-    background-color: #FFD700; /* Amarelo ouro para o botão */
-    color: #1a1a1a; /* Texto mais escuro para contraste */
-    padding: 8px 10px;
-    border-radius: 30px; /* Botão mais arredondado (pill shape) */
-    cursor: pointer;
-    transition: all .5s ease; /* Transição mais suave */
-    font-size: 19px; /* Aumentado o tamanho da fonte */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    margin-top: 35px; /* Aumentado o espaçamento superior */
-    text-transform: uppercase; /* Texto em maiúsculas */
-    letter-spacing: 1.5px; /* Leve espaçamento entre letras */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Sombra para o botão */
+.description strong {
+    color: var(--neon-pink);
 }
 
-.button:hover {
-    background-color: #FFF;
-    color: #000;
-    transform: translateY(-5px) scale(1.02); /* Efeito de elevação mais pronunciado */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
+/* --- ACTOR CARDS SECTION --- */
 .actor-cards-section {
-    width: 100%;
-    background-color: #1a1a1a;
-    padding: 80px 0; /* Padding vertical para a seção */
+    padding: 80px 5%;
+    background-color: var(--bg-color);
+    position: relative;
+}
+
+.actor-cards-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 400px;
+    height: 400px;
+    background: var(--neon-blue);
+    filter: blur(200px);
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .actor-cards-container {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 0; /* Removido margin-top, usando padding da seção */
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .cards-content {
-    width: 90%;
-    max-width: 1200px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Mais responsivo */
-    gap: 40px; /* Aumentado o espaçamento entre cards */
-    padding: 0 20px; /* Padding horizontal */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
 }
 
 .card {
-    width: 100%;
-    height: 550px; /* Altura ajustada para os cards */
+    height: 450px;
+    border-radius: 20px;
     background-size: cover;
-    background-position: 50% 50%;
-    border-radius: 15px; /* Borda mais arredondada */
-    cursor: pointer;
-    transition: transform 0.8s ease-in-out, box-shadow 0.5s ease; /* Transições combinadas e mais rápidas */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 0 25px 25px; /* Aumentado o padding interno */
-    color: #ffffff;
-    font-size: 24px; /* Aumentado o tamanho da fonte */
-    font-family: "Kdam Thmor Pro", sans-serif;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
+    background-position: center;
     position: relative;
-    overflow: hidden; /* Para garantir que o gradiente não vaze */
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .card::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 60%);
+    opacity: 0.8;
+    transition: opacity var(--transition-fast);
+}
+
+.card-info {
+    position: absolute;
+    bottom: -20px;
     left: 0;
     width: 100%;
-    height: 60%; /* Altura do gradiente um pouco maior */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); /* Gradiente escuro mais intenso */
+    padding: 30px 20px 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-normal);
+}
+
+.card-info h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.card-info span {
+    color: var(--neon-pink);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .card:hover {
-    transform: scale(1.05); /* Efeito de zoom mais pronunciado */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7); /* Sombra mais intensa no hover */
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 75, 152, 0.2);
 }
 
-/* As URLs das imagens de fundo dos banners estão corretas no seu HTML, mantidas aqui */
+.card:hover::before {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(15, 15, 19, 0.95) 0%, rgba(0, 0, 0, 0) 80%);
+}
+
+.card:hover .card-info {
+    opacity: 1;
+    bottom: 0;
+    transform: translateY(0);
+}
+
+/* Card Backgrounds */
 .banner-1 {
-    background-image: url(https://garotasquecurtemanimes.com.br/wp-content/uploads/2023/10/Bocchi-the-Rock-imagem-cp-noticia-filme-compilatorio-animes-GQCA.webp);
+    background-image: inherit;
+    background: url(https://garotasquecurtemanimes.com.br/wp-content/uploads/2023/10/Bocchi-the-Rock-imagem-cp-noticia-filme-compilatorio-animes-GQCA.webp) center/cover;
 }
 
 .banner-2 {
-    background-image: url(https://a.storyblok.com/f/178900/750x1061/4f92dee8e2/7125b56d8f6e0a25d7931092e68390ae1645204415_main.jpg)
+    background-image: url(https://a.storyblok.com/f/178900/750x1061/4f92dee8e2/7125b56d8f6e0a25d7931092e68390ae1645204415_main.jpg);
 }
 
 .banner-3 {
-    background-image: url(https://s1.zerochan.net/Ijichi.Nijika.600.3778455.jpg)
+    background-image: url(https://s1.zerochan.net/Ijichi.Nijika.600.3778455.jpg);
 }
 
 .banner-4 {
-    background-image: url(https://static.zerochan.net/Kita.Ikuyo.full.3778457.jpg)
+    background-image: url(https://static.zerochan.net/Kita.Ikuyo.full.3778457.jpg);
+    background-position: top;
 }
 
-footer {
-    height: auto; /* Altura automática para o rodapé */
-    min-height: 200px;
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #0d0d0d; /* Fundo do rodapé mais escuro */
-    border-top: 1px solid #333333; /* Borda superior para separar */
-    padding: 30px 20px; /* Padding ajustado */
-    text-align: center;
-}
 
-footer #logo-footer { /* Novo ID para o logo do footer */
-    width: 120px; /* Tamanho ajustado */
-    height: auto;
-    object-fit: contain;
-    background-color: transparent;
-    margin-bottom: 15px; /* Espaçamento abaixo do logo */
-}
-
-footer p { /* Estilizado os parágrafos do footer */
-    color: #aaaaaa; /* Cor mais suave para o texto do rodapé */
-    font-family: "Kdam Thmor Pro", sans-serif;
-    font-size: 15px; /* Tamanho da fonte ajustado */
-    margin-bottom: 8px; /* Espaçamento entre os parágrafos */
-    background-color: transparent;
-}
-
-.footer-navigation {
-    display: none; /* Mantido como display none para desktop */
-}
-
-.footer-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    background-color: transparent;
-}
-
-.footer-list li {
-    padding: 8px 0; /* Aumentado padding para links do rodapé */
-    font-size: 17px;
-    background-color: transparent;
-}
-
-/* Media Queries para Responsividade */
+/* --- RESPONSIVIDADE HOME --- */
 @media(max-width: 1024px) {
-    .content {
-        width: 85%;
-        gap: 30px;
-    }
-
-    .cards-content {
-        width: 95%;
-        gap: 30px;
-    }
-}
-
-@media(max-width: 768px){
-    header {
-        height: auto;
-        padding: 15px 10px;
+    #trailer-container .content {
         flex-direction: column;
-        position: relative; /* Remove sticky em telas menores se preferir */
-        box-shadow: none; /* Remover sombra em telas menores */
-    }
-
-    #logo {
-        margin-bottom: 15px;
-    }
-
-    .footer-navigation {
-        display: block; /* Mostrar navegação do rodapé */
-        width: 100%;
         text-align: center;
-    }
-
-    nav {
-        display: none; /* Esconder navegação principal */
-    }
-
-    #banner {
-        background-position: 40%;
-        height: 350px; /* Altura menor para o banner */
-    }
-
-    #trailer-cotainer {
-        padding: 50px 0;
-        height: auto;
-    }
-
-    .content {
-        width: 95%;
-        flex-direction: column;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .trailer {
-        width: 100%;
-        margin-bottom: 25px; /* Espaçamento abaixo do trailer */
-        min-width: unset; /* Remove min-width em mobile */
+        padding: 30px;
     }
 
     #sinopse {
-        width: 100%; /* Ocupar largura total */
-        margin-left: 0;
         align-items: center;
-    }
-
-    .description {
-        font-size: 17px;
-        text-align: center;
-    }
-
-    .button {
-        width: 90%;
-        margin-top: 30px;
-    }
-
-    .actor-cards-section {
-        padding: 50px 0;
-    }
-
-    .cards-content {
-        grid-template-columns: 1fr; /* Uma coluna para os cards */
-        width: 85%;
-        gap: 40px;
-    }
-
-    .card {
-        height: 400px; /* Altura ajustada para os cards em mobile */
-        font-size: 20px; /* Fonte menor para os nomes */
-        padding: 0 0 20px 20px;
-    }
-
-    footer {
-        padding: 25px 15px;
-    }
-
-    footer p {
-        font-size: 14px;
     }
 }
 
-/* Efeito de scroll suave */
-html {
-    scroll-behavior: smooth;
+@media(max-width: 768px) {
+    .banner-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner-content p {
+        font-size: 1.2rem;
+    }
+
+    #banner {
+        height: 50vh;
+        min-height: 400px;
+    }
+
+    .card {
+        height: 350px;
+    }
 }
