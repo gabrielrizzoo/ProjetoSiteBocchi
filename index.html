@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bocchi The Rock! — Site dedicado ao anime sobre Hitori Gotoh e a Kessoku Band. Confira a sinopse, personagens, fotos e muito mais.">
     <title>Bocchi The Rock! — Anime</title>
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#ff4b98">
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bocchi The Rock! — Anime">
+    <meta property="og:description" content="Acompanhe a jornada da Kessoku Band! Sinopse, personagens, galeria e muito mais.">
+    <meta property="og:image" content="./assets/images/og-preview.jpg">
+    <meta property="og:type" content="website">
+    <!-- Styles -->
     <link rel="stylesheet" href="./global.css">
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet"
@@ -13,6 +26,12 @@
 </head>
 
 <body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <img src="./assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock Logo" class="splash-logo">
+        <div class="splash-loader"></div>
+    </div>
+
     <!-- Mobile Menu Overlay -->
     <div class="menu-overlay" aria-hidden="true"></div>
 
@@ -28,9 +47,16 @@
         <nav class="main-nav" aria-label="Navegação principal">
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="filme.html" class="nav-link">O Filme</a></li>
                 <li><a href="contato.html" class="nav-link">Contato</a></li>
                 <li><a href="fotos.html" class="nav-link">Fotos</a></li>
                 <li><a href="comentarios.html" class="nav-link">Comentários</a></li>
+                <li class="theme-toggle-wrapper">
+                    <button class="theme-toggle" aria-label="Alternar tema escuro/claro">
+                        <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                        <span class="material-symbols-outlined icon-light">light_mode</span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -39,14 +65,35 @@
         <section id="banner-section">
             <div id="banner" role="img" aria-label="Banner do anime Bocchi The Rock!">
                 <div class="banner-content">
-                    <h1>Bocchi The Rock!</h1>
-                    <p>Acompanhe a jornada da Kessoku Band!</p>
-                    <span class="banner-subtitle">Anime • 2022</span>
+                    <div class="hero-badge">
+                        <span class="material-symbols-outlined">music_note</span>
+                        Anime Original • 2022
+                    </div>
+                    <h1>Bocchi<br><span class="title-accent">The Rock!</span></h1>
+                    <p class="hero-tagline">Acompanhe a jornada da Kessoku Band!</p>
+                    <div class="hero-info-row">
+                        <div class="hero-info-chip">
+                            <span class="material-symbols-outlined">movie</span>
+                            12 Episódios
+                        </div>
+                        <div class="hero-info-chip">
+                            <span class="material-symbols-outlined">palette</span>
+                            CloverWorks
+                        </div>
+                        <div class="hero-info-chip">
+                            <span class="material-symbols-outlined">queue_music</span>
+                            Comédia Musical
+                        </div>
+                    </div>
+                    <a href="#trailer-container" class="btn-primary hero-cta">
+                        <span class="material-symbols-outlined">play_circle</span>
+                        Assistir Trailer
+                    </a>
                 </div>
-                <div class="scroll-indicator" aria-label="Rolar para baixo">
-                    <span class="material-symbols-outlined">expand_more</span>
-                    <p>Scroll</p>
-                </div>
+                <!-- Decorative floating notes -->
+                <div class="hero-note hero-note-1" aria-hidden="true">♪</div>
+                <div class="hero-note hero-note-2" aria-hidden="true">♫</div>
+                <div class="hero-note hero-note-3" aria-hidden="true">♩</div>
             </div>
         </section>
 
@@ -67,6 +114,14 @@
                 </div>
             </div>
         </section>
+
+        <!-- Guitar String Divider -->
+        <div class="guitar-strings reveal">
+            <div class="guitar-string"></div>
+            <div class="guitar-string"></div>
+            <div class="guitar-string"></div>
+            <div class="guitar-string"></div>
+        </div>
 
         <section class="actor-cards-section">
             <div class="actor-cards-container">
@@ -104,10 +159,34 @@
         </section>
     </main>
 
+    <!-- Guitar String Divider -->
+    <div class="guitar-strings reveal">
+        <div class="guitar-string"></div>
+        <div class="guitar-string"></div>
+        <div class="guitar-string"></div>
+        <div class="guitar-string"></div>
+    </div>
+
     <footer>
-        <a href="index.html" aria-label="Página inicial">
-            <img id="logo-footer" src="./assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock! Logo">
-        </a>
+        <div class="footer-content">
+            <div class="footer-equalizer" aria-hidden="true">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+            <a href="index.html" aria-label="Página inicial">
+                <img id="logo-footer" src="./assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock! Logo">
+            </a>
+            <div class="footer-equalizer" aria-hidden="true">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+        </div>
         <div class="footer-divider"></div>
         <div class="footer-info">
             <p>Desenvolvido por Gabriel Rizzo</p>

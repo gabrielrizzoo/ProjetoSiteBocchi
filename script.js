@@ -1,9 +1,65 @@
 /**
  * Global Script — Bocchi The Rock! Website
- * Handles: Mobile menu, scroll reveal, header shrink, back-to-top
+ * Handles: Mobile menu, scroll reveal, header shrink, back-to-top, theme toggle
  */
 
+// ================================================
+// THEME INITIALIZATION (Avoid FOUC)
+// ================================================
+(function initTheme() {
+  const savedTheme = localStorage.getItem('bocchiTheme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
+    document.body.classList.add('light-theme'); // Backup for older code
+  }
+})();
+
+// ================================================
+// PWA SERVICE WORKER
+// ================================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(reg => console.log('Service Worker registrado!', reg))
+      .catch(err => console.error('Falha ao registrar Service Worker', err));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // ================================================
+  // THEME TOGGLE LOGIC
+  // ================================================
+  const themeBtns = document.querySelectorAll('.theme-toggle');
+  
+  function toggleTheme() {
+    const isLight = document.body.classList.contains('light-theme');
+    if (isLight) {
+      document.body.classList.remove('light-theme');
+      document.documentElement.classList.remove('light-theme');
+      localStorage.setItem('bocchiTheme', 'dark');
+    } else {
+      document.body.classList.add('light-theme');
+      document.documentElement.classList.add('light-theme');
+      localStorage.setItem('bocchiTheme', 'light');
+    }
+  }
+
+  themeBtns.forEach(btn => btn.addEventListener('click', toggleTheme));
+
+  // ================================================
+  // SPLASH SCREEN
+  // ================================================
+  const splash = document.getElementById('splash-screen');
+  if (splash) {
+    // Hide splash after load event, with a small min-delay to show the animation
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        splash.classList.add('fade-out');
+        setTimeout(() => splash.remove(), 600); // Wait for transition then remove from DOM
+      }, 500);
+    });
+  }
+
   // ================================================
   // MOBILE MENU
   // ================================================
@@ -118,15 +174,64 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ================================================
-  // SCROLL INDICATOR (Home page)
+  // FLOATING MINI PLAYER INJECTION
   // ================================================
-  const scrollIndicator = document.querySelector('.scroll-indicator');
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', () => {
-      const nextSection = document.getElementById('trailer-container');
-      if (nextSection) {
-        nextSection.scrollIntoView({ behavior: 'smooth' });
+  function initMiniPlayer() {
+    const playerHTML = `
+      <div id="mini-player" class="mini-player">
+        <div class="player-cover"></div>
+        <div class="player-info">
+          <p class="player-title">Seishun Complex</p>
+          <p class="player-band">Kessoku Band</p>
+        </div>
+        <div class="player-controls">
+          <button class="player-btn" aria-label="Anterior">
+            <span class="material-symbols-outlined">skip_previous</span>
+          </button>
+          <button id="player-play-btn" class="player-btn play-btn" aria-label="Tocar">
+            <span class="material-symbols-outlined" id="play-icon">play_arrow</span>
+          </button>
+          <button class="player-btn" aria-label="Próxima">
+            <span class="material-symbols-outlined">skip_next</span>
+          </button>
+        </div>
+      </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', playerHTML);
+    
+    const player = document.getElementById('mini-player');
+    const playBtn = document.getElementById('player-play-btn');
+    const playIcon = document.getElementById('play-icon');
+    
+    // Slide in animation after 1s
+    setTimeout(() => {
+      player.classList.add('visible');
+    }, 1000);
+
+    // Toggle Play/Pause UI (Visual only)
+    let isPlaying = sessionStorage.getItem('bocchiPlayerPlaying') === 'true';
+    
+    function updatePlayerState() {
+      if (isPlaying) {
+        player.classList.add('playing');
+        playIcon.textContent = 'pause';
+      } else {
+        player.classList.remove('playing');
+        playIcon.textContent = 'play_arrow';
       }
+    }
+
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      sessionStorage.setItem('bocchiPlayerPlaying', isPlaying);
+      updatePlayerState();
     });
+
+    // Initialize state
+    updatePlayerState();
   }
+
+  // Only init player if not on mobile (or if wanted everywhere, just call it)
+  initMiniPlayer();
 });

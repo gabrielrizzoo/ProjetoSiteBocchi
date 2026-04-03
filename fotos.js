@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentGridItems = [];
   let currentIndex = 0;
+  let lastFocusedElement = null;
+  const focusableElements = [closeBtn, prevBtn, nextBtn];
 
   // Attach click events to all grid items
   const photoGrids = document.querySelectorAll('.photo-grid');
@@ -53,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
+    // Focus trap: save trigger and focus close button
+    lastFocusedElement = document.activeElement;
+    closeBtn.focus();
+
     updateNavigationButtons();
   }
 
@@ -60,6 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.remove('show');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+
+    // Restore focus to the element that opened the modal
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+      lastFocusedElement = null;
+    }
   }
 
   function updateNavigationButtons() {
@@ -93,13 +105,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Keyboard navigation
+  // Keyboard navigation + focus trap
   document.addEventListener('keydown', (e) => {
     if (!modal.classList.contains('show')) return;
 
     if (e.key === 'Escape') closeModal();
     if (e.key === 'ArrowRight') showNext();
     if (e.key === 'ArrowLeft') showPrev();
+
+    // Focus trap: cycle Tab within modal controls
+    if (e.key === 'Tab') {
+      const visibleFocusable = focusableElements.filter(el => el.style.display !== 'none');
+      if (visibleFocusable.length === 0) return;
+
+      const currentFocusIndex = visibleFocusable.indexOf(document.activeElement);
+
+      if (e.shiftKey) {
+        // Shift+Tab: go backwards
+        e.preventDefault();
+        const prevIndex = currentFocusIndex <= 0 ? visibleFocusable.length - 1 : currentFocusIndex - 1;
+        visibleFocusable[prevIndex].focus();
+      } else {
+        // Tab: go forwards
+        e.preventDefault();
+        const nextIndex = currentFocusIndex >= visibleFocusable.length - 1 ? 0 : currentFocusIndex + 1;
+        visibleFocusable[nextIndex].focus();
+      }
+    }
   });
 
   // Add inline transition styles to modal image

@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Galeria de fotos de Bocchi The Rock! — Imagens do anime e shows da Kessoku Band.">
     <title>Bocchi The Rock! — Fotos</title>
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#ff4b98">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta property="og:title" content="Bocchi The Rock! — Galeria de Fotos">
+    <meta property="og:description" content="Momentos inesquecíveis da Kessoku Band em fotos do anime e shows.">
+    <meta property="og:image" content="./assets/images/og-preview.jpg">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="./global.css">
     <link rel="stylesheet" href="./fotos.css">
     <link rel="stylesheet"
@@ -28,9 +38,16 @@
         <nav class="main-nav" aria-label="Navegação principal">
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="filme.html" class="nav-link">O Filme</a></li>
                 <li><a href="contato.html" class="nav-link">Contato</a></li>
                 <li><a href="fotos.html" class="nav-link active">Fotos</a></li>
                 <li><a href="comentarios.html" class="nav-link">Comentários</a></li>
+                <li class="theme-toggle-wrapper">
+                    <button class="theme-toggle" aria-label="Alternar tema escuro/claro">
+                        <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                        <span class="material-symbols-outlined icon-light">light_mode</span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -39,8 +56,12 @@
         <section id="banner-section">
             <div id="banner" role="img" aria-label="Banner de fotos">
                 <div class="banner-content">
-                    <h1>Galeria de Fotos</h1>
-                    <p>Momentos inesquecíveis da Kessoku Band</p>
+                    <div class="hero-badge">
+                        <span class="material-symbols-outlined">photo_library</span>
+                        Kessoku Band
+                    </div>
+                    <h1>Galeria<br><span class="title-accent">de Fotos</span></h1>
+                    <p class="hero-tagline">Momentos inesquecíveis da Kessoku Band</p>
                 </div>
             </div>
         </section>
@@ -50,17 +71,17 @@
                 <h2 class="section-title reveal">Fotos do Anime</h2>
                 <div class="photo-grid reveal-stagger">
                     <div class="grid-item"><img src="./assets/images/anime1.jpg"
-                            alt="Bocchi tocando guitarra com a Kessoku Band"></div>
+                            alt="Bocchi tocando guitarra com a Kessoku Band" loading="lazy"></div>
                     <div class="grid-item tall"><img src="./assets/images/anime2.jpg"
-                            alt="Kessoku Band se apresentando no palco"></div>
+                            alt="Kessoku Band se apresentando no palco" loading="lazy"></div>
                     <div class="grid-item"><img src="./assets/images/anime3.jpg"
-                            alt="Grupo da Kessoku Band reunido"></div>
+                            alt="Grupo da Kessoku Band reunido" loading="lazy"></div>
                     <div class="grid-item wide"><img src="./assets/images/anime4.jpg"
-                            alt="Personagens de Bocchi the Rock em uma cena"></div>
+                            alt="Personagens de Bocchi the Rock em uma cena" loading="lazy"></div>
                     <div class="grid-item"><img src="./assets/images/anime5.jpg"
-                            alt="Bocchi com sua guitarra em close-up"></div>
+                            alt="Bocchi com sua guitarra em close-up" loading="lazy"></div>
                     <div class="grid-item"><img src="./assets/images/anime6.jpg"
-                            alt="Membros da Kessoku Band em momento de lazer"></div>
+                            alt="Membros da Kessoku Band em momento de lazer" loading="lazy"></div>
                 </div>
             </div>
         </section>
@@ -70,13 +91,13 @@
                 <h2 class="section-title reveal">Fotos de Shows</h2>
                 <div class="photo-grid reveal-stagger">
                     <div class="grid-item wide"><img src="./assets/images/show.jpeg"
-                            alt="Kessoku Band se apresentando em um show ao vivo"></div>
+                            alt="Kessoku Band se apresentando em um show ao vivo" loading="lazy"></div>
                     <div class="grid-item tall"><img src="./assets/images/show1.jpg"
-                            alt="Ilustração da Kessoku Band no palco com luzes"></div>
+                            alt="Ilustração da Kessoku Band no palco com luzes" loading="lazy"></div>
                     <div class="grid-item"><img src="./assets/images/show2.jpg"
-                            alt="Membros da Kessoku Band em pose para show"></div>
+                            alt="Membros da Kessoku Band em pose para show" loading="lazy"></div>
                     <div class="grid-item"><img src="./assets/images/show3.jpg"
-                            alt="Membros da Kessoku Band em pose para show"></div>
+                            alt="Membros da Kessoku Band em pose para show" loading="lazy"></div>
                 </div>
             </div>
         </section>
@@ -97,9 +118,25 @@
     </div>
 
     <footer>
-        <a href="index.html" aria-label="Página inicial">
-            <img id="logo-footer" src="./assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock! Logo">
-        </a>
+        <div class="footer-content">
+            <div class="footer-equalizer" aria-hidden="true">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+            <a href="index.html" aria-label="Página inicial">
+                <img id="logo-footer" src="./assets/images/Logo Bocchi 2.png" alt="Bocchi The Rock! Logo">
+            </a>
+            <div class="footer-equalizer" aria-hidden="true">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+        </div>
         <div class="footer-divider"></div>
         <div class="footer-info">
             <p>Desenvolvido por Gabriel Rizzo</p>

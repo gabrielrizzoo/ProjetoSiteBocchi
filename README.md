@@ -1,56 +1,103 @@
-# 🎸 Bocchi The Rock! | Front-End Refactor
+# 🎸 Bocchi The Rock! — Fan Website
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)
 
-Este projeto é uma **revisão completa e profissional** de uma *landing page* desenvolvida originalmente em 2023, como o 1º Projeto Prático de um curso de Front-End (Paulo Borges). 
+Site interativo dedicado ao anime **Bocchi The Rock!**, desenvolvido como um projeto de portfólio que combina engenharia de software com design de interfaces.
 
-Recentemente, em 2026, decidi retomar este código para aplicar minha bagagem da reta final de Ciência da Computação na UVA, unindo a engenharia de software estruturada com a minha futura transição para o Design Gráfico. O objetivo foi transformar um exercício inicial em uma aplicação interativa de alto nível para o meu portfólio.
-
----
-
-## 🔄 O Grande Retrabalho (Refactor Log)
-
-Diferente da versão estática original, esta aplicação foi reconstruída para demonstrar proficiência em manipulação de DOM, arquitetura de pastas e design de interfaces. As principais melhorias foram:
-
-### 🎨 Engenharia de Estilos & UI/UX
-* **Dark Theme Premium:** Implementação de uma paleta de cores consistente focada no contraste entre fundos escuros (`#1a1a1a` e `#0d0d0d`) e detalhes em amarelo vibrante (`#FFD700`).
-* **Micro-interações:** Adição de animações de transição suaves, efeitos de elevação (`transform: translateY`) e sombras dinâmicas (`box-shadow`) nos cards e botões.
-* **Acessibilidade (A11y) e Semântica:** Reestruturação total do HTML utilizando marcos semânticos (`<main>`, `<section>`) e atributos ARIA (`aria-label`, `role`, `aria-hidden`) para suporte robusto a leitores de tela.
-* **Responsividade Completa:** Layout adaptável garantido por *Media Queries*, ajustando perfeitamente a grade de atores, vídeos e carrosséis para dispositivos móveis.
-
-### 🛠️ Otimização de Código e Arquitetura
-* **Sistema de Módulos Visual:** Refatoração da árvore de diretórios, separando páginas (`/home`, `/contato`, `/fotos`, `/comentarios`) e centralizando mídias no diretório `/assets`.
-* **Lightbox / Modal Nativo:** Criação de um sistema de galeria em tela cheia construído 100% em Vanilla JavaScript, com suporte a navegação por setas, fechamento dinâmico e bloqueio de scroll do body.
-* **Manipulação de DOM:** O sistema de comentários foi reescrito para injetar novos elementos diretamente no topo da lista (`prepend`) via *Client-Side rendering*, com validação de campos vazios.
+Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Paulo Borges), o projeto foi completamente refatorado em 2026 para demonstrar proficiência em desenvolvimento web moderno.
 
 ---
 
-## ✨ Funcionalidades Atuais
+## ✨ Funcionalidades
 
-* 📸 **Galeria Dinâmica:** Carrosséis automatizados integrados com Slick Carousel e navegação customizada com Font Awesome.
-* 🔍 **Experiência Imersiva:** Modal de imagens interativo para expandir as fotos do anime e dos shows.
-* 💬 **Feedback em Tempo Real:** Seção de comentários com validação e inserção instantânea na interface.
-* 🎥 **Integração Multimídia:** Trailer oficial do anime encapsulado em um player responsivo e customizado.
+- 🎬 **Hero Section Dinâmico** — Banner imersivo com informações do anime, notas musicais flutuantes e CTA interativo
+- 🎸 **Cards de Personagens** — Cada integrante da Kessoku Band com cor temática individual (Rosa, Azul, Amarelo, Vermelho)
+- 📸 **Galeria Interativa** — Grid responsivo com lightbox nativo em Vanilla JS (navegação por setas, teclado e counter)
+- 💬 **Mural de Comentários** — Sistema client-side com sanitização XSS, avatares e timestamps relativos
+- ✉️ **Formulário de Contato** — Com feedback visual simulado (loading state + mensagem de sucesso)
+- 🎵 **Elementos Temáticos** — Separadores de cordas de guitarra, equalizer animado no footer, notas musicais decorativas
+- 📱 **Mobile-First** — Menu hamburger com overlay, layout responsivo completo
+
+---
+
+## 🎨 Design System
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `--neon-pink` | `#ff4b98` | Cor principal / acentos |
+| `--neon-purple` | `#a855f7` | Gradientes / hover |
+| `--neon-blue` | `#4bd5ff` | Acentos secundários |
+| `--bg-color` | `#0a0a10` | Background principal |
+| `--font-display` | Outfit | Títulos |
+| `--font-body` | Inter | Corpo do texto |
+
+**Estética:** Dark mode premium com glassmorphism, micro-animações e identidade visual inspirada no universo musical do anime.
 
 ---
 
 ## 🛠️ Stack Tecnológica
 
-As seguintes ferramentas foram fundamentais nesta nova etapa do projeto:
+| Tecnologia | Uso |
+|-----------|-----|
+| **HTML5** | Estrutura semântica com ARIA labels |
+| **CSS3** | Flexbox, Grid, Custom Properties, clamp(), animações |
+| **JavaScript (Vanilla)** | DOM manipulation, IntersectionObserver, Lightbox, XSS sanitization |
+| **Google Material Symbols** | Iconografia |
+| **Google Fonts** | Outfit + Inter |
 
-* **HTML5:** Estruturação semântica e A11y.
-* **CSS3:** Flexbox, CSS Grid, Box-sizing global e animações avançadas.
-* **JavaScript (Vanilla):** Lógica de Modais (Lightbox), interceptação de eventos (`preventDefault`) e injeção de DOM.
-* **Slick Carousel:** Biblioteca jQuery para criação dos sliders de imagem.
-* **Font Awesome:** Iconografia vetorial para os controles de interface.
+> Nenhuma dependência de framework. Zero jQuery. 100% Vanilla.
 
 ---
 
-## 👨‍💻 Autoria e Créditos
+## 📁 Estrutura do Projeto
 
-Este projeto possui duas fases de autoria:
+```
+Bocchi_Site/
+├── index.html          # Home — Hero + Trailer + Cards
+├── contato.html        # Formulário de contato
+├── fotos.html          # Galeria de fotos (anime + shows)
+├── comentarios.html    # Mural de comentários dos fãs
+├── global.css          # Design system + componentes globais
+├── styles.css          # Estilos específicos da home
+├── contato.css         # Estilos do contato
+├── fotos.css           # Estilos da galeria
+├── comentarios.css     # Estilos dos comentários
+├── script.js           # JS global (menu, scroll, reveal)
+├── contato.js          # JS do formulário de contato
+├── fotos.js            # JS da galeria / lightbox
+├── comentarios.js      # JS do sistema de comentários
+└── assets/
+    ├── images/         # Logos, fotos do anime, shows
+    └── videos/         # Trailer oficial
+```
 
-1. **Versão Original (2023):** Desenvolvida como projeto de curso de Front-End (Prof. Paulo Borges) para fixação de fundamentos.
-2. **Versão Refatorada (2026):** Reformulação total de design, arquitetura de pastas e interatividade via JavaScript realizada exclusivamente por **Gabriel Rizzo**.
+---
+
+## 🚀 Como Rodar
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/gabrielrizzoo/ProjetoSiteBocchi.git
+   ```
+
+2. Abra `index.html` no navegador, ou inicie um servidor local:
+   ```bash
+   npx serve .
+   ```
+
+---
+
+## 👨‍💻 Autoria
+
+| Fase | Descrição |
+|------|-----------|
+| **v1.0 (2023)** | Projeto de curso de Front-End — fundamentos HTML/CSS |
+| **v2.0 (2026)** | Refatoração completa de design, arquitetura e interatividade por **Gabriel Rizzo** |
+
+---
+
+## 📜 Licença
+
+Este é um projeto de fã sem fins lucrativos. Todas as imagens e marcas de **Bocchi The Rock!** pertencem a seus respectivos detentores de direitos (Aniplex, CloverWorks, Aki Hamaji).
