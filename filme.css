@@ -233,6 +233,12 @@ body.light-theme .ticket-success {
   background: rgba(34, 197, 94, 0.15);
 }
 
+body.light-theme .date-btn,
+body.light-theme .time-btn,
+body.light-theme .qty-selector {
+  background: var(--bg-surface-hover);
+}
+
 @keyframes scaleIn {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }

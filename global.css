@@ -67,6 +67,15 @@ body.light-theme #logo {
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
+/* Fix generic transparent white card backgrounds losing contrast */
+body.light-theme .form-input,
+body.light-theme .theme-toggle,
+body.light-theme .character-card,
+body.light-theme .gallery-item {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-subtle);
+}
+
 /* ================================================
    RESET
    ================================================ */
