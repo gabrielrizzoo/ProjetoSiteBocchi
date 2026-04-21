@@ -4,7 +4,7 @@
 
 /* --- BANNER --- */
 #banner {
-  background-image: url('https://www.tadaima.com.mx/wp-content/uploads/2023/05/BocchiTheRock_top.jpg');
+  background-image: url('./assets/images/banner-contato.jpg');
   height: 50vh;
   min-height: 360px;
 }
@@ -21,6 +21,15 @@
     rgba(10, 10, 16, 0.3) 0%,
     rgba(10, 10, 16, 0.55) 50%,
     rgba(10, 10, 16, 0.95) 100%
+  );
+}
+
+body.light-theme #banner::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 247, 252, 0.3) 0%,
+    rgba(247, 247, 252, 0.6) 50%,
+    rgba(247, 247, 252, 1) 100%
   );
 }
 
@@ -101,7 +110,7 @@ body.light-theme .faq-item {
 
 .faq-content p {
   padding: 0 1.5rem 1.5rem;
-  color: #a0a0a0;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -169,7 +178,7 @@ body.light-theme .faq-item {
 
 .form-header h2 {
   font-size: 1.8rem;
-  color: #fff;
+  color: var(--text-main);
 }
 
 #contact-form .btn-primary {

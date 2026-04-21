@@ -49,7 +49,7 @@
 
 /* --- HERO BANNER --- */
 #banner {
-  background-image: url('https://store.aniplexusa.com/bocchi-the-rock/images/header.jpg');
+  background-image: url('./assets/images/banner-header.jpg');
   height: 90vh;
   min-height: 600px;
   position: relative;
@@ -80,61 +80,12 @@
   100% { transform: translateY(10px) translateX(-10px); letter-spacing: 55px; }
 }
 
-/* Hero Badge */
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 18px;
-  border: 1px solid rgba(255, 75, 152, 0.25);
-  border-radius: var(--radius-full);
-  font-size: 0.8rem;
-  color: var(--neon-pink);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 600;
-  backdrop-filter: blur(4px);
-  background: rgba(255, 75, 152, 0.06);
-  margin-bottom: 20px;
-  animation: bannerFadeIn 0.8s ease-out 0.2s both;
-}
-
-.hero-badge .material-symbols-outlined {
-  font-size: 1rem;
-}
-
-/* Title styling — split into two lines */
+/* Home-specific overrides (base styles in global.css) */
 .banner-content h1 {
   font-size: clamp(3rem, 8vw, 6rem);
   line-height: 0.95;
   margin-bottom: 20px;
   animation: bannerFadeIn 0.8s ease-out 0.4s both;
-}
-
-.title-accent {
-  position: relative;
-  display: inline-block;
-}
-
-.title-accent::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), transparent);
-  border-radius: 2px;
-}
-
-/* Tagline */
-.hero-tagline {
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  color: var(--text-muted);
-  font-weight: 300;
-  letter-spacing: 1px;
-  margin-bottom: 28px;
-  animation: bannerFadeIn 0.8s ease-out 0.6s both;
 }
 
 /* Info chips row */
@@ -277,10 +228,23 @@
   z-index: 1;
 }
 
-.trailer {
+.trailer-wrapper {
   width: 100%;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
   border-radius: var(--radius-md);
+  overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.trailer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius-md);
 }
 
 #sinopse {
@@ -363,7 +327,7 @@
 
 .cards-section-header h2 {
   font-size: clamp(1.8rem, 3vw, 2.5rem);
-  color: #fff;
+  color: var(--text-main);
   margin-bottom: 12px;
 }
 
@@ -486,19 +450,19 @@
 
 /* Card Backgrounds */
 .banner-1 {
-  background: url(https://garotasquecurtemanimes.com.br/wp-content/uploads/2023/10/Bocchi-the-Rock-imagem-cp-noticia-filme-compilatorio-animes-GQCA.webp) center/cover;
+  background: url(./assets/images/card-bocchi.webp) center/cover;
 }
 
 .banner-2 {
-  background-image: url(https://a.storyblok.com/f/178900/750x1061/4f92dee8e2/7125b56d8f6e0a25d7931092e68390ae1645204415_main.jpg);
+  background-image: url(./assets/images/card-ryou.jpg);
 }
 
 .banner-3 {
-  background-image: url(https://s1.zerochan.net/Ijichi.Nijika.600.3778455.jpg);
+  background-image: url(./assets/images/card-nijika.jpg);
 }
 
 .banner-4 {
-  background-image: url(https://static.zerochan.net/Kita.Ikuyo.full.3778457.jpg);
+  background-image: url(./assets/images/card-kita.jpg);
   background-position: top;
 }
 

@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeBtns = document.querySelectorAll('.theme-toggle');
   
   function toggleTheme() {
+    // Add transition class for smooth color change
+    document.body.classList.add('theme-transitioning');
+
     const isLight = document.body.classList.contains('light-theme');
     if (isLight) {
       document.body.classList.remove('light-theme');
@@ -42,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.classList.add('light-theme');
       localStorage.setItem('bocchiTheme', 'light');
     }
+
+    // Remove transition class after animation completes
+    setTimeout(() => {
+      document.body.classList.remove('theme-transitioning');
+    }, 600);
   }
 
   themeBtns.forEach(btn => btn.addEventListener('click', toggleTheme));
@@ -174,9 +182,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ================================================
+  // DYNAMIC COPYRIGHT YEAR
+  // ================================================
+  const copyrightYears = document.querySelectorAll('.copyright-year');
+  const currentYear = new Date().getFullYear();
+  copyrightYears.forEach(el => {
+    el.textContent = currentYear > 2024 ? `2024–${currentYear}` : '2024';
+  });
+
+  // ================================================
   // FLOATING MINI PLAYER INJECTION
   // ================================================
   function initMiniPlayer() {
+    // Don't show player if user previously dismissed it this session
+    if (sessionStorage.getItem('bocchiPlayerDismissed') === 'true') return;
+
     const playerHTML = `
       <div id="mini-player" class="mini-player">
         <div class="player-cover"></div>
@@ -195,6 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="material-symbols-outlined">skip_next</span>
           </button>
         </div>
+        <button id="player-close-btn" class="player-btn player-close" aria-label="Fechar player">
+          <span class="material-symbols-outlined">close</span>
+        </button>
       </div>
     `;
     
@@ -203,11 +226,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = document.getElementById('mini-player');
     const playBtn = document.getElementById('player-play-btn');
     const playIcon = document.getElementById('play-icon');
+    const closePlayerBtn = document.getElementById('player-close-btn');
     
-    // Slide in animation after 1s
+    // Slide in animation after 1.5s
     setTimeout(() => {
       player.classList.add('visible');
-    }, 1000);
+    }, 1500);
+
+    // Close/dismiss player
+    closePlayerBtn.addEventListener('click', () => {
+      player.classList.remove('visible');
+      sessionStorage.setItem('bocchiPlayerDismissed', 'true');
+      setTimeout(() => player.remove(), 600);
+    });
 
     // Toggle Play/Pause UI (Visual only)
     let isPlaying = sessionStorage.getItem('bocchiPlayerPlaying') === 'true';
@@ -232,6 +263,5 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePlayerState();
   }
 
-  // Only init player if not on mobile (or if wanted everywhere, just call it)
   initMiniPlayer();
 });

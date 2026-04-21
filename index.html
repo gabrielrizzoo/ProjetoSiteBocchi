@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bocchi The Rock! — Site dedicado ao anime sobre Hitori Gotoh e a Kessoku Band. Confira a sinopse, personagens, fotos e muito mais.">
+    <meta name="description"
+        content="Bocchi The Rock! — Site dedicado ao anime sobre Hitori Gotoh e a Kessoku Band. Confira a sinopse, personagens, fotos e muito mais.">
     <title>Bocchi The Rock! — Anime</title>
     <!-- Favicon & PWA -->
     <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
@@ -13,9 +14,11 @@
     <!-- Preconnect for fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap">
     <!-- Open Graph -->
     <meta property="og:title" content="Bocchi The Rock! — Anime">
-    <meta property="og:description" content="Acompanhe a jornada da Kessoku Band! Sinopse, personagens, galeria e muito mais.">
+    <meta property="og:description"
+        content="Acompanhe a jornada da Kessoku Band! Sinopse, personagens, galeria e muito mais.">
     <meta property="og:image" content="./assets/images/og-preview.jpg">
     <meta property="og:type" content="website">
     <!-- Styles -->
@@ -99,10 +102,13 @@
 
         <section id="trailer-container">
             <div class="content reveal">
-                <video controls class="trailer" aria-label="Trailer oficial de Bocchi The Rock!">
-                    <source src="./assets/videos/BOCCHI THE ROCK! _ TRAILER OFICIAL.mp4" type="video/mp4">
-                    Seu navegador não possui suporte para vídeos
-                </video>
+                <div class="trailer-wrapper">
+                    <iframe class="trailer" src="https://www.youtube-nocookie.com/embed/etKsUzvVLsg"
+                        title="Trailer oficial de Bocchi The Rock!" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen loading="lazy">
+                    </iframe>
+                </div>
                 <div id="sinopse">
                     <span class="sinopse-label">Sinopse</span>
                     <p class="description">
@@ -110,7 +116,10 @@
                         solitária do colégio que adora tocar violão e passa os dias tocando sozinha em casa. Por acaso,
                         ela se junta à <strong>Kessoku Band</strong> liderada por sua baterista Nijika Ijichi.
                     </p>
-                    <button class="btn-primary">Comprar Ingressos</button>
+                    <a href="filme.html#ticket-section" class="btn-primary">
+                        <span class="material-symbols-outlined">confirmation_number</span>
+                        Comprar Ingressos
+                    </a>
                 </div>
             </div>
         </section>
@@ -190,7 +199,7 @@
         <div class="footer-divider"></div>
         <div class="footer-info">
             <p>Desenvolvido por Gabriel Rizzo</p>
-            <p>© 2024 Bocchi The Rock! — Todos os direitos reservados</p>
+            <p>© <span class="copyright-year">2024</span> Bocchi The Rock! — Todos os direitos reservados</p>
         </div>
     </footer>
 

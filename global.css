@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap');
+/* Fonts loaded via <link> tags in HTML for optimal performance */
 
 :root {
   /* Colors */
@@ -76,6 +76,25 @@ body.light-theme .gallery-item {
   border-color: var(--border-subtle);
 }
 
+/* Fix form inputs: dark background on light theme */
+body.light-theme .form-group input,
+body.light-theme .form-group textarea {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-main);
+}
+
+/* Fix header scrolled state for light theme */
+body.light-theme header.scrolled {
+  background: rgba(247, 247, 252, 0.95);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Fix hero info chips for light theme */
+body.light-theme .hero-info-chip {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
 /* ================================================
    RESET
    ================================================ */
@@ -85,6 +104,19 @@ body.light-theme .gallery-item {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* ================================================
+   SMOOTH THEME TRANSITION
+   ================================================ */
+body.theme-transitioning,
+body.theme-transitioning *,
+body.theme-transitioning *::before,
+body.theme-transitioning *::after {
+  transition: background-color 0.5s ease,
+              color 0.4s ease,
+              border-color 0.4s ease,
+              box-shadow 0.4s ease !important;
 }
 
 html {
@@ -412,6 +444,16 @@ body:not(.light-theme) .icon-light { display: none; }
   );
 }
 
+body.light-theme #banner::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 247, 252, 0.3) 0%,
+    rgba(247, 247, 252, 0.5) 40%,
+    rgba(247, 247, 252, 0.75) 70%,
+    rgba(247, 247, 252, 0.95) 100%
+  );
+}
+
 .banner-content {
   position: relative;
   z-index: 2;
@@ -424,7 +466,7 @@ body:not(.light-theme) .icon-light { display: none; }
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-main);
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   letter-spacing: 3px;
   margin-bottom: 12px;
@@ -503,7 +545,7 @@ body:not(.light-theme) .icon-light { display: none; }
    ================================================ */
 .section-title {
   font-size: clamp(1.8rem, 3vw, 2.5rem);
-  color: #fff;
+  color: var(--text-main);
   margin-bottom: 50px;
   text-align: center;
   position: relative;
@@ -550,7 +592,7 @@ body:not(.light-theme) .icon-light { display: none; }
   background-color: rgba(0, 0, 0, 0.25);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  color: #fff;
+  color: var(--text-main);
   font-size: 1rem;
   font-family: var(--font-body);
   transition: all var(--transition-fast);
@@ -877,6 +919,25 @@ footer::before {
     width: 40px;
   }
 
+  /* Stagger animation for mobile nav links */
+  .main-nav .nav-list li {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .main-nav.active .nav-list li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .main-nav.active .nav-list li:nth-child(1) { transition-delay: 0.05s; }
+  .main-nav.active .nav-list li:nth-child(2) { transition-delay: 0.10s; }
+  .main-nav.active .nav-list li:nth-child(3) { transition-delay: 0.15s; }
+  .main-nav.active .nav-list li:nth-child(4) { transition-delay: 0.20s; }
+  .main-nav.active .nav-list li:nth-child(5) { transition-delay: 0.25s; }
+  .main-nav.active .nav-list li:nth-child(6) { transition-delay: 0.30s; }
+
   /* Banner */
   #banner {
     background-attachment: scroll; /* Fix mobile parallax */
@@ -924,7 +985,7 @@ body.light-theme .mini-player {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: url('https://i.scdn.co/image/ab67616d0000b27376c66914b1a2d103305a4ecb') center/cover;
+  background: url('./assets/images/album-cover.png') center/cover;
   animation: spinCover 6s linear infinite paused;
   border: 2px solid var(--bg-surface);
   box-shadow: 0 0 0 1px var(--neon-pink);
@@ -1007,4 +1068,39 @@ body.light-theme .mini-player {
     justify-content: space-between;
     padding: 6px 12px 6px 6px;
   }
+
+  /* Reposition back-to-top above the player on mobile */
+  .back-to-top {
+    bottom: 80px;
+  }
+}
+
+/* Player close button */
+.player-close {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px !important;
+  height: 22px !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 50%;
+  padding: 0 !important;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+
+.player-close .material-symbols-outlined {
+  font-size: 14px;
+}
+
+.mini-player:hover .player-close {
+  opacity: 1;
+}
+
+.player-close:hover {
+  background: var(--neon-pink) !important;
+  color: white !important;
+  border-color: var(--neon-pink) !important;
+  transform: scale(1.1);
 }

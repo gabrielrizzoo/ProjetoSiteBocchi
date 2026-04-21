@@ -4,7 +4,7 @@
 
 /* --- BANNER --- */
 #banner {
-  background-image: url('https://a.storyblok.com/f/178900/750x1061/4f92dee8e2/7125b56d8f6e0a25d7931092e68390ae1645204415_main.jpg');
+  background-image: url('./assets/images/card-ryou.jpg');
   background-position: center 30%;
   height: 50vh;
   min-height: 360px;
@@ -22,6 +22,15 @@
     rgba(10, 10, 16, 0.3) 0%,
     rgba(10, 10, 16, 0.55) 50%,
     rgba(10, 10, 16, 0.95) 100%
+  );
+}
+
+body.light-theme #banner::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 247, 252, 0.3) 0%,
+    rgba(247, 247, 252, 0.6) 50%,
+    rgba(247, 247, 252, 1) 100%
   );
 }
 
@@ -117,7 +126,7 @@
 
 .form-header h2 {
   font-size: 1.6rem;
-  color: #fff;
+  color: var(--text-main);
 }
 
 #comment-form .btn-primary {
@@ -142,7 +151,7 @@
 
 .comments-header h2 {
   font-size: 1.8rem;
-  color: #fff;
+  color: var(--text-main);
   margin-bottom: 0;
 }
 
@@ -210,7 +219,7 @@
 }
 
 .comment-card .comment-name {
-  color: #fff;
+  color: var(--text-main);
   font-size: 1.1rem;
   font-weight: 600;
 }
