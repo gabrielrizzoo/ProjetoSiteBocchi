@@ -1,13 +1,71 @@
 /**
- * Contato Page — Contact form handling
+ * Contato Page — Contact form handling with inline validation
  */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
-  /**
-   * Show success flash message
-   */
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('comentario');
+
+  // ================================================
+  // INLINE VALIDATION HELPERS
+  // ================================================
+  function showFieldError(input, message) {
+    clearFieldState(input);
+    input.classList.add('field-error');
+    const errorEl = document.createElement('span');
+    errorEl.className = 'field-error-msg';
+    errorEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px">error</span> ${message}`;
+    input.parentElement.appendChild(errorEl);
+  }
+
+  function showFieldSuccess(input) {
+    clearFieldState(input);
+    input.classList.add('field-success');
+  }
+
+  function clearFieldState(input) {
+    input.classList.remove('field-error', 'field-success');
+    const existing = input.parentElement.querySelector('.field-error-msg');
+    if (existing) existing.remove();
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // Real-time validation on blur
+  emailInput.addEventListener('blur', () => {
+    const val = emailInput.value.trim();
+    if (!val) {
+      showFieldError(emailInput, 'E-mail é obrigatório');
+    } else if (!isValidEmail(val)) {
+      showFieldError(emailInput, 'Formato de e-mail inválido');
+    } else {
+      showFieldSuccess(emailInput);
+    }
+  });
+
+  messageInput.addEventListener('blur', () => {
+    const val = messageInput.value.trim();
+    if (!val) {
+      showFieldError(messageInput, 'Mensagem é obrigatória');
+    } else if (val.length < 10) {
+      showFieldError(messageInput, 'Mensagem deve ter pelo menos 10 caracteres');
+    } else {
+      showFieldSuccess(messageInput);
+    }
+  });
+
+  // Clear error on focus
+  [emailInput, messageInput].forEach(input => {
+    input.addEventListener('focus', () => clearFieldState(input));
+  });
+
+  // ================================================
+  // SUCCESS MESSAGE
+  // ================================================
   function showSuccess() {
     const existing = form.parentElement.querySelector('.form-success');
     if (existing) existing.remove();
@@ -28,30 +86,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3500);
   }
 
+  // ================================================
+  // FORM SUBMIT
+  // ================================================
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-
-    const emailInput = document.getElementById('email');
-    const messageInput = document.getElementById('comentario');
 
     const email = emailInput.value.trim();
     const message = messageInput.value.trim();
 
-    if (email && message) {
-      // Simulate sending (in production, replace with a real API call)
-      const btn = form.querySelector('button[type="submit"]');
-      const originalHTML = btn.innerHTML;
-      btn.innerHTML = '<span class="material-symbols-outlined">hourglass_top</span> Enviando...';
-      btn.disabled = true;
+    // Validate all fields
+    let hasError = false;
 
-      setTimeout(() => {
-        emailInput.value = '';
-        messageInput.value = '';
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-        showSuccess();
-      }, 1200);
+    if (!email) {
+      showFieldError(emailInput, 'E-mail é obrigatório');
+      hasError = true;
+    } else if (!isValidEmail(email)) {
+      showFieldError(emailInput, 'Formato de e-mail inválido');
+      hasError = true;
     }
+
+    if (!message) {
+      showFieldError(messageInput, 'Mensagem é obrigatória');
+      hasError = true;
+    } else if (message.length < 10) {
+      showFieldError(messageInput, 'Mensagem deve ter pelo menos 10 caracteres');
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Simulate sending
+    const btn = form.querySelector('button[type="submit"]');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined">hourglass_top</span> Enviando...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      emailInput.value = '';
+      messageInput.value = '';
+      clearFieldState(emailInput);
+      clearFieldState(messageInput);
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+      showSuccess();
+    }, 1200);
   });
 
   // ================================================
@@ -65,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const content = item.querySelector('.faq-content');
       const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-      // Close all other accordions (optional, but good for UX)
+      // Close all other accordions
       document.querySelectorAll('.faq-item.active').forEach(activeItem => {
         if (activeItem !== item) {
           activeItem.classList.remove('active');
@@ -87,4 +166,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-

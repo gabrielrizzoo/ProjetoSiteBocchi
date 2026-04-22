@@ -1,9 +1,10 @@
-const CACHE_NAME = 'bocchi-cache-v4';
+const CACHE_NAME = 'bocchi-cache-v6';
 
 // Core assets that are pre-cached on install
 const CORE_ASSETS = [
   './',
   './index.html',
+  './404.html',
   './contato.html',
   './fotos.html',
   './comentarios.html',

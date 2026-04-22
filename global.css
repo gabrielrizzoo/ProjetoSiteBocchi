@@ -126,6 +126,80 @@ html {
 }
 
 /* ================================================
+   SKIP TO CONTENT (Accessibility)
+   ================================================ */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--neon-pink);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 3px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+/* ================================================
+   BREADCRUMBS
+   ================================================ */
+.breadcrumbs {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0 2rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  list-style: none;
+  font-size: 0.85rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.breadcrumbs li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.breadcrumbs li + li::before {
+  content: '/';
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.breadcrumbs a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.breadcrumbs a:hover {
+  color: var(--neon-pink);
+}
+
+.breadcrumbs li[aria-current="page"] {
+  color: white;
+  font-weight: 500;
+}
+
+/* ================================================
    CUSTOM SCROLLBAR — Guitar Fret Style
    ================================================ */
 ::-webkit-scrollbar {

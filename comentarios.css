@@ -295,6 +295,39 @@ body.light-theme #banner::before {
 }
 
 /* ================================================
+   INLINE VALIDATION STATES
+   ================================================ */
+.form-group {
+  position: relative;
+}
+
+.field-error {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15) !important;
+}
+
+.field-success {
+  border-color: #00c853 !important;
+  box-shadow: 0 0 0 3px rgba(0, 200, 83, 0.15) !important;
+}
+
+.field-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  animation: shakeIn 0.3s ease;
+}
+
+@keyframes shakeIn {
+  0% { transform: translateX(-5px); opacity: 0; }
+  50% { transform: translateX(3px); }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* ================================================
    RESPONSIVE
    ================================================ */
 @media (max-width: 900px) {

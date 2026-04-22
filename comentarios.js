@@ -244,40 +244,104 @@ document.addEventListener('DOMContentLoaded', () => {
   renderComments(commentsData);
 
   // ================================================
-  // FORM SUBMISSION
+  // INLINE VALIDATION HELPERS
   // ================================================
+  function showFieldError(input, message) {
+    clearFieldState(input);
+    input.classList.add('field-error');
+    const errorEl = document.createElement('span');
+    errorEl.className = 'field-error-msg';
+    errorEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px">error</span> ${message}`;
+    input.parentElement.appendChild(errorEl);
+  }
+
+  function showFieldSuccess(input) {
+    clearFieldState(input);
+    input.classList.add('field-success');
+  }
+
+  function clearFieldState(input) {
+    input.classList.remove('field-error', 'field-success');
+    const existing = input.parentElement.querySelector('.field-error-msg');
+    if (existing) existing.remove();
+  }
+
+  // ================================================
+  // FORM SUBMISSION WITH VALIDATION
+  // ================================================
+  const nameInput = document.getElementById('name');
+  const commentInput = document.getElementById('comment');
+
+  // Blur validation
+  nameInput.addEventListener('blur', () => {
+    const val = nameInput.value.trim();
+    if (!val) {
+      showFieldError(nameInput, 'Nome é obrigatório');
+    } else if (val.length < 2) {
+      showFieldError(nameInput, 'Nome deve ter pelo menos 2 caracteres');
+    } else {
+      showFieldSuccess(nameInput);
+    }
+  });
+
+  commentInput.addEventListener('blur', () => {
+    const val = commentInput.value.trim();
+    if (!val) {
+      showFieldError(commentInput, 'Comentário é obrigatório');
+    } else if (val.length < 5) {
+      showFieldError(commentInput, 'Comentário deve ter pelo menos 5 caracteres');
+    } else {
+      showFieldSuccess(commentInput);
+    }
+  });
+
+  [nameInput, commentInput].forEach(input => {
+    input.addEventListener('focus', () => clearFieldState(input));
+  });
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const nameInput = document.getElementById('name');
-    const commentInput = document.getElementById('comment');
-
     const name = nameInput.value.trim();
     const comment = commentInput.value.trim();
 
-    if (name && comment) {
-      const newComment = {
-        name,
-        comment,
-        date: new Date().toISOString()
-      };
+    // Validate
+    let hasError = false;
 
-      // Add to data and persist
-      commentsData.unshift(newComment);
-      saveComments(commentsData);
-
-      // Add to UI
-      const card = createCommentCard(name, comment, newComment.date);
-      list.insertBefore(card, list.firstChild);
-
-      // Clear form
-      nameInput.value = '';
-      commentInput.value = '';
-      document.activeElement.blur();
-
-      updateCount();
-      showSuccess();
+    if (!name || name.length < 2) {
+      showFieldError(nameInput, !name ? 'Nome é obrigatório' : 'Nome deve ter pelo menos 2 caracteres');
+      hasError = true;
     }
+
+    if (!comment || comment.length < 5) {
+      showFieldError(commentInput, !comment ? 'Comentário é obrigatório' : 'Comentário deve ter pelo menos 5 caracteres');
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    const newComment = {
+      name,
+      comment,
+      date: new Date().toISOString()
+    };
+
+    // Add to data and persist
+    commentsData.unshift(newComment);
+    saveComments(commentsData);
+
+    // Add to UI
+    const card = createCommentCard(name, comment, newComment.date);
+    list.insertBefore(card, list.firstChild);
+
+    // Clear form
+    nameInput.value = '';
+    commentInput.value = '';
+    clearFieldState(nameInput);
+    clearFieldState(commentInput);
+    document.activeElement.blur();
+
+    updateCount();
+    showSuccess();
   });
 });
