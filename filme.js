@@ -3,81 +3,120 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const dateBtns = document.querySelectorAll('.date-btn');
-  const timeBtns = document.querySelectorAll('.time-btn:not([disabled])');
+  const dateBtns = Array.from(document.querySelectorAll('.date-btn'));
+  const timeBtns = Array.from(document.querySelectorAll('.time-btn:not([disabled])'));
   const btnMinus = document.getElementById('btn-minus');
   const btnPlus = document.getElementById('btn-plus');
   const qtyEl = document.getElementById('ticket-qty');
   const priceEl = document.getElementById('total-price');
+  const summaryEl = document.getElementById('summary-line');
   const buyBtn = document.getElementById('buy-btn');
+  const formView = document.getElementById('planner-form');
+  const successView = document.getElementById('ticket-success');
+  const successText = document.getElementById('success-text');
+  const newBookingBtn = document.getElementById('new-booking');
+
+  if (!buyBtn) return;
 
   const TICKET_PRICE = 35;
+  const MAX_QTY = 10;
   let currentQty = 1;
 
   // Formatter for BRL currency
-  const formatCurrency = (val) => {
-    return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  };
+  const formatCurrency = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-  function updatePrice() {
+  // --- DATAS DINÂMICAS (hoje, amanhã e depois) --- //
+  const weekday = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
+  const dayMonth = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit' });
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+  dateBtns.forEach((btn, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+
+    const label = i === 0 ? 'Hoje' : i === 1 ? 'Amanhã' : capitalize(weekday.format(date)).replace('-feira', '');
+    btn.querySelector('.date-day').textContent = label;
+    btn.querySelector('.date-num').textContent = dayMonth.format(date);
+    btn.dataset.label = `${label}, ${dayMonth.format(date)}`;
+  });
+
+  // --- RESUMO --- //
+  function getSelection() {
+    const date = dateBtns.find(b => b.classList.contains('active'));
+    const time = timeBtns.find(b => b.classList.contains('active'));
+    return {
+      date: date ? date.dataset.label : '',
+      time: time ? time.querySelector('.time').textContent : '',
+      lang: time ? time.dataset.lang : ''
+    };
+  }
+
+  function updateSummary() {
+    const { date, time, lang } = getSelection();
     qtyEl.textContent = currentQty;
     priceEl.textContent = formatCurrency(currentQty * TICKET_PRICE);
+    summaryEl.textContent = `${date} · ${time} · ${lang} · ${currentQty} ingresso${currentQty > 1 ? 's' : ''}`;
+    btnMinus.disabled = currentQty <= 1;
+    btnPlus.disabled = currentQty >= MAX_QTY;
   }
 
   // --- SELECTION LOGIC --- //
-  
   function handleSelection(buttons, selectedBtn) {
-    buttons.forEach(b => b.classList.remove('active'));
-    selectedBtn.classList.add('active');
+    buttons.forEach(b => {
+      const isSelected = b === selectedBtn;
+      b.classList.toggle('active', isSelected);
+      b.setAttribute('aria-pressed', String(isSelected));
+    });
+    updateSummary();
   }
 
-  dateBtns.forEach(btn => {
-    btn.addEventListener('click', () => handleSelection(dateBtns, btn));
-  });
-
-  timeBtns.forEach(btn => {
-    btn.addEventListener('click', () => handleSelection(timeBtns, btn));
-  });
+  dateBtns.forEach(btn => btn.addEventListener('click', () => handleSelection(dateBtns, btn)));
+  timeBtns.forEach(btn => btn.addEventListener('click', () => handleSelection(timeBtns, btn)));
 
   // --- QUANTITY LOGIC --- //
-  
   btnMinus.addEventListener('click', () => {
     if (currentQty > 1) {
       currentQty--;
-      updatePrice();
+      updateSummary();
     }
   });
 
   btnPlus.addEventListener('click', () => {
-    if (currentQty < 10) {
+    if (currentQty < MAX_QTY) {
       currentQty++;
-      updatePrice();
+      updateSummary();
     }
   });
 
-  // --- CHECKOUT LOGIC --- //
-  
+  // --- CHECKOUT LOGIC (simulado) --- //
+  const originalBtnHTML = buyBtn.innerHTML;
+
   buyBtn.addEventListener('click', () => {
-    const activeDate = document.querySelector('.date-btn.active').innerText.replace('\n', ' ');
-    const activeTime = document.querySelector('.time-btn.active').innerText;
-    
-    const planner = document.querySelector('.ticket-planner');
-    const originalHTML = buyBtn.innerHTML;
-    
-    // Simulate loading
-    buyBtn.innerHTML = '<span class="material-symbols-outlined" style="animation: spinLoader 1s linear infinite;">sync</span> Processando...';
+    const { date, time, lang } = getSelection();
+
+    buyBtn.innerHTML = '<span class="material-symbols-outlined spin" aria-hidden="true">progress_activity</span> Processando...';
     buyBtn.disabled = true;
 
     setTimeout(() => {
-      planner.innerHTML = `
-        <div class="ticket-success">
-          <span class="material-symbols-outlined" style="font-size: 4rem;">check_circle</span>
-          <h2>Reserva Confirmada!</h2>
-          <p>Você reservou <strong>${currentQty} ingresso(s)</strong> para ${activeDate} às ${activeTime}.</p>
-          <p style="color: var(--text-muted); font-size: 0.9rem;">(Isto é um ambiente simulado para fins de portfólio)</p>
-          <button class="btn-primary" onclick="location.reload()" style="margin-top: 1rem;">Nova Reserva</button>
-        </div>
-      `;
-    }, 1500);
+      const dateInSentence = date.charAt(0).toLowerCase() + date.slice(1);
+      successText.textContent =
+        `${currentQty} ingresso${currentQty > 1 ? 's' : ''} para ${dateInSentence}, às ${time} (${lang}). ` +
+        `Total: ${formatCurrency(currentQty * TICKET_PRICE)}.`;
+      formView.hidden = true;
+      successView.hidden = false;
+      newBookingBtn.focus();
+    }, 1200);
   });
+
+  newBookingBtn.addEventListener('click', () => {
+    currentQty = 1;
+    buyBtn.innerHTML = originalBtnHTML;
+    buyBtn.disabled = false;
+    successView.hidden = true;
+    formView.hidden = false;
+    updateSummary();
+    buyBtn.focus();
+  });
+
+  updateSummary();
 });

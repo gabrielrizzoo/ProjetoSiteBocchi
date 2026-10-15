@@ -3,22 +3,23 @@
  */
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('imageModal');
+  if (!modal) return;
+
   const modalImg = document.getElementById('modalImage');
   const captionText = document.getElementById('caption');
   const counterText = document.getElementById('modalCounter');
-  const closeBtn = document.querySelector('.close-button');
-  const prevBtn = document.querySelector('.modal-prev');
-  const nextBtn = document.querySelector('.modal-next');
+  const closeBtn = modal.querySelector('.close-button');
+  const prevBtn = modal.querySelector('.modal-prev');
+  const nextBtn = modal.querySelector('.modal-next');
+  const pageParts = document.querySelectorAll('.site-header, main, .site-footer');
 
   let currentGridItems = [];
   let currentIndex = 0;
   let lastFocusedElement = null;
-  const focusableElements = [closeBtn, prevBtn, nextBtn];
+  let switchTimer = null;
 
-  // Attach click events to all grid items
-  const photoGrids = document.querySelectorAll('.photo-grid');
-
-  photoGrids.forEach(grid => {
+  // Cada grade (anime / shows) navega só entre as próprias fotos
+  document.querySelectorAll('.photo-grid').forEach(grid => {
     const items = Array.from(grid.querySelectorAll('.grid-item'));
 
     items.forEach((item, index) => {
@@ -30,110 +31,93 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  function openModal() {
-    const item = currentGridItems[currentIndex];
-    const img = item.querySelector('img');
+  function showImage() {
+    const img = currentGridItems[currentIndex].querySelector('img');
 
-    // Add transition effect
-    modalImg.style.opacity = '0';
-    modalImg.style.transform = 'scale(0.95)';
-
-    setTimeout(() => {
-      modalImg.src = img.src;
-      captionText.textContent = img.alt || '';
-
-      // Update counter
-      if (counterText) {
-        counterText.textContent = `${currentIndex + 1} / ${currentGridItems.length}`;
-      }
-
-      modalImg.style.opacity = '1';
-      modalImg.style.transform = 'scale(1)';
+    modalImg.classList.add('is-switching');
+    clearTimeout(switchTimer);
+    switchTimer = setTimeout(() => {
+      modalImg.src = img.currentSrc || img.src;
+      modalImg.alt = img.alt;
+      captionText.textContent = img.alt;
+      counterText.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(currentGridItems.length).padStart(2, '0')}`;
+      modalImg.classList.remove('is-switching');
     }, 150);
 
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    const single = currentGridItems.length <= 1;
+    prevBtn.hidden = single;
+    nextBtn.hidden = single;
+  }
 
-    // Focus trap: save trigger and focus close button
-    lastFocusedElement = document.activeElement;
-    closeBtn.focus();
-
-    updateNavigationButtons();
+  function openModal() {
+    if (!modal.classList.contains('show')) {
+      lastFocusedElement = document.activeElement;
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      pageParts.forEach(el => el.setAttribute('inert', ''));
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    showImage();
   }
 
   function closeModal() {
     modal.classList.remove('show');
     modal.setAttribute('aria-hidden', 'true');
+    pageParts.forEach(el => el.removeAttribute('inert'));
     document.body.style.overflow = '';
 
-    // Restore focus to the element that opened the modal
+    // Devolve o foco para a foto que abriu o modal
     if (lastFocusedElement) {
       lastFocusedElement.focus();
       lastFocusedElement = null;
     }
   }
 
-  function updateNavigationButtons() {
-    if (currentGridItems.length <= 1) {
-      prevBtn.style.display = 'none';
-      nextBtn.style.display = 'none';
-    } else {
-      prevBtn.style.display = 'flex';
-      nextBtn.style.display = 'flex';
-    }
+  function step(delta) {
+    currentIndex = (currentIndex + delta + currentGridItems.length) % currentGridItems.length;
+    showImage();
   }
 
-  function showNext() {
-    currentIndex = (currentIndex + 1) % currentGridItems.length;
-    openModal();
-  }
-
-  function showPrev() {
-    currentIndex = (currentIndex - 1 + currentGridItems.length) % currentGridItems.length;
-    openModal();
-  }
-
-  // Event Listeners
   closeBtn.addEventListener('click', closeModal);
-  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
-  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+  nextBtn.addEventListener('click', () => step(1));
+  prevBtn.addEventListener('click', () => step(-1));
 
+  // Clicar fora da imagem fecha
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
+    if (e.target === modal || e.target.classList.contains('modal-figure')) closeModal();
   });
 
-  // Keyboard navigation + focus trap
+  // Teclado + focus trap
   document.addEventListener('keydown', (e) => {
     if (!modal.classList.contains('show')) return;
 
     if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowRight') showNext();
-    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
 
-    // Focus trap: cycle Tab within modal controls
     if (e.key === 'Tab') {
-      const visibleFocusable = focusableElements.filter(el => el.style.display !== 'none');
-      if (visibleFocusable.length === 0) return;
-
-      const currentFocusIndex = visibleFocusable.indexOf(document.activeElement);
-
-      if (e.shiftKey) {
-        // Shift+Tab: go backwards
-        e.preventDefault();
-        const prevIndex = currentFocusIndex <= 0 ? visibleFocusable.length - 1 : currentFocusIndex - 1;
-        visibleFocusable[prevIndex].focus();
-      } else {
-        // Tab: go forwards
-        e.preventDefault();
-        const nextIndex = currentFocusIndex >= visibleFocusable.length - 1 ? 0 : currentFocusIndex + 1;
-        visibleFocusable[nextIndex].focus();
-      }
+      const focusable = [closeBtn, prevBtn, nextBtn].filter(el => !el.hidden);
+      const i = focusable.indexOf(document.activeElement);
+      e.preventDefault();
+      const next = e.shiftKey
+        ? (i <= 0 ? focusable.length - 1 : i - 1)
+        : (i >= focusable.length - 1 ? 0 : i + 1);
+      focusable[next].focus();
     }
   });
 
-  // Add inline transition styles to modal image
-  modalImg.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  // Deslizar no celular
+  let touchStartX = null;
+
+  modal.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+
+  modal.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+    touchStartX = null;
+  }, { passive: true });
 });

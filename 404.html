@@ -6,140 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Página não encontrada — Bocchi The Rock!">
     <title>404 — Página não encontrada | Bocchi The Rock!</title>
+    <!-- Tema salvo aplicado antes da primeira pintura -->
+    <script>
+        document.documentElement.classList.add('js');
+        try {
+            if (localStorage.getItem('bocchiTheme') === 'light') document.documentElement.classList.add('light-theme');
+        } catch (e) {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <meta name="theme-color" content="#0d0c10">
+    <meta name="color-scheme" content="dark light">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Yusei+Magic&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
     <link rel="stylesheet" href="./global.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <style>
         .error-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            display: grid;
+            place-items: center;
+            padding: 48px var(--gutter);
+        }
+
+        .error-inner {
+            max-width: 640px;
         }
 
         .error-code {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 18px 0 8px;
             font-family: var(--font-display);
-            font-size: clamp(6rem, 20vw, 14rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: 1rem;
-            animation: glitch 3s ease-in-out infinite;
+            font-stretch: 70%;
+            font-weight: 900;
+            font-size: clamp(6rem, 22vw, 12rem);
+            line-height: 0.85;
+            letter-spacing: -0.02em;
+            color: var(--hero-highlight);
         }
 
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-1px, -1px); }
-            80% { transform: translate(1px, 1px); }
+        .error-code .sticker {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            letter-spacing: 0.04em;
         }
 
         .error-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            color: var(--text-main);
-            margin-bottom: 1rem;
-            font-weight: 600;
+            margin-bottom: 14px;
+            font-stretch: 80%;
+            font-weight: 800;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            text-transform: uppercase;
         }
 
         .error-description {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 500px;
+            max-width: 46ch;
+            margin-bottom: 32px;
+            font-size: 1.1rem;
             line-height: 1.7;
-            margin-bottom: 2.5rem;
+            color: var(--text-muted);
         }
 
         .error-actions {
             display: flex;
-            gap: 1rem;
             flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 32px;
-            border-radius: var(--radius-full);
-            border: 2px solid var(--neon-pink);
-            color: var(--neon-pink);
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all var(--transition-fast);
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .btn-outline:hover {
-            background: var(--neon-pink);
-            color: white;
-            box-shadow: 0 0 25px rgba(255, 75, 152, 0.4);
-        }
-
-        /* Floating notes decoration */
-        .error-note {
-            position: absolute;
-            font-size: 3rem;
-            color: var(--neon-pink);
-            opacity: 0.1;
-            animation: floatNote 6s ease-in-out infinite;
-        }
-
-        .error-note:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-        .error-note:nth-child(2) { top: 25%; right: 15%; animation-delay: 2s; font-size: 2rem; }
-        .error-note:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; font-size: 4rem; }
-
-        @keyframes floatNote {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            gap: 12px;
         }
     </style>
 </head>
 
 <body>
-    <div class="error-note" aria-hidden="true">♪</div>
-    <div class="error-note" aria-hidden="true">♫</div>
-    <div class="error-note" aria-hidden="true">♩</div>
-
-    <div class="error-page">
-        <div class="error-code">404</div>
-        <h1 class="error-title">Essa nota não existe na partitura!</h1>
-        <p class="error-description">
-            Parece que a Bocchi se perdeu de novo... A página que você procura não foi encontrada.
-            Mas não se preocupe, a Kessoku Band pode te guiar de volta!
-        </p>
-        <div class="error-actions">
-            <a href="./index.html" class="btn-primary">
-                <span class="material-symbols-outlined">home</span>
-                Voltar ao Início
+    <main class="error-page">
+        <div class="error-inner">
+            <a href="./index.html" class="brand" aria-label="Bocchi the Rock! — página inicial">
+                <img id="logo" src="./assets/images/Logo Bocchi 2.png" alt="" width="2560" height="793">
             </a>
-            <a href="./fotos.html" class="btn-outline">
-                <span class="material-symbols-outlined">photo_library</span>
-                Ver Galeria
-            </a>
+            <p class="error-code">404 <span class="sticker" lang="ja" aria-hidden="true">迷子</span></p>
+            <h1 class="error-title">Essa nota não existe na partitura</h1>
+            <p class="error-description">
+                Parece que a Bocchi se perdeu de novo — e levou esta página junto. Mas calma, a Kessoku Band
+                te leva de volta.
+            </p>
+            <div class="error-actions">
+                <a href="./index.html" class="btn btn-primary">
+                    <span class="material-symbols-outlined" aria-hidden="true">home</span>
+                    Voltar ao início
+                </a>
+                <a href="./fotos.html" class="btn btn-ghost">
+                    <span class="material-symbols-outlined" aria-hidden="true">photo_library</span>
+                    Ver galeria
+                </a>
+            </div>
         </div>
-    </div>
-
-    <script src="./script.js"></script>
+    </main>
 </body>
 
 </html>

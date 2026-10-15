@@ -12,13 +12,16 @@ Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Pau
 
 ## ✨ Funcionalidades
 
-- 🎬 **Hero Section Dinâmico** — Banner imersivo com informações do anime, notas musicais flutuantes e CTA interativo
-- 🎸 **Cards de Personagens** — Cada integrante da Kessoku Band com cor temática individual (Rosa, Azul, Amarelo, Vermelho)
-- 📸 **Galeria Interativa** — Grid responsivo com lightbox nativo em Vanilla JS (navegação por setas, teclado e counter)
-- 💬 **Mural de Comentários** — Sistema client-side com sanitização XSS, avatares e timestamps relativos
-- ✉️ **Formulário de Contato** — Com feedback visual simulado (loading state + mensagem de sucesso)
-- 🎵 **Elementos Temáticos** — Separadores de cordas de guitarra, equalizer animado no footer, notas musicais decorativas
-- 📱 **Mobile-First** — Menu hamburger com overlay, layout responsivo completo
+- 🎬 **Hero Editorial** — Título em tipografia condensada, key visual oficial recortado e ficha rápida do anime
+- 🎸 **Cards de Personagens** — Cada integrante com cor própria (Rosa, Azul, Amarelo, Vermelho), nome em japonês na vertical e bio revelada no hover/foco (sempre visível em telas de toque); no celular viram um carrossel com scroll-snap
+- 🎟️ **Simulador de Ingressos** — Datas geradas a partir do dia atual, resumo da sessão em tempo real e estado de confirmação sem recarregar a página
+- 📸 **Galeria Interativa** — Lightbox acessível (foco preso no modal, teclado, swipe no celular e contador)
+- 💬 **Mural de Comentários** — Sistema client-side com proteção contra XSS, avaliação por estrelas, avatares coloridos e timestamps relativos
+- ✉️ **Contato** — FAQ em acordeão + formulário com validação inline e contador de caracteres
+- 🎵 **Mini Player** — Percorre as músicas da Kessoku Band no anime e abre a faixa escolhida no YouTube
+- 🌗 **Tema Claro/Escuro** — Aplicado antes da primeira pintura (sem "flash"), com preferência salva
+- ♿ **Acessibilidade** — Navegação por teclado, `focus-visible`, ARIA nos componentes interativos e respeito a `prefers-reduced-motion`
+- 📱 **Responsivo** — Menu lateral no mobile, layouts que reorganizam em colunas e nenhum overflow horizontal
 
 ---
 
@@ -26,14 +29,17 @@ Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Pau
 
 | Token | Valor | Uso |
 |-------|-------|-----|
-| `--neon-pink` | `#ff4b98` | Cor principal / acentos |
-| `--neon-purple` | `#a855f7` | Gradientes / hover |
-| `--neon-blue` | `#4bd5ff` | Acentos secundários |
-| `--bg-color` | `#0a0a10` | Background principal |
-| `--font-display` | Outfit | Títulos |
-| `--font-body` | Inter | Corpo do texto |
+| `--kb-pink` | `#ff6fa8` | Hitori · cor de destaque principal |
+| `--kb-blue` | `#6b9bff` | Ryo |
+| `--kb-yellow` | `#ffd23f` | Nijika · título do hero |
+| `--kb-red` | `#ff6257` | Kita |
+| `--kessoku` | `#ffb400` | Amarelo oficial da banda (ingresso, adesivos) |
+| `--bg` | `#0d0c10` | Background (tema escuro) |
+| `--font-display` / `--font-body` | Archivo (eixo de largura) | Títulos condensados e texto |
+| `--font-mono` | IBM Plex Mono | Rótulos, metadados, contadores |
+| `--font-jp` | Yusei Magic | Nomes e etiquetas em japonês |
 
-**Estética:** Dark mode premium com glassmorphism, micro-animações e identidade visual inspirada no universo musical do anime.
+**Estética:** Inspirada em flyers de casa de show — paleta tirada das quatro integrantes, cores chapadas, layout assimétrico e detalhes em japonês. O tema claro usa um fundo cor de papel.
 
 ---
 
@@ -45,7 +51,7 @@ Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Pau
 | **CSS3** | Flexbox, Grid, Custom Properties, clamp(), animações |
 | **JavaScript (Vanilla)** | DOM manipulation, IntersectionObserver, Lightbox, XSS sanitization |
 | **Google Material Symbols** | Iconografia |
-| **Google Fonts** | Outfit + Inter |
+| **Google Fonts** | Archivo + IBM Plex Mono + Yusei Magic |
 
 > Nenhuma dependência de framework. Zero jQuery. 100% Vanilla.
 
@@ -55,22 +61,27 @@ Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Pau
 
 ```
 Bocchi_Site/
-├── index.html          # Home — Hero + Trailer + Cards
-├── contato.html        # Formulário de contato
+├── index.html          # Home — Hero + Sinopse/Trailer + Cards + Chamada do filme
+├── filme.html          # O Filme + simulador de ingressos
 ├── fotos.html          # Galeria de fotos (anime + shows)
 ├── comentarios.html    # Mural de comentários dos fãs
+├── contato.html        # FAQ + formulário de contato
+├── 404.html            # Página de erro
 ├── global.css          # Design system + componentes globais
 ├── styles.css          # Estilos específicos da home
-├── contato.css         # Estilos do contato
+├── filme.css           # Estilos do filme
 ├── fotos.css           # Estilos da galeria
 ├── comentarios.css     # Estilos dos comentários
-├── script.js           # JS global (menu, scroll, reveal)
-├── contato.js          # JS do formulário de contato
+├── contato.css         # Estilos do contato
+├── script.js           # JS global (tema, menu, reveal, mini player, validação)
+├── filme.js            # JS do simulador de ingressos
 ├── fotos.js            # JS da galeria / lightbox
 ├── comentarios.js      # JS do sistema de comentários
+├── contato.js          # JS do FAQ e do formulário de contato
+├── service-worker.js   # Cache offline (PWA)
+├── manifest.json       # Manifesto do PWA
 └── assets/
-    ├── images/         # Logos, fotos do anime, shows
-    └── videos/         # Trailer oficial
+    └── images/         # Logos, fotos do anime, shows
 ```
 
 ---

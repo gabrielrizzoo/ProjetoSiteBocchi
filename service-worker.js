@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bocchi-cache-v6';
+const CACHE_NAME = 'bocchi-cache-v7';
 
 // Core assets that are pre-cached on install
 const CORE_ASSETS = [
@@ -24,7 +24,8 @@ const CORE_ASSETS = [
   './assets/images/favicon.svg',
   './assets/images/Logo Bocchi 2.png',
   './assets/images/Logo Bocchi.png',
-  './assets/images/icon-512.png'
+  './assets/images/icon-512.png',
+  './assets/images/player-cover.jpg'
 ];
 
 // Image assets cached on first access (lazy cache)

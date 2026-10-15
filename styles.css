@@ -2,499 +2,571 @@
    HOME PAGE — SPECIFIC STYLES
    ================================================ */
 
-/* --- SPLASH SCREEN --- */
-#splash-screen {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--bg-color);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* ================================================
+   HERO
+   ================================================ */
+.hero {
+  padding: clamp(32px, 6vw, 72px) var(--gutter) clamp(64px, 9vw, 112px);
+}
+
+.hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(36px, 5vw, 72px);
   align-items: center;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
-#splash-screen.fade-out {
-  opacity: 0;
-  visibility: hidden;
+.hero-title {
+  margin: 22px 0 26px;
+  font-stretch: 70%;
+  font-weight: 900;
+  font-size: clamp(3.4rem, 8.4vw, 7.25rem);
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
-.splash-logo {
-  max-width: 300px;
-  animation: pulseLogo 2s infinite ease-in-out;
+.hero-title .hl {
+  color: var(--hero-highlight);
 }
 
-.splash-loader {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255, 75, 152, 0.2);
-  border-top-color: var(--neon-pink);
-  border-radius: 50%;
-  margin-top: 30px;
-  animation: spinLoader 1s linear infinite;
+/* No tema claro o amarelo vira marca-texto atrás das letras */
+:root.light-theme .hero-title .hl {
+  background: linear-gradient(transparent 52%, var(--kb-yellow) 52%, var(--kb-yellow) 88%, transparent 88%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
-@keyframes pulseLogo {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
+.hero-lead {
+  max-width: 46ch;
+  margin-bottom: 32px;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  color: var(--text-muted);
 }
 
-@keyframes spinLoader {
-  to { transform: rotate(360deg); }
-}
-
-/* --- HERO BANNER --- */
-#banner {
-  background-image: url('./assets/images/banner-header.jpg');
-  height: 90vh;
-  min-height: 600px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Floating Musical Notes Overlay */
-#banner::after {
-  content: '♪  ♫  ♩  ♪  ♫  ♩  ♪  ♫';
-  position: absolute;
-  inset: 0;
-  font-size: 1.8rem;
-  color: rgba(255, 75, 152, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  letter-spacing: 60px;
-  animation: floatNotes 8s ease-in-out infinite alternate;
-  opacity: 0.5;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-@keyframes floatNotes {
-  0% { transform: translateY(0) translateX(0); letter-spacing: 60px; }
-  50% { transform: translateY(-20px) translateX(15px); letter-spacing: 70px; }
-  100% { transform: translateY(10px) translateX(-10px); letter-spacing: 55px; }
-}
-
-/* Home-specific overrides (base styles in global.css) */
-.banner-content h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
-  line-height: 0.95;
-  margin-bottom: 20px;
-  animation: bannerFadeIn 0.8s ease-out 0.4s both;
-}
-
-/* Info chips row */
-.hero-info-row {
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 32px;
-  justify-content: center;
-  animation: bannerFadeIn 0.8s ease-out 0.8s both;
+  gap: 12px;
 }
 
-.hero-info-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-full);
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  font-weight: 500;
-  backdrop-filter: blur(6px);
-  transition: all var(--transition-fast);
-}
-
-.hero-info-chip:hover {
-  background: rgba(255, 75, 152, 0.08);
-  border-color: rgba(255, 75, 152, 0.2);
-  color: var(--text-main);
-}
-
-.hero-info-chip .material-symbols-outlined {
-  font-size: 1rem;
-  color: var(--neon-pink);
-}
-
-/* Hero CTA button */
-.hero-cta {
-  animation: bannerFadeIn 0.8s ease-out 1s both;
-}
-
-/* Decorative floating notes */
-.hero-note {
-  position: absolute;
-  font-size: 2rem;
-  color: var(--neon-pink);
-  opacity: 0.12;
-  z-index: 1;
-  pointer-events: none;
-  animation: noteFloat 6s ease-in-out infinite;
-}
-
-.hero-note-1 {
-  top: 15%;
-  left: 8%;
-  font-size: 2.5rem;
-  animation-delay: 0s;
-  animation-duration: 7s;
-}
-
-.hero-note-2 {
-  top: 60%;
-  right: 12%;
-  font-size: 1.8rem;
-  animation-delay: 2s;
-  animation-duration: 5s;
-  color: var(--neon-purple);
-}
-
-.hero-note-3 {
-  bottom: 20%;
-  left: 15%;
-  font-size: 2.2rem;
-  animation-delay: 4s;
-  animation-duration: 8s;
-}
-
-@keyframes noteFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-15px) rotate(5deg); }
-  50% { transform: translateY(-5px) rotate(-3deg); }
-  75% { transform: translateY(-20px) rotate(8deg); }
-}
-
-/* ================================================
-   TRAILER & SYNOPSIS SECTION
-   ================================================ */
-#trailer-container {
-  width: 100%;
+.hero-facts {
   display: flex;
-  justify-content: center;
-  padding: var(--section-padding) clamp(20px, 5%, 60px);
-  padding-top: calc(var(--section-padding) + 40px);
-  background-color: var(--bg-color);
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.hero-facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.hero-facts dd {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.hero-art {
   position: relative;
+  margin: 0;
 }
 
-/* Diagonal transition from banner */
-#trailer-container::before {
-  content: '';
-  position: absolute;
-  top: -60px;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  background: var(--bg-color);
-  clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
-  z-index: 2;
-}
-
-#trailer-container::after {
-  content: '';
-  position: absolute;
-  bottom: -50px;
-  left: 15%;
-  width: 300px;
-  height: 300px;
-  background: var(--neon-purple);
-  filter: blur(180px);
-  opacity: 0.08;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#trailer-container .content {
-  width: 100%;
-  max-width: var(--content-max-width);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  background: var(--bg-surface);
-  padding: 40px;
+.hero-art-frame {
+  aspect-ratio: 11 / 10;
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--border-subtle);
-  position: relative;
-  z-index: 1;
-}
-
-.trailer-wrapper {
-  width: 100%;
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  background: #000;
+  box-shadow: var(--shadow-lg);
 }
 
-.trailer {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* A imagem tem o logo impresso à esquerda; mostramos só a banda */
+.hero-art-frame img {
   width: 100%;
   height: 100%;
-  border: none;
-  border-radius: var(--radius-md);
+  object-fit: cover;
+  object-position: 100% 30%;
 }
 
-#sinopse {
-  width: 100%;
-  max-width: 720px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.hero-art .sticker {
+  position: absolute;
+  left: -18px;
+  bottom: 64px;
+  font-size: 1.4rem;
 }
 
-#sinopse .sinopse-label {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--neon-pink);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.hero-art figcaption {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-align: right;
+  color: var(--text-faint);
 }
 
-#sinopse .sinopse-label::before {
-  content: '';
-  width: 20px;
-  height: 2px;
-  background: var(--neon-pink);
-  border-radius: 1px;
+/* Entrada do hero */
+.hero-copy > *,
+.hero-art {
+  animation: heroRise 0.8s var(--ease) both;
 }
 
-.description {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  line-height: 1.9;
-  margin-bottom: 32px;
-}
+.hero-copy > :nth-child(2) { animation-delay: 0.06s; }
+.hero-copy > :nth-child(3) { animation-delay: 0.12s; }
+.hero-copy > :nth-child(4) { animation-delay: 0.18s; }
+.hero-copy > :nth-child(5) { animation-delay: 0.24s; }
+.hero-art { animation-delay: 0.1s; }
 
-.description strong {
-  color: var(--neon-pink);
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ================================================
-   CHARACTER CARDS SECTION
+   SINOPSE + TRAILER
    ================================================ */
-.actor-cards-section {
-  padding: var(--section-padding) clamp(20px, 5%, 60px);
-  background-color: var(--bg-color);
-  position: relative;
+.about {
+  border-top: 1px solid var(--line);
 }
 
-.actor-cards-section::after {
-  content: '';
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(36px, 6vw, 80px);
+  align-items: start;
+}
+
+.about-copy .section-heading {
+  margin: 16px 0 24px;
+}
+
+.about-media {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #000;
+  box-shadow: var(--shadow-lg);
+}
+
+.video-frame iframe {
   position: absolute;
-  bottom: 0;
-  left: 10%;
-  width: 400px;
-  height: 400px;
-  background: var(--neon-blue);
-  filter: blur(200px);
-  opacity: 0.07;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.actor-cards-container {
+  inset: 0;
   width: 100%;
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+  height: 100%;
+  border: 0;
 }
 
-.cards-section-header {
-  text-align: center;
-  margin-bottom: 50px;
+.media-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
 }
 
-.cards-section-header h2 {
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  color: var(--text-main);
-  margin-bottom: 12px;
-}
-
-.cards-section-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  font-weight: 300;
+/* ================================================
+   CARDS DAS INTEGRANTES
+   ================================================ */
+.band {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
 }
 
 .cards-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
-.card {
-  height: 460px;
+.member-card {
+  --member: var(--kb-pink);
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 3 / 4.4;
   border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #111;
+  color: #fff;
+}
+
+.member-card:focus-visible {
+  outline: 2px solid var(--member);
+  outline-offset: 4px;
+}
+
+.member-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   background-size: cover;
   background-position: center;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: transform 0.8s var(--ease);
 }
 
-.card::before {
+/* Escurece a base da foto para o texto ficar legível */
+.member-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10, 10, 16, 0.95) 0%, rgba(0, 0, 0, 0) 55%);
-  opacity: 0.7;
-  transition: opacity var(--transition-normal);
+  z-index: -1;
+  background: linear-gradient(180deg,
+      rgba(8, 7, 10, 0) 38%,
+      rgba(8, 7, 10, 0.6) 62%,
+      rgba(8, 7, 10, 0.94) 100%);
 }
 
-.card-info {
+/* Faixa com a cor da integrante */
+.member-card::after {
+  content: '';
   position: absolute;
-  bottom: 0;
   left: 0;
-  width: 100%;
-  padding: 30px 24px 24px;
-  transform: translateY(10px);
-  transition: all var(--transition-normal);
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--member);
+  transform: scaleX(0.22);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease);
 }
 
-.card-info h3 {
+.member-jp {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  writing-mode: vertical-rl;
+  font-family: var(--font-jp);
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
   color: #fff;
-  font-size: 1.4rem;
-  margin-bottom: 6px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 18px rgba(0, 0, 0, 0.45);
 }
 
-.card-info span {
-  display: inline-block;
-  color: var(--neon-pink);
-  font-size: 0.85rem;
-  font-weight: 600;
+.member-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 22px 22px 26px;
+}
+
+.member-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  padding: 4px 12px;
-  border: 1px solid rgba(255, 75, 152, 0.3);
-  border-radius: var(--radius-full);
-  background: rgba(255, 75, 152, 0.1);
+  color: var(--member);
 }
 
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
+.member-role::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
-.card:hover::before {
+.member-name {
+  margin-top: 8px;
+  font-stretch: 80%;
+  font-weight: 800;
+  font-size: 1.55rem;
+  line-height: 1.05;
+}
+
+.member-bio {
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+  transition: max-height 0.5s var(--ease), opacity 0.35s ease, margin-top 0.35s ease;
+}
+
+.member-card:hover .member-photo,
+.member-card:focus-visible .member-photo {
+  transform: scale(1.045);
+}
+
+.member-card:hover::after,
+.member-card:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.member-card:hover .member-bio,
+.member-card:focus-visible .member-bio {
+  max-height: 7.5em;
+  margin-top: 10px;
   opacity: 1;
-  background: linear-gradient(to top, rgba(10, 10, 16, 0.98) 0%, rgba(0, 0, 0, 0) 70%);
 }
 
-.card:hover .card-info {
-  transform: translateY(0);
+/* Em telas de toque não há hover: a bio fica sempre visível */
+@media (hover: none) {
+  .member-bio {
+    max-height: none;
+    margin-top: 10px;
+    opacity: 1;
+  }
+
+  .member-card::after {
+    transform: scaleX(1);
+  }
 }
 
-/* === Character-Specific Colors === */
-/* Bocchi — Pink (main character) */
-.banner-1 .card-info span {
-  color: var(--neon-pink);
-  border-color: rgba(255, 75, 152, 0.3);
-  background: rgba(255, 75, 152, 0.1);
-}
-.banner-1:hover {
-  box-shadow: 0 20px 50px rgba(255, 75, 152, 0.2);
+/* Cor e foto de cada integrante */
+.member-card--bocchi {
+  --member: var(--kb-pink);
 }
 
-/* Ryou — Blue (cool bassist) */
-.banner-2 .card-info span {
-  color: var(--neon-blue);
-  border-color: rgba(75, 213, 255, 0.3);
-  background: rgba(75, 213, 255, 0.1);
-}
-.banner-2:hover {
-  box-shadow: 0 20px 50px rgba(75, 213, 255, 0.2);
+.member-card--bocchi .member-photo {
+  background-image: url('./assets/images/card-bocchi.webp');
+  background-position: 52% center;
 }
 
-/* Nijika — Yellow (energetic drummer) */
-.banner-3 .card-info span {
-  color: var(--neon-yellow);
-  border-color: rgba(255, 223, 75, 0.3);
-  background: rgba(255, 223, 75, 0.1);
-}
-.banner-3:hover {
-  box-shadow: 0 20px 50px rgba(255, 223, 75, 0.15);
+.member-card--ryo {
+  --member: var(--kb-blue);
 }
 
-/* Kita — Red/Coral (passionate vocalist) */
-.banner-4 .card-info span {
-  color: #ff6b6b;
-  border-color: rgba(255, 107, 107, 0.3);
-  background: rgba(255, 107, 107, 0.1);
-}
-.banner-4:hover {
-  box-shadow: 0 20px 50px rgba(255, 107, 107, 0.2);
+.member-card--ryo .member-photo {
+  background-image: url('./assets/images/card-ryou.jpg');
+  background-position: 60% 40%;
 }
 
-/* Card Backgrounds */
-.banner-1 {
-  background: url(./assets/images/card-bocchi.webp) center/cover;
+.member-card--nijika {
+  --member: var(--kb-yellow);
 }
 
-.banner-2 {
-  background-image: url(./assets/images/card-ryou.jpg);
+.member-card--nijika .member-photo {
+  background-image: url('./assets/images/card-nijika.jpg');
 }
 
-.banner-3 {
-  background-image: url(./assets/images/card-nijika.jpg);
+.member-card--kita {
+  --member: var(--kb-red);
 }
 
-.banner-4 {
-  background-image: url(./assets/images/card-kita.jpg);
-  background-position: top;
+.member-card--kita .member-photo {
+  background-image: url('./assets/images/card-kita.jpg');
+  background-position: center top;
+}
+
+.cards-hint {
+  display: none;
+}
+
+/* ================================================
+   CHAMADA PARA O FILME (ingresso)
+   ================================================ */
+.ticket-link {
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
+.ticket-link:focus-visible {
+  outline-offset: 6px;
+}
+
+.ticket {
+  --stub-w: clamp(210px, 26%, 300px);
+  --notch: 16px;
+  --perforation: rgba(13, 12, 16, 0.35);
+  --ticket-mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub-w)) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub-w)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--stub-w);
+  background: var(--kessoku);
+  color: var(--ink);
+  border-radius: var(--radius-lg);
+  -webkit-mask: var(--ticket-mask);
+  mask: var(--ticket-mask);
+  transition: transform 0.45s var(--ease);
+}
+
+.ticket-link:hover .ticket {
+  transform: translateY(-4px) rotate(-0.4deg);
+}
+
+.ticket-main {
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.ticket-kicker,
+.stub-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ticket-title {
+  margin: 14px 0 16px;
+  font-stretch: 72%;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 5.2vw, 4.25rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.ticket-text {
+  max-width: 46ch;
+  font-size: 1.05rem;
+}
+
+.ticket-stub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: clamp(24px, 3vw, 40px);
+  border-left: 2px dashed var(--perforation);
+}
+
+.stub-info {
+  display: grid;
+  gap: 4px;
+}
+
+.stub-price {
+  font-family: var(--font-display);
+  font-stretch: 75%;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1;
+}
+
+.stub-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.stub-cta .material-symbols-outlined {
+  transition: transform 0.3s var(--ease);
+}
+
+.ticket-link:hover .stub-cta .material-symbols-outlined {
+  transform: translateX(4px);
 }
 
 /* ================================================
    RESPONSIVE — HOME
    ================================================ */
 @media (max-width: 1024px) {
-  #trailer-container .content {
-    padding: 28px;
+  .cards-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .member-card {
+    aspect-ratio: 5 / 6;
   }
 }
 
-@media (max-width: 768px) {
-  #banner {
-    height: 80vh;
-    min-height: 500px;
+@media (max-width: 900px) {
+  .hero-inner,
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .card {
-    height: 380px;
+  .hero-art {
+    max-width: 560px;
   }
 
-  .hero-note {
+  .hero-art .sticker {
+    left: 12px;
+    bottom: auto;
+    top: -14px;
+  }
+
+  .about-media {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .ticket {
+    --stub-h: 104px;
+    --ticket-mask:
+      radial-gradient(circle var(--notch) at 0 calc(100% - var(--stub-h)), #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle var(--notch) at 100% calc(100% - var(--stub-h)), #0000 98%, #000) right / 51% 100% no-repeat;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto var(--stub-h);
+  }
+
+  .ticket-stub {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 28px;
+    border-left: 0;
+    border-top: 2px dashed var(--perforation);
+  }
+
+  .stub-price {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-facts {
+    gap: 14px 28px;
+  }
+
+  /* Cards viram um carrossel com "espiada" do próximo */
+  .cards-content {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: 12px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .cards-content::-webkit-scrollbar {
     display: none;
   }
 
-  .hero-info-row {
-    gap: 6px;
+  .member-card {
+    aspect-ratio: 3 / 4.2;
+    scroll-snap-align: start;
   }
 
-  .hero-info-chip {
-    padding: 6px 12px;
+  .cards-hint {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 14px;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
 }

@@ -1,8 +1,14 @@
+/**
+ * Comentários Page — Mural de fãs com avaliação
+ * Usa o FormFeedback definido em script.js
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('comment-form');
   const list = document.getElementById('comment-list');
   const countEl = document.getElementById('commentCount');
   const emptyState = document.getElementById('emptyState');
+
+  if (!form || !list) return;
 
   const STORAGE_KEY = 'bocchi_comments';
   const RATING_STORAGE_KEY = 'bocchi_rating';
@@ -11,86 +17,74 @@ document.addEventListener('DOMContentLoaded', () => {
   // RATING WIDGET LOGIC
   // ================================================
   const stars = document.querySelectorAll('.star');
+  const starsContainer = document.querySelector('.stars-container');
   const ratingFeedback = document.getElementById('rating-feedback');
-  let currentRating = parseInt(localStorage.getItem(RATING_STORAGE_KEY)) || 0;
 
   const ratingTexts = [
-    "Sua avaliação: Nenhuma",
-    "Ruim! 😞",
-    "Razoável 😐",
-    "Bom! 🙂",
-    "Muito Bom! 🤩",
-    "Perfeito! 🎸✨"
+    'Toque nas estrelas para avaliar',
+    'Não curti',
+    'Mais ou menos',
+    'Bom',
+    'Muito bom',
+    'Obra-prima'
   ];
 
-  function updateStars(value) {
-    stars.forEach(s => {
-      const starVal = parseInt(s.dataset.value);
-      if (starVal <= value) {
-        s.classList.add('active');
-        s.style.fontVariationSettings = "'FILL' 1";
-      } else {
-        s.classList.remove('active');
-        s.style.fontVariationSettings = "'FILL' 0";
-      }
-    });
-    ratingFeedback.textContent = ratingTexts[value];
+  let currentRating = 0;
+  try {
+    currentRating = parseInt(localStorage.getItem(RATING_STORAGE_KEY), 10) || 0;
+  } catch {
+    // Storage indisponível
   }
 
-  // Init rating
-  if (currentRating > 0) updateStars(currentRating);
+  function paintStars(value) {
+    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value, 10) <= value));
+  }
+
+  function showRating(value) {
+    paintStars(value);
+    ratingFeedback.textContent = value > 0 ? `${value}/5 — ${ratingTexts[value]}` : ratingTexts[0];
+  }
+
+  function saveRating(value) {
+    currentRating = value;
+    stars.forEach(s => s.setAttribute('aria-pressed', String(parseInt(s.dataset.value, 10) === value)));
+    showRating(value);
+    try {
+      localStorage.setItem(RATING_STORAGE_KEY, value);
+    } catch {
+      // ignora
+    }
+  }
 
   stars.forEach(star => {
-    // Hover event
-    star.addEventListener('mouseenter', function() {
-      const hoverValue = parseInt(this.dataset.value);
-      updateStars(hoverValue);
-    });
-
-    // Leaves widget -> restore selected
-    star.parentElement.addEventListener('mouseleave', function() {
-      updateStars(currentRating);
-    });
-
-    // Click -> save
-    star.addEventListener('click', function() {
-      currentRating = parseInt(this.dataset.value);
-      updateStars(currentRating);
-      localStorage.setItem(RATING_STORAGE_KEY, currentRating);
-      
-      // Little success animation
-      ratingFeedback.style.color = 'var(--neon-pink)';
-      setTimeout(() => ratingFeedback.style.color = 'var(--text-muted)', 1000);
-    });
+    const value = parseInt(star.dataset.value, 10);
+    // Pré-visualização ao passar o mouse
+    star.addEventListener('mouseenter', () => showRating(value));
+    star.addEventListener('click', () => saveRating(value));
   });
+
+  starsContainer.addEventListener('mouseleave', () => showRating(currentRating));
+
+  if (currentRating > 0) saveRating(currentRating);
 
   // ================================================
   // UTILITY FUNCTIONS
   // ================================================
 
   /**
-   * Sanitize HTML to prevent XSS
-   */
-  function sanitize(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
-  /**
    * Get time-ago string from ISO date string
    */
   function getTimeAgo(dateStr) {
-    const date = new Date(dateStr);
-    const seconds = Math.floor((new Date() - date) / 1000);
+    const seconds = Math.floor((Date.now() - new Date(dateStr)) / 1000);
     if (seconds < 60) return 'agora mesmo';
     const minutes = Math.floor(seconds / 60);
     if (minutes < 60) return `há ${minutes} min`;
     const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `há ${hours}h`;
+    if (hours < 24) return `há ${hours} h`;
     const days = Math.floor(hours / 24);
     if (days < 30) return `há ${days} dia${days !== 1 ? 's' : ''}`;
-    return `há ${Math.floor(days / 30)} mês(es)`;
+    const months = Math.floor(days / 30);
+    return `há ${months} ${months !== 1 ? 'meses' : 'mês'}`;
   }
 
   /**
@@ -105,13 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
       .slice(0, 2);
   }
 
+  /**
+   * Cada nome ganha sempre a mesma cor de integrante no avatar
+   */
+  const AVATAR_COLORS = ['var(--kb-pink)', 'var(--kb-blue)', 'var(--kb-yellow)', 'var(--kb-red)'];
+
+  function getAvatarColor(name) {
+    let hash = 0;
+    for (const char of name) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+    return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+  }
+
   // ================================================
   // STORAGE
   // ================================================
-
-  /**
-   * Load comments from localStorage
-   */
   function loadComments() {
     try {
       const data = localStorage.getItem(STORAGE_KEY);
@@ -121,14 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /**
-   * Save comments array to localStorage
-   */
   function saveComments(comments) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
     } catch {
-      // Storage full or unavailable — fail silently
+      // Storage cheio ou indisponível — falha silenciosa
     }
   }
 
@@ -139,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stored = loadComments();
     if (stored && stored.length > 0) return stored;
 
-    // Default seed comments (only used on first visit)
+    // Comentários iniciais (só na primeira visita)
     return [
       {
         name: 'Gabriel',
@@ -153,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         name: 'Lucas Tanaka',
-        comment: 'Ryou Yamada é a melhor personagem! O jeito descolado dela é demais.',
+        comment: 'Ryo Yamada é a melhor personagem! O jeito descolado dela é demais.',
         date: new Date(Date.now() - 3600000 * 48).toISOString()
       }
     ];
@@ -162,186 +160,147 @@ document.addEventListener('DOMContentLoaded', () => {
   // ================================================
   // UI RENDERING
   // ================================================
-
-  /**
-   * Update comment counter
-   */
   function updateCount() {
     const count = list.children.length;
-    if (countEl) {
-      countEl.textContent = `${count} comentário${count !== 1 ? 's' : ''}`;
-    }
-    if (emptyState) {
-      emptyState.classList.toggle('hidden', count > 0);
-    }
+    countEl.textContent = `${count} comentário${count !== 1 ? 's' : ''}`;
+    emptyState.classList.toggle('hidden', count > 0);
   }
 
   /**
-   * Create a comment card element
+   * Monta o card com textContent (sem innerHTML) para evitar XSS
    */
-  function createCommentCard(name, comment, dateStr) {
+  function createCommentCard({ name, comment, date }) {
     const li = document.createElement('li');
     li.className = 'comment-card';
 
-    const safeName = sanitize(name);
-    const safeComment = sanitize(comment);
-    const initials = getInitials(name);
-    const timeAgo = getTimeAgo(dateStr);
+    const avatar = document.createElement('div');
+    avatar.className = 'comment-avatar';
+    avatar.setAttribute('aria-hidden', 'true');
+    avatar.style.setProperty('--avatar', getAvatarColor(name));
+    avatar.textContent = getInitials(name);
 
-    li.innerHTML = `
-      <div class="comment-header">
-        <div class="comment-author">
-          <div class="comment-avatar">${initials}</div>
-          <span class="comment-name">${safeName}</span>
-        </div>
-        <span class="comment-time">${timeAgo}</span>
-      </div>
-      <p class="comment-text">${safeComment}</p>
-    `;
+    const body = document.createElement('div');
 
+    const header = document.createElement('div');
+    header.className = 'comment-header';
+
+    const nameEl = document.createElement('span');
+    nameEl.className = 'comment-name';
+    nameEl.textContent = name;
+
+    const timeEl = document.createElement('time');
+    timeEl.className = 'comment-time';
+    timeEl.dateTime = date;
+    timeEl.title = new Date(date).toLocaleString('pt-BR');
+    timeEl.textContent = getTimeAgo(date);
+
+    const text = document.createElement('p');
+    text.className = 'comment-text';
+    text.textContent = comment;
+
+    header.append(nameEl, timeEl);
+    body.append(header, text);
+    li.append(avatar, body);
     return li;
   }
 
-  /**
-   * Render all comments from data array
-   */
   function renderComments(comments) {
-    list.innerHTML = '';
-    comments.forEach(c => {
-      const card = createCommentCard(c.name, c.comment, c.date);
-      list.appendChild(card);
-    });
+    list.replaceChildren(...comments.map(createCommentCard));
     updateCount();
-  }
-
-  /**
-   * Show success flash message
-   */
-  function showSuccess() {
-    const existing = form.parentElement.querySelector('.form-success');
-    if (existing) existing.remove();
-
-    const msg = document.createElement('div');
-    msg.className = 'form-success';
-    msg.textContent = '✓ Comentário enviado com sucesso!';
-    form.parentElement.insertBefore(msg, form);
-
-    setTimeout(() => {
-      msg.style.opacity = '0';
-      msg.style.transform = 'scale(0.95)';
-      msg.style.transition = 'all 0.3s ease';
-      setTimeout(() => msg.remove(), 300);
-    }, 2500);
   }
 
   // ================================================
   // INITIALIZATION
   // ================================================
-
-  // Load and render stored (or default) comments
-  let commentsData = getCommentsData();
-  saveComments(commentsData); // Persist defaults on first visit
+  const commentsData = getCommentsData();
+  saveComments(commentsData); // Persiste os iniciais na primeira visita
   renderComments(commentsData);
-
-  // ================================================
-  // INLINE VALIDATION HELPERS
-  // ================================================
-  function showFieldError(input, message) {
-    clearFieldState(input);
-    input.classList.add('field-error');
-    const errorEl = document.createElement('span');
-    errorEl.className = 'field-error-msg';
-    errorEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px">error</span> ${message}`;
-    input.parentElement.appendChild(errorEl);
-  }
-
-  function showFieldSuccess(input) {
-    clearFieldState(input);
-    input.classList.add('field-success');
-  }
-
-  function clearFieldState(input) {
-    input.classList.remove('field-error', 'field-success');
-    const existing = input.parentElement.querySelector('.field-error-msg');
-    if (existing) existing.remove();
-  }
 
   // ================================================
   // FORM SUBMISSION WITH VALIDATION
   // ================================================
   const nameInput = document.getElementById('name');
   const commentInput = document.getElementById('comment');
+  const counter = document.getElementById('comment-count');
+  const maxLength = commentInput.maxLength > 0 ? commentInput.maxLength : 500;
 
-  // Blur validation
-  nameInput.addEventListener('blur', () => {
+  function validateName() {
     const val = nameInput.value.trim();
-    if (!val) {
-      showFieldError(nameInput, 'Nome é obrigatório');
-    } else if (val.length < 2) {
-      showFieldError(nameInput, 'Nome deve ter pelo menos 2 caracteres');
+    if (!val) return 'Diga como quer ser chamado';
+    if (val.length < 2) return 'O nome precisa de pelo menos 2 caracteres';
+    return '';
+  }
+
+  function validateComment() {
+    const val = commentInput.value.trim();
+    if (!val) return 'Escreva seu comentário';
+    if (val.length < 5) return 'O comentário precisa de pelo menos 5 caracteres';
+    return '';
+  }
+
+  function check(input, validator) {
+    const error = validator();
+    if (error) {
+      FormFeedback.error(input, error);
     } else {
-      showFieldSuccess(nameInput);
+      FormFeedback.success(input);
     }
+    return !error;
+  }
+
+  nameInput.addEventListener('blur', () => {
+    if (nameInput.value.trim()) check(nameInput, validateName);
   });
 
   commentInput.addEventListener('blur', () => {
-    const val = commentInput.value.trim();
-    if (!val) {
-      showFieldError(commentInput, 'Comentário é obrigatório');
-    } else if (val.length < 5) {
-      showFieldError(commentInput, 'Comentário deve ter pelo menos 5 caracteres');
-    } else {
-      showFieldSuccess(commentInput);
-    }
+    if (commentInput.value.trim()) check(commentInput, validateComment);
   });
 
   [nameInput, commentInput].forEach(input => {
-    input.addEventListener('focus', () => clearFieldState(input));
+    input.addEventListener('input', () => {
+      if (input.classList.contains('field-error')) FormFeedback.clear(input);
+    });
   });
+
+  function updateCounter() {
+    if (counter) counter.textContent = `${commentInput.value.length}/${maxLength}`;
+  }
+
+  commentInput.addEventListener('input', updateCounter);
+  updateCounter();
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const name = nameInput.value.trim();
-    const comment = commentInput.value.trim();
+    const nameOk = check(nameInput, validateName);
+    const commentOk = check(commentInput, validateComment);
 
-    // Validate
-    let hasError = false;
-
-    if (!name || name.length < 2) {
-      showFieldError(nameInput, !name ? 'Nome é obrigatório' : 'Nome deve ter pelo menos 2 caracteres');
-      hasError = true;
+    if (!nameOk || !commentOk) {
+      (nameOk ? commentInput : nameInput).focus();
+      return;
     }
-
-    if (!comment || comment.length < 5) {
-      showFieldError(commentInput, !comment ? 'Comentário é obrigatório' : 'Comentário deve ter pelo menos 5 caracteres');
-      hasError = true;
-    }
-
-    if (hasError) return;
 
     const newComment = {
-      name,
-      comment,
+      name: nameInput.value.trim(),
+      comment: commentInput.value.trim(),
       date: new Date().toISOString()
     };
 
-    // Add to data and persist
+    // Adiciona aos dados e persiste
     commentsData.unshift(newComment);
     saveComments(commentsData);
 
-    // Add to UI
-    const card = createCommentCard(name, comment, newComment.date);
-    list.insertBefore(card, list.firstChild);
+    // Adiciona na tela
+    const card = createCommentCard(newComment);
+    card.classList.add('is-new');
+    list.prepend(card);
 
-    // Clear form
-    nameInput.value = '';
-    commentInput.value = '';
-    clearFieldState(nameInput);
-    clearFieldState(commentInput);
-    document.activeElement.blur();
-
+    // Limpa o formulário
+    form.reset();
+    FormFeedback.clear(nameInput);
+    FormFeedback.clear(commentInput);
+    updateCounter();
     updateCount();
-    showSuccess();
+    FormFeedback.flash(form, 'Comentário publicado!', 2500);
   });
 });

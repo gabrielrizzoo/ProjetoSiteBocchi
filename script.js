@@ -1,18 +1,62 @@
 /**
  * Global Script — Bocchi The Rock! Website
- * Handles: Mobile menu, scroll reveal, header shrink, back-to-top, theme toggle
+ * Handles: tema, menu mobile, header, scroll reveal, voltar ao topo, mini player
+ *
+ * O tema salvo é aplicado por um script inline no <head> de cada página,
+ * antes da primeira pintura, para evitar o "flash" de tema errado.
  */
 
+const THEME_KEY = 'bocchiTheme';
+const root = document.documentElement;
+
 // ================================================
-// THEME INITIALIZATION (Avoid FOUC)
+// FORM FEEDBACK (usado por contato.js e comentarios.js)
 // ================================================
-(function initTheme() {
-  const savedTheme = localStorage.getItem('bocchiTheme');
-  if (savedTheme === 'light') {
-    document.documentElement.classList.add('light-theme');
-    document.body.classList.add('light-theme'); // Backup for older code
+const FormFeedback = {
+  error(input, message) {
+    this.clear(input);
+    const errorEl = document.createElement('span');
+    errorEl.className = 'field-error-msg';
+    errorEl.id = `${input.id}-error`;
+    errorEl.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">error</span>';
+    errorEl.append(message);
+    input.classList.add('field-error');
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', errorEl.id);
+    input.insertAdjacentElement('afterend', errorEl);
+  },
+
+  success(input) {
+    this.clear(input);
+    input.classList.add('field-success');
+  },
+
+  clear(input) {
+    input.classList.remove('field-error', 'field-success');
+    input.removeAttribute('aria-invalid');
+    input.removeAttribute('aria-describedby');
+    const existing = input.parentElement.querySelector('.field-error-msg');
+    if (existing) existing.remove();
+  },
+
+  // Mensagem de sucesso acima do formulário, some sozinha
+  flash(form, message, duration = 3500) {
+    const old = form.parentElement.querySelector('.form-success');
+    if (old) old.remove();
+
+    const msg = document.createElement('div');
+    msg.className = 'form-success';
+    msg.setAttribute('role', 'status');
+    msg.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">check_circle</span>';
+    msg.append(message);
+    form.parentElement.insertBefore(msg, form);
+
+    setTimeout(() => {
+      msg.style.opacity = '0';
+      setTimeout(() => msg.remove(), 300);
+    }, duration);
   }
-})();
+};
 
 // ================================================
 // PWA SERVICE WORKER
@@ -20,133 +64,122 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js')
-      .then(reg => console.log('Service Worker registrado!', reg))
       .catch(err => console.error('Falha ao registrar Service Worker', err));
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   // ================================================
-  // THEME TOGGLE LOGIC
+  // THEME TOGGLE
   // ================================================
   const themeBtns = document.querySelectorAll('.theme-toggle');
-  
-  function toggleTheme() {
-    // Add transition class for smooth color change
-    document.body.classList.add('theme-transitioning');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
 
-    const isLight = document.body.classList.contains('light-theme');
-    if (isLight) {
-      document.body.classList.remove('light-theme');
-      document.documentElement.classList.remove('light-theme');
-      localStorage.setItem('bocchiTheme', 'dark');
-    } else {
-      document.body.classList.add('light-theme');
-      document.documentElement.classList.add('light-theme');
-      localStorage.setItem('bocchiTheme', 'light');
+  function syncThemeUI() {
+    const isLight = root.classList.contains('light-theme');
+    themeBtns.forEach(btn => btn.setAttribute('aria-pressed', String(isLight)));
+    if (themeMeta) themeMeta.setAttribute('content', isLight ? '#f5f2eb' : '#0d0c10');
+  }
+
+  function toggleTheme() {
+    root.classList.add('theme-transitioning');
+    const isLight = root.classList.toggle('light-theme');
+
+    try {
+      localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+    } catch {
+      // Storage indisponível — o tema vale só para esta visita
     }
 
-    // Remove transition class after animation completes
-    setTimeout(() => {
-      document.body.classList.remove('theme-transitioning');
-    }, 600);
+    syncThemeUI();
+    setTimeout(() => root.classList.remove('theme-transitioning'), 400);
   }
 
   themeBtns.forEach(btn => btn.addEventListener('click', toggleTheme));
-
-  // ================================================
-  // SPLASH SCREEN
-  // ================================================
-  const splash = document.getElementById('splash-screen');
-  if (splash) {
-    // Hide splash after load event, with a small min-delay to show the animation
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        splash.classList.add('fade-out');
-        setTimeout(() => splash.remove(), 600); // Wait for transition then remove from DOM
-      }, 500);
-    });
-  }
+  syncThemeUI();
 
   // ================================================
   // MOBILE MENU
   // ================================================
-  const mobileBtn = document.querySelector('.mobile-menu-btn');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
   const nav = document.querySelector('.main-nav');
-  const icon = mobileBtn ? mobileBtn.querySelector('span') : null;
+  const menuIcon = menuBtn ? menuBtn.querySelector('.material-symbols-outlined') : null;
   const overlay = document.querySelector('.menu-overlay');
+  const mobileQuery = window.matchMedia('(max-width: 820px)');
 
-  function openMenu() {
-    nav.classList.add('active');
-    if (overlay) overlay.classList.add('active');
-    if (icon) icon.textContent = 'close';
-    document.body.style.overflow = 'hidden';
+  function setMenu(open) {
+    if (!nav || !menuBtn) return;
+    nav.classList.toggle('active', open);
+    if (overlay) overlay.classList.toggle('active', open);
+    document.body.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    if (menuIcon) menuIcon.textContent = open ? 'close' : 'menu';
+
+    if (open) {
+      const firstLink = nav.querySelector('a');
+      if (firstLink) firstLink.focus();
+    }
   }
 
-  function closeMenu() {
-    nav.classList.remove('active');
-    if (overlay) overlay.classList.remove('active');
-    if (icon) icon.textContent = 'menu';
-    document.body.style.overflow = '';
+  const isMenuOpen = () => nav && nav.classList.contains('active');
+
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => setMenu(!isMenuOpen()));
   }
 
-  if (mobileBtn) {
-    mobileBtn.addEventListener('click', () => {
-      if (nav.classList.contains('active')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-  }
-
-  // Close menu when clicking overlay
   if (overlay) {
-    overlay.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', () => setMenu(false));
   }
 
-  // Close menu when clicking a nav link
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-      if (nav && nav.classList.contains('active')) {
-        closeMenu();
-      }
+      if (isMenuOpen()) setMenu(false);
     });
   });
 
-  // Close menu on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav && nav.classList.contains('active')) {
-      closeMenu();
+    if (e.key === 'Escape' && isMenuOpen()) {
+      setMenu(false);
+      menuBtn.focus();
     }
   });
 
+  // Fecha o menu se a tela crescer para o layout desktop
+  mobileQuery.addEventListener('change', (e) => {
+    if (!e.matches && isMenuOpen()) setMenu(false);
+  });
+
   // ================================================
-  // HEADER SHRINK ON SCROLL
+  // HEADER + BACK TO TOP ON SCROLL
   // ================================================
-  const header = document.querySelector('header');
-  let lastScroll = 0;
+  const header = document.querySelector('.site-header');
+  const backToTop = document.querySelector('.back-to-top');
 
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
+  function onScroll() {
+    const y = window.scrollY;
+    if (header) header.classList.toggle('scrolled', y > 8);
+    if (backToTop) backToTop.classList.toggle('visible', y > 600);
+  }
 
-    if (header) {
-      if (currentScroll > 60) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-    lastScroll = currentScroll;
-  }, { passive: true });
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // ================================================
   // SCROLL REVEAL (IntersectionObserver)
   // ================================================
   const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (revealElements.length > 0) {
+  if (!('IntersectionObserver' in window) || reduceMotion) {
+    revealElements.forEach(el => el.classList.add('active'));
+  } else if (revealElements.length > 0) {
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -155,112 +188,118 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
   }
 
   // ================================================
-  // BACK TO TOP BUTTON
-  // ================================================
-  const backToTop = document.querySelector('.back-to-top');
-
-  if (backToTop) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    }, { passive: true });
-
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  // ================================================
   // DYNAMIC COPYRIGHT YEAR
   // ================================================
-  const copyrightYears = document.querySelectorAll('.copyright-year');
   const currentYear = new Date().getFullYear();
-  copyrightYears.forEach(el => {
+  document.querySelectorAll('.copyright-year').forEach(el => {
     el.textContent = currentYear > 2024 ? `2024–${currentYear}` : '2024';
   });
 
   // ================================================
-  // FLOATING MINI PLAYER INJECTION
+  // FLOATING MINI PLAYER
+  // Percorre as músicas da Kessoku Band no anime e abre
+  // a faixa escolhida no YouTube.
   // ================================================
+  const TRACKS = [
+    'Seishun Complex',
+    'Hitoribocchi Tokyo',
+    'Distortion!!',
+    'Guitar to Kodoku to Aoi Hoshi',
+    'Ano Band',
+    'Karakara',
+    'Nani ga Warui',
+    'Wasurete Yaranai',
+    'Seiza ni Naretara',
+    'Korogaru Iwa, Kimi ni Asa ga Furu'
+  ];
+
   function initMiniPlayer() {
-    // Don't show player if user previously dismissed it this session
-    if (sessionStorage.getItem('bocchiPlayerDismissed') === 'true') return;
+    let index = 0;
+    try {
+      if (sessionStorage.getItem('bocchiPlayerDismissed') === 'true') return;
+      index = parseInt(sessionStorage.getItem('bocchiPlayerTrack'), 10) || 0;
+    } catch {
+      // Sem sessionStorage: mostra o player normalmente
+    }
+    if (index < 0 || index >= TRACKS.length) index = 0;
 
     const playerHTML = `
-      <div id="mini-player" class="mini-player">
-        <div class="player-cover"></div>
+      <aside id="mini-player" class="mini-player" aria-label="Músicas da Kessoku Band">
+        <div class="player-cover" role="img" aria-label="Capa: Kessoku Band"></div>
         <div class="player-info">
-          <p class="player-title">Seishun Complex</p>
-          <p class="player-band">Kessoku Band</p>
+          <p class="player-label">
+            <span class="player-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span><span id="player-pos"></span> · Kessoku Band</span>
+          </p>
+          <p class="player-title" id="player-title" aria-live="polite"></p>
         </div>
         <div class="player-controls">
-          <button class="player-btn" aria-label="Anterior">
+          <button class="player-btn" id="player-prev" aria-label="Música anterior">
             <span class="material-symbols-outlined">skip_previous</span>
           </button>
-          <button id="player-play-btn" class="player-btn play-btn" aria-label="Tocar">
-            <span class="material-symbols-outlined" id="play-icon">play_arrow</span>
-          </button>
-          <button class="player-btn" aria-label="Próxima">
+          <a class="player-btn listen-btn" id="player-listen" target="_blank" rel="noopener">
+            <span class="material-symbols-outlined">play_arrow</span>
+          </a>
+          <button class="player-btn" id="player-next" aria-label="Próxima música">
             <span class="material-symbols-outlined">skip_next</span>
           </button>
+          <button class="player-btn player-close" id="player-close" aria-label="Fechar player">
+            <span class="material-symbols-outlined">close</span>
+          </button>
         </div>
-        <button id="player-close-btn" class="player-btn player-close" aria-label="Fechar player">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-      </div>
+      </aside>
     `;
-    
+
     document.body.insertAdjacentHTML('beforeend', playerHTML);
-    
+    document.body.classList.add('has-player');
+
     const player = document.getElementById('mini-player');
-    const playBtn = document.getElementById('player-play-btn');
-    const playIcon = document.getElementById('play-icon');
-    const closePlayerBtn = document.getElementById('player-close-btn');
-    
-    // Slide in animation after 1.5s
-    setTimeout(() => {
-      player.classList.add('visible');
-    }, 1500);
+    const titleEl = document.getElementById('player-title');
+    const posEl = document.getElementById('player-pos');
+    const listenBtn = document.getElementById('player-listen');
 
-    // Close/dismiss player
-    closePlayerBtn.addEventListener('click', () => {
-      player.classList.remove('visible');
-      sessionStorage.setItem('bocchiPlayerDismissed', 'true');
-      setTimeout(() => player.remove(), 600);
-    });
-
-    // Toggle Play/Pause UI (Visual only)
-    let isPlaying = sessionStorage.getItem('bocchiPlayerPlaying') === 'true';
-    
-    function updatePlayerState() {
-      if (isPlaying) {
-        player.classList.add('playing');
-        playIcon.textContent = 'pause';
-      } else {
-        player.classList.remove('playing');
-        playIcon.textContent = 'play_arrow';
+    function render() {
+      const track = TRACKS[index];
+      titleEl.textContent = track;
+      posEl.textContent = `${index + 1}/${TRACKS.length}`;
+      listenBtn.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(`Kessoku Band ${track}`)}`;
+      listenBtn.setAttribute('aria-label', `Ouvir ${track} no YouTube (abre em nova aba)`);
+      try {
+        sessionStorage.setItem('bocchiPlayerTrack', index);
+      } catch {
+        // ignora
       }
     }
 
-    playBtn.addEventListener('click', () => {
-      isPlaying = !isPlaying;
-      sessionStorage.setItem('bocchiPlayerPlaying', isPlaying);
-      updatePlayerState();
+    function step(delta) {
+      index = (index + delta + TRACKS.length) % TRACKS.length;
+      render();
+    }
+
+    document.getElementById('player-prev').addEventListener('click', () => step(-1));
+    document.getElementById('player-next').addEventListener('click', () => step(1));
+
+    document.getElementById('player-close').addEventListener('click', () => {
+      player.classList.remove('visible');
+      document.body.classList.remove('has-player');
+      try {
+        sessionStorage.setItem('bocchiPlayerDismissed', 'true');
+      } catch {
+        // ignora
+      }
+      setTimeout(() => player.remove(), 500);
     });
 
-    // Initialize state
-    updatePlayerState();
+    render();
+    setTimeout(() => player.classList.add('visible'), 1200);
   }
 
   initMiniPlayer();
