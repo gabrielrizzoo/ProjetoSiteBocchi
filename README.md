@@ -18,7 +18,7 @@ Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Pau
 - 📸 **Galeria Interativa** — Lightbox acessível (foco preso no modal, teclado, swipe no celular e contador)
 - 💬 **Mural de Comentários** — Sistema client-side com proteção contra XSS, avaliação por estrelas, avatares coloridos e timestamps relativos
 - ✉️ **Contato** — FAQ em acordeão + formulário com validação inline e contador de caracteres
-- 🎵 **Mini Player** — Toca as músicas da Kessoku Band pela API do YouTube (vídeos oficiais), com play/pausa, faixa anterior/próxima, barra de progresso e volume; tenta continuar a música ao trocar de página
+- 🎵 **Mini Player** — Toca as músicas da Kessoku Band pela API do YouTube (vídeos oficiais), só no áudio ou com o vídeo aberto; play/pausa, faixa anterior/próxima, tempo, barra de progresso e volume sempre visíveis; continua a música ao trocar de página
 - 🌗 **Tema Claro/Escuro** — Aplicado antes da primeira pintura (sem "flash"), com preferência salva
 - ♿ **Acessibilidade** — Navegação por teclado, `focus-visible`, ARIA nos componentes interativos e respeito a `prefers-reduced-motion`
 - 📱 **Responsivo** — Menu lateral no mobile, layouts que reorganizam em colunas e nenhum overflow horizontal

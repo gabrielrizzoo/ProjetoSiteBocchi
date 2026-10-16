@@ -2,8 +2,9 @@
  * Mini Player — toca as músicas da Kessoku Band pelo YouTube (IFrame API)
  *
  * Os vídeos vêm do canal oficial do anime e do canal oficial da banda.
- * Pelas regras do YouTube o vídeo precisa ficar visível enquanto toca,
- * por isso minimizar o painel pausa a música.
+ * Por padrão toca só o áudio: o vídeo fica carregado mas recolhido
+ * (com altura zero, sem display:none, para o navegador não pausar).
+ * O botão de vídeo só mostra ou esconde o vídeo, sem pausar.
  *
  * Como o site tem várias páginas, a faixa, o tempo e o volume ficam
  * salvos na sessão e o player tenta continuar de onde parou.
@@ -72,27 +73,15 @@
   // ================================================
   const playerHTML = `
     <aside id="mini-player" class="mini-player" aria-label="Player com as músicas da Kessoku Band">
-      <div class="player-panel" id="player-panel" hidden>
+      <div class="player-panel" id="player-panel" aria-hidden="true">
         <div class="player-video"><div id="player-yt"></div></div>
-        <div class="player-progress">
-          <span class="player-time" id="player-current">0:00</span>
-          <input type="range" id="player-seek" class="player-range" min="0" max="1000" value="0" step="1" aria-label="Posição na música">
-          <span class="player-time" id="player-duration">0:00</span>
-        </div>
-        <div class="player-volume">
-          <button type="button" class="player-btn" id="player-mute" aria-label="Silenciar">
-            <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
-          </button>
-          <input type="range" id="player-volume" class="player-range" min="0" max="100" step="1" aria-label="Volume">
-          <span class="player-source" id="player-source"></span>
-        </div>
       </div>
       <div class="player-bar">
         <div class="player-cover" role="img" aria-label="Capa: Kessoku Band"></div>
         <div class="player-info">
           <p class="player-label">
             <span class="player-eq" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span><span id="player-pos"></span> · Kessoku Band</span>
+            <span><span id="player-pos"></span> · <span id="player-source"></span></span>
           </p>
           <p class="player-title" id="player-title" aria-live="polite"></p>
         </div>
@@ -107,11 +96,25 @@
             <span class="material-symbols-outlined" aria-hidden="true">skip_next</span>
           </button>
           <button type="button" class="player-btn" id="player-toggle" aria-controls="player-panel" aria-expanded="false" aria-label="Mostrar vídeo">
-            <span class="material-symbols-outlined" aria-hidden="true">expand_less</span>
+            <span class="material-symbols-outlined" aria-hidden="true">videocam</span>
           </button>
           <button type="button" class="player-btn player-close" id="player-close" aria-label="Fechar player">
             <span class="material-symbols-outlined" aria-hidden="true">close</span>
           </button>
+        </div>
+      </div>
+      <!-- Tempo e volume ficam sempre à mão, com ou sem o vídeo aberto -->
+      <div class="player-extra">
+        <div class="player-progress">
+          <span class="player-time" id="player-current">0:00</span>
+          <input type="range" id="player-seek" class="player-range" min="0" max="1000" value="0" step="1" aria-label="Posição na música">
+          <span class="player-time" id="player-duration">0:00</span>
+        </div>
+        <div class="player-volume">
+          <button type="button" class="player-btn" id="player-mute" aria-label="Silenciar">
+            <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
+          </button>
+          <input type="range" id="player-volume" class="player-range" min="0" max="100" step="1" aria-label="Volume">
         </div>
       </div>
     </aside>
@@ -179,12 +182,16 @@
     }
   }
 
+  let videoOpen = false;
+
   function setPanel(open) {
-    el.panel.hidden = !open;
+    videoOpen = open;
+    el.panel.setAttribute('aria-hidden', String(!open));
     el.root.classList.toggle('expanded', open);
     el.toggle.setAttribute('aria-expanded', String(open));
-    el.toggle.setAttribute('aria-label', open ? 'Minimizar (pausa a música)' : 'Mostrar vídeo');
-    icon(el.toggle).textContent = open ? 'expand_more' : 'expand_less';
+    el.toggle.setAttribute('aria-label', open ? 'Esconder vídeo' : 'Mostrar vídeo');
+    el.toggle.title = open ? 'Esconder vídeo' : 'Mostrar vídeo';
+    icon(el.toggle).textContent = open ? 'videocam_off' : 'videocam';
   }
 
   function saveSession(extra = {}) {
@@ -193,6 +200,7 @@
       index: state.index,
       time,
       playing: isPlaying,
+      video: videoOpen,
       ...extra
     });
   }
@@ -263,7 +271,6 @@
     if (event.data === S.PLAYING) {
       isPlaying = true;
       errorStreak = 0;
-      setPanel(true);
       startProgress();
     } else if (event.data === S.PAUSED || event.data === S.CUED) {
       isPlaying = false;
@@ -281,7 +288,7 @@
   // Faixa bloqueada para incorporação: avisa e pula para a próxima
   function onError() {
     errorStreak++;
-    el.source.textContent = 'Essa faixa não toca fora do YouTube, pulando…';
+    el.source.textContent = 'Faixa indisponível, pulando…';
     if (errorStreak < TRACKS.length) {
       setTimeout(() => changeTrack(1, true), 1500);
     } else {
@@ -307,7 +314,6 @@
   // AÇÕES
   // ================================================
   function play() {
-    setPanel(true);
     if (!yt) {
       createPlayer(true);
     } else if (ytReady) {
@@ -337,15 +343,10 @@
   el.prev.addEventListener('click', () => changeTrack(-1, isPlaying));
   el.next.addEventListener('click', () => changeTrack(1, isPlaying));
 
+  // Só mostra ou esconde o vídeo; a música continua tocando
   el.toggle.addEventListener('click', () => {
-    const open = el.panel.hidden;
-    if (open) {
-      setPanel(true);
-      if (!yt) createPlayer(false);
-    } else {
-      pause();
-      setPanel(false);
-    }
+    setPanel(!videoOpen);
+    if (videoOpen && !yt) createPlayer(false);
   });
 
   el.close.addEventListener('click', () => {
@@ -397,13 +398,13 @@
   renderTrack();
   renderVolume();
   renderPlayState();
-  setPanel(false);
+  setPanel(Boolean(saved.video));
+  if (videoOpen && !state.wasPlaying) createPlayer(false);
 
   setTimeout(() => el.root.classList.add('visible'), state.wasPlaying ? 0 : 1200);
 
   // Vinha tocando na página anterior: tenta continuar
   if (state.wasPlaying) {
-    setPanel(true);
     createPlayer(true).then(() => {
       setTimeout(() => {
         if (!isPlaying) el.source.textContent = 'Toque em play para continuar';

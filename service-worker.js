@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bocchi-cache-v8';
+const CACHE_NAME = 'bocchi-cache-v9';
 
 // Core assets that are pre-cached on install
 const CORE_ASSETS = [
@@ -26,6 +26,8 @@ const CORE_ASSETS = [
   './assets/images/Logo Bocchi 2.png',
   './assets/images/Logo Bocchi.png',
   './assets/images/icon-512.png',
+  './assets/images/icon-192.png',
+  './assets/images/apple-touch-icon.png',
   './assets/images/player-cover.jpg'
 ];
 

@@ -1168,13 +1168,20 @@ button {
   transform: none;
 }
 
-/* Painel com o vídeo (precisa ficar visível enquanto toca) */
+/* Painel com o vídeo: recolhido por padrão (só áudio).
+   Usa altura zero em vez de display:none para o player continuar tocando. */
 .player-panel {
-  padding: 8px 8px 0;
+  height: 0;
+  padding: 0 8px;
+  overflow: hidden;
+  visibility: hidden;
 }
 
-.player-panel[hidden] {
-  display: none;
+.mini-player.expanded .player-panel {
+  height: auto;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  visibility: visible;
 }
 
 .player-video {
@@ -1192,25 +1199,44 @@ button {
   border: 0;
 }
 
+/* Linha de baixo: tempo, progresso e volume (sempre visível) */
+.player-extra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 8px 12px;
+}
+
 .player-progress,
 .player-volume {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 4px;
+  gap: 8px;
 }
 
 .player-progress {
-  margin-top: 10px;
+  flex: 1;
+  min-width: 0;
 }
 
 .player-volume {
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
+.player-volume .player-btn {
+  width: 28px;
+  height: 28px;
+}
+
+.player-volume .material-symbols-outlined {
+  font-size: 1.15rem;
 }
 
 .player-volume .player-range {
-  flex: 0 1 120px;
+  flex: 0 0 76px;
+  width: 76px;
 }
 
 .player-time {
@@ -1221,14 +1247,9 @@ button {
   text-align: center;
 }
 
-.player-source {
-  margin-left: auto;
+.player-label > span:last-child {
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-faint);
 }
 
 /* Sliders de progresso e volume */
@@ -1396,12 +1417,12 @@ button {
 
 /* Espaço para o player não cobrir o fim do rodapé */
 body.has-player .site-footer {
-  padding-bottom: 100px;
+  padding-bottom: 130px;
 }
 
 @media (max-width: 600px) {
   body.has-player {
-    padding-bottom: 76px;
+    padding-bottom: 112px;
   }
 
   body.has-player .site-footer {
@@ -1427,7 +1448,7 @@ body.has-player .site-footer {
 
   .back-to-top {
     right: 10px;
-    bottom: 86px;
+    bottom: 122px;
   }
 
   body:not(.has-player) .back-to-top {
