@@ -48,7 +48,7 @@
             <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
                 <ul class="nav-list">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="filme.html" class="nav-link">O Filme</a></li>
+                    <li><a href="filme.html" class="nav-link">Os Filmes</a></li>
                     <li><a href="fotos.html" class="nav-link">Fotos</a></li>
                     <li><a href="comentarios.html" class="nav-link">Comentários</a></li>
                     <li><a href="contato.html" class="nav-link active" aria-current="page">Contato</a></li>
@@ -77,21 +77,31 @@
                         nas perguntas frequentes ou mande uma mensagem.
                     </p>
                 </div>
-                <figure class="page-hero-art">
-                    <div class="art-frame">
-                        <img src="./assets/images/banner-contato.jpg"
-                            alt="Nijika, Hitori, Kita e Ryo atravessando a rua com seus instrumentos" width="1500"
-                            height="500">
-                    </div>
+                <div class="page-hero-art poster-wall">
+                    <figure class="poster">
+                        <div class="poster-print">
+                            <span class="tape tape--left" aria-hidden="true"></span>
+                            <span class="tape tape--right" aria-hidden="true"></span>
+                            <div class="poster-photo">
+                                <img src="./assets/images/banner-contato.jpg"
+                                    alt="Nijika, Hitori, Kita e Ryo atravessando a rua com seus instrumentos"
+                                    width="1500" height="500">
+                            </div>
+                            <figcaption class="poster-caption">
+                                <span class="hand">a caminho do ensaio</span>
+                                <small>Kessoku Band</small>
+                            </figcaption>
+                        </div>
+                    </figure>
                     <span class="sticker" lang="ja" aria-hidden="true">お問い合わせ</span>
-                </figure>
+                </div>
             </div>
         </section>
 
         <section class="section contact-section">
             <div class="container contact-grid">
                 <div class="faq-section reveal" aria-labelledby="faq-title">
-                    <p class="eyebrow"><span class="num">01</span>Perguntas frequentes</p>
+                    <p class="eyebrow"><span class="jp" lang="ja">よくある質問</span>Perguntas frequentes</p>
                     <h2 class="section-heading" id="faq-title">Antes de escrever</h2>
 
                     <!-- FAQ Accordion -->
@@ -104,7 +114,7 @@
                                 </button>
                             </h3>
                             <div class="faq-content" id="faq-1" role="region" aria-labelledby="faq-btn-1">
-                                <p>O anime completo, com 12 episódios, está disponível oficialmente na <strong>Crunchyroll</strong>, com áudio original em japonês e dublagem em português.</p>
+                                <p>Os 12 episódios estão na <strong>Crunchyroll</strong>, com áudio original em japonês e dublagem em português brasileiro. Os dois filmes compilatórios também entraram no catálogo da plataforma em alguns países.</p>
                             </div>
                         </div>
 
@@ -116,7 +126,7 @@
                                 </button>
                             </h3>
                             <div class="faq-content" id="faq-2" role="region" aria-labelledby="faq-btn-2">
-                                <p>Até o momento, não há anúncio oficial de uma segunda temporada. No entanto, o anime ganhou dois filmes compilatórios lançados nos cinemas para manter a jornada da Kessoku Band viva enquanto aguardamos novidades!</p>
+                                <p>Sim! A 2ª temporada foi anunciada oficialmente em fevereiro de 2025, durante um show da turnê da Kessoku Band em Tóquio. A CloverWorks continua na animação e a direção passa para Yusuke Yamamoto. A data de estreia ainda não foi divulgada.</p>
                             </div>
                         </div>
 
@@ -128,7 +138,19 @@
                                 </button>
                             </h3>
                             <div class="faq-content" id="faq-3" role="region" aria-labelledby="faq-btn-3">
-                                <p>Sim! Um álbum de estúdio completo chamado <em>Kessoku Band</em> foi lançado com as músicas do anime e fez muito sucesso nas paradas. Dá para ouvir no Spotify, Apple Music e YouTube.</p>
+                                <p>Sim! O álbum <em>Kessoku Band</em> saiu em dezembro de 2022 e chegou ao 1º lugar da Oricon, a principal parada do Japão. Em 2024 veio o EP <em>Re:Kessoku Band</em>, com as músicas dos filmes. Dá para ouvir no Spotify, Apple Music e YouTube, ou no player aqui do site.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3 class="faq-heading">
+                                <button type="button" class="faq-button" id="faq-btn-4" aria-expanded="false" aria-controls="faq-4">
+                                    <span class="faq-title">O que são os filmes Re: e Re:Re:?</span>
+                                    <span class="material-symbols-outlined faq-icon" aria-hidden="true">add</span>
+                                </button>
+                            </h3>
+                            <div class="faq-content" id="faq-4" role="region" aria-labelledby="faq-btn-4">
+                                <p>São dois filmes que recontam a primeira temporada para o cinema. Estrearam no Japão em junho e agosto de 2024 e foram exibidos no Ocidente como “Recap Part 1 &amp; 2”. Veja mais na página <a href="filme.html">Os Filmes</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -169,22 +191,39 @@
                 </a>
                 <p>Fan site sem fins lucrativos dedicado à Kessoku Band e à guitarrista mais tímida do rock.</p>
             </div>
-            <nav aria-label="Rodapé">
-                <p class="footer-title">Páginas</p>
-                <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="filme.html">O Filme</a></li>
-                    <li><a href="fotos.html">Fotos</a></li>
-                    <li><a href="comentarios.html">Comentários</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
-            </nav>
             <div>
                 <p class="footer-title">Créditos</p>
                 <ul class="footer-credits">
                     <li><strong>Mangá</strong> · Aki Hamaji</li>
                     <li><strong>Anime</strong> · CloverWorks</li>
                     <li><strong>Direção</strong> · Keiichirō Saitō</li>
+                    <li><strong>Músicas</strong> · Kessoku Band</li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Assistir e ouvir</p>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://www.crunchyroll.com/pt-br/search?q=bocchi%20the%20rock" target="_blank" rel="noopener">
+                            Crunchyroll
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/@btr_anime_official" target="_blank" rel="noopener">
+                            Canal oficial no YouTube
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://open.spotify.com/search/kessoku%20band" target="_blank" rel="noopener">
+                            Kessoku Band no Spotify
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -200,6 +239,7 @@
     </button>
 
     <script src="script.js"></script>
+    <script src="player.js"></script>
     <script src="./contato.js"></script>
 </body>
 

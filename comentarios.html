@@ -48,7 +48,7 @@
             <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
                 <ul class="nav-list">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="filme.html" class="nav-link">O Filme</a></li>
+                    <li><a href="filme.html" class="nav-link">Os Filmes</a></li>
                     <li><a href="fotos.html" class="nav-link">Fotos</a></li>
                     <li><a href="comentarios.html" class="nav-link active" aria-current="page">Comentários</a></li>
                     <li><a href="contato.html" class="nav-link">Contato</a></li>
@@ -77,13 +77,35 @@
                         cabeça.
                     </p>
                 </div>
-                <figure class="page-hero-art">
-                    <div class="art-frame">
-                        <img src="./assets/images/show2.jpg" alt="Kessoku Band tocando no palco da casa de shows STARRY"
-                            width="1920" height="1080">
-                    </div>
+                <div class="page-hero-art poster-wall poster-wall--collage">
+                    <figure class="poster poster--main">
+                        <div class="poster-print">
+                            <span class="tape tape--left" aria-hidden="true"></span>
+                            <span class="tape tape--right" aria-hidden="true"></span>
+                            <div class="poster-photo">
+                                <img src="./assets/images/show2.jpg"
+                                    alt="Kessoku Band tocando no palco da casa de shows STARRY" width="1920" height="1080">
+                            </div>
+                            <figcaption class="poster-caption">
+                                <span class="hand">vista da plateia</span>
+                                <small>STARRY</small>
+                            </figcaption>
+                        </div>
+                    </figure>
+                    <figure class="poster poster--small">
+                        <div class="poster-print">
+                            <span class="tape tape--center" aria-hidden="true"></span>
+                            <div class="poster-photo">
+                                <img src="./assets/images/anime1.jpg" alt="Ryo, Nijika, Kita e Hitori sentadas lado a lado"
+                                    width="1920" height="1080" loading="lazy">
+                            </div>
+                            <figcaption class="poster-caption">
+                                <span class="hand">depois do show</span>
+                            </figcaption>
+                        </div>
+                    </figure>
                     <span class="sticker" lang="ja" aria-hidden="true">ファンの声</span>
-                </figure>
+                </div>
             </div>
         </section>
 
@@ -160,22 +182,39 @@
                 </a>
                 <p>Fan site sem fins lucrativos dedicado à Kessoku Band e à guitarrista mais tímida do rock.</p>
             </div>
-            <nav aria-label="Rodapé">
-                <p class="footer-title">Páginas</p>
-                <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="filme.html">O Filme</a></li>
-                    <li><a href="fotos.html">Fotos</a></li>
-                    <li><a href="comentarios.html">Comentários</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
-            </nav>
             <div>
                 <p class="footer-title">Créditos</p>
                 <ul class="footer-credits">
                     <li><strong>Mangá</strong> · Aki Hamaji</li>
                     <li><strong>Anime</strong> · CloverWorks</li>
                     <li><strong>Direção</strong> · Keiichirō Saitō</li>
+                    <li><strong>Músicas</strong> · Kessoku Band</li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Assistir e ouvir</p>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://www.crunchyroll.com/pt-br/search?q=bocchi%20the%20rock" target="_blank" rel="noopener">
+                            Crunchyroll
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/@btr_anime_official" target="_blank" rel="noopener">
+                            Canal oficial no YouTube
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://open.spotify.com/search/kessoku%20band" target="_blank" rel="noopener">
+                            Kessoku Band no Spotify
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -191,6 +230,7 @@
     </button>
 
     <script src="script.js"></script>
+    <script src="player.js"></script>
     <script src="./comentarios.js"></script>
 </body>
 

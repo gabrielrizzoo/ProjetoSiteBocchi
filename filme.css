@@ -2,8 +2,15 @@
    FILME PAGE — SPECIFIC STYLES
    ================================================ */
 
-.page-hero-art .art-frame img {
-  object-position: 50% 40%;
+.page-hero-art .poster {
+  --ratio: 4 / 3;
+  --focus: 50% 40%;
+}
+
+.page-hero-art > .sticker {
+  top: 0;
+  right: 8px;
+  transform: rotate(4deg);
 }
 
 /* ================================================

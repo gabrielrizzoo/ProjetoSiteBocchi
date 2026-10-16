@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Garanta seu ingresso para o filme compilatório de Bocchi The Rock!">
-    <title>Bocchi The Rock! — O Filme</title>
+    <meta name="description" content="Os filmes compilatórios Re: e Re:Re: de Bocchi The Rock!, com simulador de ingressos.">
+    <title>Bocchi The Rock! — Os Filmes</title>
     <!-- Tema salvo aplicado antes da primeira pintura -->
     <script>
         document.documentElement.classList.add('js');
@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Yusei+Magic&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
     <!-- Open Graph -->
-    <meta property="og:title" content="Bocchi The Rock! — O Filme">
-    <meta property="og:description" content="Compre seus ingressos para a experiência cinematográfica do ano!">
+    <meta property="og:title" content="Bocchi The Rock! — Os Filmes">
+    <meta property="og:description" content="Re: e Re:Re:, os dois filmes que recontam a primeira temporada de Bocchi The Rock! no cinema.">
     <meta property="og:image" content="./assets/images/og-preview.jpg">
     <meta property="og:type" content="website">
     <!-- Styles -->
@@ -48,7 +48,7 @@
             <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
                 <ul class="nav-list">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="filme.html" class="nav-link active" aria-current="page">O Filme</a></li>
+                    <li><a href="filme.html" class="nav-link active" aria-current="page">Os Filmes</a></li>
                     <li><a href="fotos.html" class="nav-link">Fotos</a></li>
                     <li><a href="comentarios.html" class="nav-link">Comentários</a></li>
                     <li><a href="contato.html" class="nav-link">Contato</a></li>
@@ -70,11 +70,11 @@
         <section class="page-hero" aria-labelledby="page-title">
             <div class="page-hero-inner">
                 <div class="page-hero-copy">
-                    <p class="eyebrow">Edição especial · Nos cinemas</p>
-                    <h1 id="page-title">O <span class="hl">Filme</span></h1>
+                    <p class="eyebrow">Filmes compilatórios · 2024</p>
+                    <h1 id="page-title">Os <span class="hl">Filmes</span></h1>
                     <p class="page-hero-lead">
-                        A trajetória da Kessoku Band reunida em um longa para a tela grande do primeiro ensaio
-                        travado ao show no festival da escola.
+                        A primeira temporada remontada em dois longas para o cinema, Re: e Re:Re:, do primeiro
+                        ensaio travado ao show no festival da escola.
                     </p>
                     <div class="page-hero-links">
                         <a href="#ticket-section" class="btn btn-primary">
@@ -83,13 +83,23 @@
                         </a>
                     </div>
                 </div>
-                <figure class="page-hero-art">
-                    <div class="art-frame">
-                        <img src="./assets/images/show.jpeg" alt="Cena de show no palco, com os holofotes acesos"
-                            width="3840" height="2160">
-                    </div>
+                <div class="page-hero-art poster-wall">
+                    <figure class="poster">
+                        <div class="poster-print">
+                            <span class="tape tape--left" aria-hidden="true"></span>
+                            <span class="tape tape--right" aria-hidden="true"></span>
+                            <div class="poster-photo">
+                                <img src="./assets/images/show.jpeg" alt="Cena de show no palco, com os holofotes acesos"
+                                    width="3840" height="2160">
+                            </div>
+                            <figcaption class="poster-caption">
+                                <span class="hand">Re: · Re:Re:</span>
+                                <small>Japão, 2024</small>
+                            </figcaption>
+                        </div>
+                    </figure>
                     <span class="sticker" lang="ja" aria-hidden="true">劇場総集編</span>
-                </figure>
+                </div>
             </div>
         </section>
 
@@ -97,31 +107,32 @@
         <section class="section" id="ticket-section" aria-labelledby="synopsis-title">
             <div class="container film-grid">
                 <div class="film-copy reveal" id="synopsis">
-                    <p class="eyebrow"><span class="num">01</span>Sobre o filme</p>
+                    <p class="eyebrow"><span class="jp" lang="ja">作品紹介</span>Sobre os filmes</p>
                     <h2 class="section-heading" id="synopsis-title">Ação, comédia e muito rock</h2>
                     <p class="description">
-                        Reviva toda a trajetória da Hitori Gotoh e da Kessoku Band neste filme compilatório, com
-                        cenas remasterizadas, som imersivo de cinema e conteúdo inédito para os verdadeiros fãs.
+                        <strong>Re:</strong> cobre a primeira metade da série, começando com a Hitori sozinha no
+                        quarto. <strong>Re:Re:</strong> segue até o show no festival da escola. Juntos, recontam
+                        os 12 episódios para a tela grande.
                     </p>
                     <p class="description">
-                        Sinta a vibração da guitarra e as crises existenciais da Bocchi como nunca antes.
+                        As músicas novas dos filmes saíram no EP <em>Re:Kessoku Band</em>, lançado em agosto de 2024.
                     </p>
                     <dl class="spec-list">
                         <div>
+                            <dt>Re:</dt>
+                            <dd>Estreou no Japão em 7 de junho de 2024</dd>
+                        </div>
+                        <div>
+                            <dt>Re:Re:</dt>
+                            <dd>Estreou no Japão em 9 de agosto de 2024</dd>
+                        </div>
+                        <div>
                             <dt>Duração</dt>
-                            <dd>120 min</dd>
+                            <dd>Cerca de 165 min somando os dois</dd>
                         </div>
                         <div>
-                            <dt>Nota dos fãs</dt>
-                            <dd>9,8 / 10</dd>
-                        </div>
-                        <div>
-                            <dt>Sessões</dt>
-                            <dd>Dubladas e legendadas</dd>
-                        </div>
-                        <div>
-                            <dt>Ingresso</dt>
-                            <dd>R$ 35,00 (inteira)</dd>
+                            <dt>No Ocidente</dt>
+                            <dd>Exibidos como “Recap Part 1 &amp; 2” pela Crunchyroll, em outubro de 2024</dd>
                         </div>
                     </dl>
                 </div>
@@ -131,7 +142,7 @@
                     <div class="planner-form" id="planner-form">
                         <div class="planner-head">
                             <h2 id="planner-title">Garanta seu ingresso</h2>
-                            <p>Escolha a sessão e a quantidade de ingressos.</p>
+                            <p>Escolha o dia, o filme e quantas pessoas vão com você.</p>
                         </div>
 
                         <fieldset class="planner-step">
@@ -139,37 +150,37 @@
                             <div class="date-selector" id="date-selector">
                                 <button type="button" class="date-btn active" aria-pressed="true">
                                     <span class="date-day">Hoje</span>
-                                    <span class="date-num">—</span>
+                                    <span class="date-num">--/--</span>
                                 </button>
                                 <button type="button" class="date-btn" aria-pressed="false">
                                     <span class="date-day">Amanhã</span>
-                                    <span class="date-num">—</span>
+                                    <span class="date-num">--/--</span>
                                 </button>
                                 <button type="button" class="date-btn" aria-pressed="false">
                                     <span class="date-day">Depois</span>
-                                    <span class="date-num">—</span>
+                                    <span class="date-num">--/--</span>
                                 </button>
                             </div>
                         </fieldset>
 
                         <fieldset class="planner-step">
-                            <legend class="step-title"><span class="step-num">2</span>Horário</legend>
+                            <legend class="step-title"><span class="step-num">2</span>Sessão</legend>
                             <div class="time-selector">
                                 <button type="button" class="time-btn" disabled>
                                     <span class="time">14:00</span>
                                     <span class="time-tag">Esgotado</span>
                                 </button>
-                                <button type="button" class="time-btn active" aria-pressed="true" data-lang="Dublado">
+                                <button type="button" class="time-btn active" aria-pressed="true" data-lang="Re:">
                                     <span class="time">16:30</span>
-                                    <span class="time-tag">Dublado</span>
+                                    <span class="time-tag">Re:</span>
                                 </button>
-                                <button type="button" class="time-btn" aria-pressed="false" data-lang="Legendado">
+                                <button type="button" class="time-btn" aria-pressed="false" data-lang="Re:Re:">
                                     <span class="time">19:00</span>
-                                    <span class="time-tag">Legendado</span>
+                                    <span class="time-tag">Re:Re:</span>
                                 </button>
-                                <button type="button" class="time-btn" aria-pressed="false" data-lang="Legendado">
+                                <button type="button" class="time-btn" aria-pressed="false" data-lang="Sessão dupla">
                                     <span class="time">21:30</span>
-                                    <span class="time-tag">Legendado</span>
+                                    <span class="time-tag">Sessão dupla</span>
                                 </button>
                             </div>
                         </fieldset>
@@ -189,7 +200,7 @@
 
                         <div class="planner-summary">
                             <div>
-                                <p class="summary-line" id="summary-line">Hoje · 16:30 · Dublado</p>
+                                <p class="summary-line" id="summary-line">Hoje · 16:30 · Re:</p>
                                 <p class="ticket-total">Total <span id="total-price">R$ 35,00</span></p>
                             </div>
                             <button id="buy-btn" type="button" class="btn btn-primary">
@@ -204,7 +215,7 @@
                         <span class="material-symbols-outlined success-icon" aria-hidden="true">check_circle</span>
                         <h2>Reserva confirmada!</h2>
                         <p id="success-text"></p>
-                        <p class="planner-note">Ambiente simulado para fins de portfólio — nenhuma cobrança é feita.</p>
+                        <p class="planner-note">Ambiente simulado para fins de portfólio, nenhuma cobrança é feita.</p>
                         <button type="button" class="btn btn-ghost" id="new-booking">Fazer nova reserva</button>
                     </div>
                 </div>
@@ -220,22 +231,39 @@
                 </a>
                 <p>Fan site sem fins lucrativos dedicado à Kessoku Band e à guitarrista mais tímida do rock.</p>
             </div>
-            <nav aria-label="Rodapé">
-                <p class="footer-title">Páginas</p>
-                <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="filme.html">O Filme</a></li>
-                    <li><a href="fotos.html">Fotos</a></li>
-                    <li><a href="comentarios.html">Comentários</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
-            </nav>
             <div>
                 <p class="footer-title">Créditos</p>
                 <ul class="footer-credits">
                     <li><strong>Mangá</strong> · Aki Hamaji</li>
                     <li><strong>Anime</strong> · CloverWorks</li>
                     <li><strong>Direção</strong> · Keiichirō Saitō</li>
+                    <li><strong>Músicas</strong> · Kessoku Band</li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Assistir e ouvir</p>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://www.crunchyroll.com/pt-br/search?q=bocchi%20the%20rock" target="_blank" rel="noopener">
+                            Crunchyroll
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/@btr_anime_official" target="_blank" rel="noopener">
+                            Canal oficial no YouTube
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://open.spotify.com/search/kessoku%20band" target="_blank" rel="noopener">
+                            Kessoku Band no Spotify
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -251,6 +279,7 @@
     </button>
 
     <script src="script.js"></script>
+    <script src="player.js"></script>
     <script src="filme.js"></script>
 </body>
 

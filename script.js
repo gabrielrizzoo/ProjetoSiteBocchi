@@ -1,6 +1,7 @@
 /**
  * Global Script — Bocchi The Rock! Website
- * Handles: tema, menu mobile, header, scroll reveal, voltar ao topo, mini player
+ * Handles: tema, menu mobile, header, scroll reveal, voltar ao topo
+ * (o mini player fica em player.js)
  *
  * O tema salvo é aplicado por um script inline no <head> de cada página,
  * antes da primeira pintura, para evitar o "flash" de tema errado.
@@ -203,104 +204,4 @@ document.addEventListener('DOMContentLoaded', () => {
     el.textContent = currentYear > 2024 ? `2024–${currentYear}` : '2024';
   });
 
-  // ================================================
-  // FLOATING MINI PLAYER
-  // Percorre as músicas da Kessoku Band no anime e abre
-  // a faixa escolhida no YouTube.
-  // ================================================
-  const TRACKS = [
-    'Seishun Complex',
-    'Hitoribocchi Tokyo',
-    'Distortion!!',
-    'Guitar to Kodoku to Aoi Hoshi',
-    'Ano Band',
-    'Karakara',
-    'Nani ga Warui',
-    'Wasurete Yaranai',
-    'Seiza ni Naretara',
-    'Korogaru Iwa, Kimi ni Asa ga Furu'
-  ];
-
-  function initMiniPlayer() {
-    let index = 0;
-    try {
-      if (sessionStorage.getItem('bocchiPlayerDismissed') === 'true') return;
-      index = parseInt(sessionStorage.getItem('bocchiPlayerTrack'), 10) || 0;
-    } catch {
-      // Sem sessionStorage: mostra o player normalmente
-    }
-    if (index < 0 || index >= TRACKS.length) index = 0;
-
-    const playerHTML = `
-      <aside id="mini-player" class="mini-player" aria-label="Músicas da Kessoku Band">
-        <div class="player-cover" role="img" aria-label="Capa: Kessoku Band"></div>
-        <div class="player-info">
-          <p class="player-label">
-            <span class="player-eq" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span><span id="player-pos"></span> · Kessoku Band</span>
-          </p>
-          <p class="player-title" id="player-title" aria-live="polite"></p>
-        </div>
-        <div class="player-controls">
-          <button class="player-btn" id="player-prev" aria-label="Música anterior">
-            <span class="material-symbols-outlined">skip_previous</span>
-          </button>
-          <a class="player-btn listen-btn" id="player-listen" target="_blank" rel="noopener">
-            <span class="material-symbols-outlined">play_arrow</span>
-          </a>
-          <button class="player-btn" id="player-next" aria-label="Próxima música">
-            <span class="material-symbols-outlined">skip_next</span>
-          </button>
-          <button class="player-btn player-close" id="player-close" aria-label="Fechar player">
-            <span class="material-symbols-outlined">close</span>
-          </button>
-        </div>
-      </aside>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', playerHTML);
-    document.body.classList.add('has-player');
-
-    const player = document.getElementById('mini-player');
-    const titleEl = document.getElementById('player-title');
-    const posEl = document.getElementById('player-pos');
-    const listenBtn = document.getElementById('player-listen');
-
-    function render() {
-      const track = TRACKS[index];
-      titleEl.textContent = track;
-      posEl.textContent = `${index + 1}/${TRACKS.length}`;
-      listenBtn.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(`Kessoku Band ${track}`)}`;
-      listenBtn.setAttribute('aria-label', `Ouvir ${track} no YouTube (abre em nova aba)`);
-      try {
-        sessionStorage.setItem('bocchiPlayerTrack', index);
-      } catch {
-        // ignora
-      }
-    }
-
-    function step(delta) {
-      index = (index + delta + TRACKS.length) % TRACKS.length;
-      render();
-    }
-
-    document.getElementById('player-prev').addEventListener('click', () => step(-1));
-    document.getElementById('player-next').addEventListener('click', () => step(1));
-
-    document.getElementById('player-close').addEventListener('click', () => {
-      player.classList.remove('visible');
-      document.body.classList.remove('has-player');
-      try {
-        sessionStorage.setItem('bocchiPlayerDismissed', 'true');
-      } catch {
-        // ignora
-      }
-      setTimeout(() => player.remove(), 500);
-    });
-
-    render();
-    setTimeout(() => player.classList.add('visible'), 1200);
-  }
-
-  initMiniPlayer();
 });

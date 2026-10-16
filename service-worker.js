@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bocchi-cache-v7';
+const CACHE_NAME = 'bocchi-cache-v8';
 
 // Core assets that are pre-cached on install
 const CORE_ASSETS = [
@@ -20,6 +20,7 @@ const CORE_ASSETS = [
   './fotos.js',
   './comentarios.js',
   './filme.js',
+  './player.js',
   './manifest.json',
   './assets/images/favicon.svg',
   './assets/images/Logo Bocchi 2.png',

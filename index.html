@@ -50,7 +50,7 @@
             <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
                 <ul class="nav-list">
                     <li><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
-                    <li><a href="filme.html" class="nav-link">O Filme</a></li>
+                    <li><a href="filme.html" class="nav-link">Os Filmes</a></li>
                     <li><a href="fotos.html" class="nav-link">Fotos</a></li>
                     <li><a href="comentarios.html" class="nav-link">Comentários</a></li>
                     <li><a href="contato.html" class="nav-link">Contato</a></li>
@@ -102,15 +102,36 @@
                     </dl>
                 </div>
 
-                <figure class="hero-art">
-                    <div class="hero-art-frame">
-                        <img src="./assets/images/banner-header.jpg"
-                            alt="Kita, Ryo, Hitori e Nijika tocando juntas no palco" width="1140" height="500"
-                            fetchpriority="high">
-                    </div>
-                    <span class="sticker" aria-hidden="true">結束バンド</span>
-                    <figcaption>Key visual oficial do anime</figcaption>
-                </figure>
+                <div class="hero-art poster-wall poster-wall--collage">
+                    <figure class="poster poster--main">
+                        <div class="poster-print">
+                            <span class="tape tape--left" aria-hidden="true"></span>
+                            <span class="tape tape--right" aria-hidden="true"></span>
+                            <div class="poster-photo">
+                                <img src="./assets/images/banner-header.jpg"
+                                    alt="Kita, Ryo, Hitori e Nijika tocando juntas no palco" width="1140" height="500"
+                                    fetchpriority="high">
+                            </div>
+                            <figcaption class="poster-caption">
+                                <span class="hand">a banda completa</span>
+                                <small>Key visual · 2022</small>
+                            </figcaption>
+                        </div>
+                    </figure>
+                    <figure class="poster poster--small">
+                        <div class="poster-print">
+                            <span class="tape tape--center" aria-hidden="true"></span>
+                            <div class="poster-photo">
+                                <img src="./assets/images/anime5.jpg" alt="Hitori com a guitarra sob as luzes do palco"
+                                    width="1280" height="720" loading="lazy">
+                            </div>
+                            <figcaption class="poster-caption">
+                                <span class="hand">guitarhero</span>
+                            </figcaption>
+                        </div>
+                    </figure>
+                    <span class="sticker" lang="ja" aria-hidden="true">結束バンド</span>
+                </div>
             </div>
         </section>
 
@@ -118,7 +139,7 @@
         <section class="section about" id="sobre" aria-labelledby="sobre-title">
             <div class="container about-grid">
                 <div class="about-copy reveal">
-                    <p class="eyebrow"><span class="num">01</span>Sinopse</p>
+                    <p class="eyebrow"><span class="jp" lang="ja">あらすじ</span>Sinopse</p>
                     <h2 class="section-heading" id="sobre-title">Talento de sobra, coragem nenhuma</h2>
                     <p class="description">
                         A história gira em torno de <strong>Hitori Gotoh</strong>, apelidada de “Bocchi”, uma garota
@@ -144,7 +165,11 @@
                         </div>
                         <div>
                             <dt>Onde assistir</dt>
-                            <dd>Crunchyroll</dd>
+                            <dd>Crunchyroll, legendado e dublado</dd>
+                        </div>
+                        <div>
+                            <dt>2ª temporada</dt>
+                            <dd>Anunciada em 2025, ainda sem data</dd>
                         </div>
                     </dl>
                 </div>
@@ -170,7 +195,7 @@
             <div class="container">
                 <div class="section-head section-head--split reveal">
                     <div>
-                        <p class="eyebrow"><span class="num">02</span>A banda</p>
+                        <p class="eyebrow"><span class="jp" lang="ja">メンバー</span>A banda</p>
                         <h2 class="section-heading" id="banda-title">Conheça a Kessoku Band</h2>
                     </div>
                     <p class="section-lead">
@@ -242,11 +267,11 @@
                 <a class="ticket-link" href="filme.html#ticket-section">
                     <div class="ticket">
                         <div class="ticket-main">
-                            <p class="ticket-kicker">03 — Nos cinemas</p>
-                            <h2 class="ticket-title" id="film-cta-title">O filme da Kessoku Band</h2>
+                            <p class="ticket-kicker"><span class="jp" lang="ja">劇場総集編</span>Nos cinemas</p>
+                            <h2 class="ticket-title" id="film-cta-title">Os filmes da Kessoku Band</h2>
                             <p class="ticket-text">
-                                A série inteira remontada para a tela grande, com cenas remasterizadas e som de
-                                cinema.
+                                A primeira temporada remontada em dois longas, Re: e Re:Re:, para ver na tela grande
+                                e ouvir no volume que o rock merece.
                             </p>
                         </div>
                         <div class="ticket-stub">
@@ -273,22 +298,39 @@
                 </a>
                 <p>Fan site sem fins lucrativos dedicado à Kessoku Band e à guitarrista mais tímida do rock.</p>
             </div>
-            <nav aria-label="Rodapé">
-                <p class="footer-title">Páginas</p>
-                <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="filme.html">O Filme</a></li>
-                    <li><a href="fotos.html">Fotos</a></li>
-                    <li><a href="comentarios.html">Comentários</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
-            </nav>
             <div>
                 <p class="footer-title">Créditos</p>
                 <ul class="footer-credits">
                     <li><strong>Mangá</strong> · Aki Hamaji</li>
                     <li><strong>Anime</strong> · CloverWorks</li>
                     <li><strong>Direção</strong> · Keiichirō Saitō</li>
+                    <li><strong>Músicas</strong> · Kessoku Band</li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Assistir e ouvir</p>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://www.crunchyroll.com/pt-br/search?q=bocchi%20the%20rock" target="_blank" rel="noopener">
+                            Crunchyroll
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/@btr_anime_official" target="_blank" rel="noopener">
+                            Canal oficial no YouTube
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://open.spotify.com/search/kessoku%20band" target="_blank" rel="noopener">
+                            Kessoku Band no Spotify
+                            <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+                            <span class="visually-hidden">(abre em nova aba)</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -304,6 +346,7 @@
     </button>
 
     <script src="script.js"></script>
+    <script src="player.js"></script>
 </body>
 
 </html>

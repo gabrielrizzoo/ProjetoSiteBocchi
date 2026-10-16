@@ -12,13 +12,13 @@ Originalmente criado em 2023 como exercício de um curso de Front-End (Prof. Pau
 
 ## ✨ Funcionalidades
 
-- 🎬 **Hero Editorial** — Título em tipografia condensada, key visual oficial recortado e ficha rápida do anime
+- 🎬 **Hero Editorial** — Título em tipografia condensada e colagem de fotos impressas com fita adesiva, legenda escrita à mão e adesivos em japonês
 - 🎸 **Cards de Personagens** — Cada integrante com cor própria (Rosa, Azul, Amarelo, Vermelho), nome em japonês na vertical e bio revelada no hover/foco (sempre visível em telas de toque); no celular viram um carrossel com scroll-snap
 - 🎟️ **Simulador de Ingressos** — Datas geradas a partir do dia atual, resumo da sessão em tempo real e estado de confirmação sem recarregar a página
 - 📸 **Galeria Interativa** — Lightbox acessível (foco preso no modal, teclado, swipe no celular e contador)
 - 💬 **Mural de Comentários** — Sistema client-side com proteção contra XSS, avaliação por estrelas, avatares coloridos e timestamps relativos
 - ✉️ **Contato** — FAQ em acordeão + formulário com validação inline e contador de caracteres
-- 🎵 **Mini Player** — Percorre as músicas da Kessoku Band no anime e abre a faixa escolhida no YouTube
+- 🎵 **Mini Player** — Toca as músicas da Kessoku Band pela API do YouTube (vídeos oficiais), com play/pausa, faixa anterior/próxima, barra de progresso e volume; tenta continuar a música ao trocar de página
 - 🌗 **Tema Claro/Escuro** — Aplicado antes da primeira pintura (sem "flash"), com preferência salva
 - ♿ **Acessibilidade** — Navegação por teclado, `focus-visible`, ARIA nos componentes interativos e respeito a `prefers-reduced-motion`
 - 📱 **Responsivo** — Menu lateral no mobile, layouts que reorganizam em colunas e nenhum overflow horizontal
@@ -73,7 +73,8 @@ Bocchi_Site/
 ├── fotos.css           # Estilos da galeria
 ├── comentarios.css     # Estilos dos comentários
 ├── contato.css         # Estilos do contato
-├── script.js           # JS global (tema, menu, reveal, mini player, validação)
+├── script.js           # JS global (tema, menu, reveal, validação)
+├── player.js           # Mini player (YouTube IFrame API)
 ├── filme.js            # JS do simulador de ingressos
 ├── fotos.js            # JS da galeria / lightbox
 ├── comentarios.js      # JS do sistema de comentários

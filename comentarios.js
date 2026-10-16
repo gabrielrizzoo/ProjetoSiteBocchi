@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showRating(value) {
     paintStars(value);
-    ratingFeedback.textContent = value > 0 ? `${value}/5 — ${ratingTexts[value]}` : ratingTexts[0];
+    ratingFeedback.textContent = value > 0 ? `${value}/5 · ${ratingTexts[value]}` : ratingTexts[0];
   }
 
   function saveRating(value) {

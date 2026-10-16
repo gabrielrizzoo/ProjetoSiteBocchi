@@ -2,8 +2,8 @@
    COMENTÁRIOS PAGE — SPECIFIC STYLES
    ================================================ */
 
-.page-hero-art .art-frame img {
-  object-position: 50% 45%;
+.page-hero-art .poster--main {
+  --focus: 50% 45%;
 }
 
 /* ================================================

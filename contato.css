@@ -3,12 +3,21 @@
    ================================================ */
 
 /* A imagem tem a banda à esquerda e o logo amarelo à direita */
-.page-hero-art .art-frame {
-  aspect-ratio: 3 / 2;
+.page-hero-art .poster {
+  --tilt: 1.6deg;
+  --ratio: 3 / 2;
+  --focus: 0 50%;
 }
 
-.page-hero-art .art-frame img {
-  object-position: 0 50%;
+.page-hero-art > .sticker {
+  top: 0;
+  left: -8px;
+}
+
+.faq-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ================================================

@@ -432,16 +432,22 @@ button {
   color: var(--text-muted);
 }
 
-.eyebrow .num {
+/* Rótulo em japonês antes do título da seção (ex.: あらすじ · Sinopse) */
+.eyebrow .jp {
+  font-family: var(--font-jp);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: none;
   color: var(--accent);
 }
 
-.eyebrow .num::after {
+.eyebrow .jp::after {
   content: '';
   display: inline-block;
   width: 24px;
   height: 1px;
-  margin-left: 10px;
+  margin-left: 12px;
   vertical-align: middle;
   background: var(--line-strong);
 }
@@ -553,9 +559,9 @@ button {
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: clamp(32px, 6vw, 80px);
-  align-items: end;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
 }
 
 .page-hero--plain .page-hero-inner {
@@ -582,35 +588,158 @@ button {
   color: var(--text-muted);
 }
 
-.page-hero-art {
+/* ================================================
+   PÔSTER: foto impressa colada com fita adesiva
+   Usado nos heroes de todas as páginas
+   ================================================ */
+.poster-wall {
+  position: relative;
+  padding: 18px 0 0;
+}
+
+.poster {
+  --tilt: -1.6deg;
+  --ratio: 4 / 3;
+  --focus: center;
   position: relative;
   margin: 0;
 }
 
-.page-hero-art .art-frame {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: var(--surface);
+.poster-print {
+  position: relative;
+  padding: 12px 12px 0;
+  background: #f7f2e7;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.08),
+    0 10px 18px -10px rgba(0, 0, 0, 0.55),
+    0 34px 60px -30px rgba(0, 0, 0, 0.75);
+  transform: rotate(var(--tilt));
+  transition: transform 0.6s var(--ease);
 }
 
-.page-hero-art img {
+.poster:hover .poster-print {
+  transform: rotate(calc(var(--tilt) * 0.35));
+}
+
+:root.light-theme .poster-print {
+  background: #fffdf8;
+  box-shadow:
+    0 1px 1px rgba(60, 40, 20, 0.1),
+    0 10px 18px -10px rgba(60, 40, 20, 0.3),
+    0 34px 60px -30px rgba(60, 40, 20, 0.4);
+}
+
+.poster-photo {
+  aspect-ratio: var(--ratio);
+  overflow: hidden;
+  background: #111;
+}
+
+.poster-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--focus);
 }
 
-.page-hero-art .sticker {
-  position: absolute;
-  top: -14px;
-  right: 20px;
+/* Legenda escrita na margem do papel */
+.poster-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 4px 14px;
+  color: #2a2630;
 }
 
-.page-hero-art figcaption {
-  margin-top: 10px;
+.poster-caption .hand {
+  font-family: var(--font-jp);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.poster-caption small {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-faint);
+  font-size: 0.68rem;
+  color: #7a7480;
+  white-space: nowrap;
+}
+
+/* Fita adesiva semitransparente, com as pontas rasgadas */
+.tape {
+  position: absolute;
+  z-index: 2;
+  width: 104px;
+  height: 30px;
+  background: rgba(255, 244, 212, 0.62);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  clip-path: polygon(0 12%, 5% 0, 12% 10%, 20% 0, 80% 4%, 88% 0, 95% 9%, 100% 0, 100% 88%, 94% 100%, 86% 90%, 78% 100%, 20% 96%, 12% 100%, 6% 90%, 0 100%);
+  pointer-events: none;
+}
+
+.tape--left { top: -14px; left: 22px; transform: rotate(-9deg); }
+.tape--right { top: -12px; right: 26px; transform: rotate(7deg); }
+.tape--center { top: -14px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+
+/* Foto menor sobreposta, como numa colagem */
+.poster--small {
+  --tilt: 5deg;
+  --ratio: 1 / 1;
+  position: absolute;
+  z-index: 3;
+  width: 36%;
+}
+
+.poster--small .poster-print {
+  padding: 8px 8px 0;
+}
+
+.poster--small .poster-caption {
+  padding: 8px 2px 10px;
+}
+
+.poster--small .poster-caption .hand {
+  font-size: 0.9rem;
+}
+
+.poster--small .tape {
+  width: 70px;
+  height: 22px;
+}
+
+.poster-wall > .sticker {
+  position: absolute;
+  z-index: 4;
+}
+
+/* Colagem: foto grande + polaroid menor no canto */
+.poster-wall--collage {
+  padding-bottom: 56px;
+}
+
+.poster-wall--collage .poster--main {
+  --tilt: 1.4deg;
+  margin-left: 8%;
+}
+
+/* A polaroid cobre o canto esquerdo, então a legenda vai para a direita */
+.poster-wall--collage .poster--main .poster-caption {
+  flex-direction: row-reverse;
+}
+
+.poster-wall--collage .poster--small {
+  --tilt: -5deg;
+  left: -2%;
+  bottom: 0;
+  width: 38%;
+}
+
+.poster-wall--collage > .sticker {
+  top: 2px;
+  right: -10px;
+  font-size: 1.3rem;
+  transform: rotate(5deg);
 }
 
 .page-hero-links {
@@ -648,8 +777,32 @@ button {
     align-items: start;
   }
 
-  .page-hero-art .art-frame {
-    aspect-ratio: 16 / 9;
+  .poster-wall {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .poster {
+    --tilt: -1deg;
+  }
+
+  .poster-print {
+    padding: 8px 8px 0;
+  }
+
+  .poster-caption small {
+    display: none;
+  }
+
+  .poster--small {
+    --tilt: 4deg;
+    width: 40%;
+  }
+
+  .tape {
+    width: 80px;
+    height: 24px;
   }
 }
 
@@ -872,8 +1025,20 @@ button {
 }
 
 .footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   color: var(--text-muted);
   transition: color 0.2s ease;
+}
+
+.footer-links .material-symbols-outlined {
+  font-size: 1rem;
+  transition: transform 0.2s var(--ease);
+}
+
+.footer-links a:hover .material-symbols-outlined {
+  transform: translate(2px, -2px);
 }
 
 .footer-links a:hover {
@@ -988,15 +1153,13 @@ button {
   left: 20px;
   bottom: 20px;
   z-index: 90;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  width: 440px;
   max-width: calc(100vw - 40px);
-  padding: 8px;
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
   transform: translateY(calc(100% + 32px));
   transition: transform 0.5s var(--ease);
 }
@@ -1005,8 +1168,122 @@ button {
   transform: none;
 }
 
+/* Painel com o vídeo (precisa ficar visível enquanto toca) */
+.player-panel {
+  padding: 8px 8px 0;
+}
+
+.player-panel[hidden] {
+  display: none;
+}
+
+.player-video {
+  aspect-ratio: 16 / 9;
+  min-height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+}
+
+.player-video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player-progress,
+.player-volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 4px;
+}
+
+.player-progress {
+  margin-top: 10px;
+}
+
+.player-volume {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.player-volume .player-range {
+  flex: 0 1 120px;
+}
+
+.player-time {
+  min-width: 34px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.player-source {
+  margin-left: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+}
+
+/* Sliders de progresso e volume */
+.player-range {
+  --fill: 0%;
+  flex: 1;
+  min-width: 0;
+  height: 18px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--line-strong) var(--fill));
+}
+
+.player-range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--line-strong) var(--fill));
+}
+
+.player-range::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--text);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.player-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--text);
+}
+
+/* Barra principal */
+.player-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+}
+
 .player-cover {
-  position: relative;
   width: 46px;
   height: 46px;
   flex-shrink: 0;
@@ -1015,7 +1292,7 @@ button {
 }
 
 .player-info {
-  width: 168px;
+  flex: 1;
   min-width: 0;
 }
 
@@ -1042,7 +1319,7 @@ button {
   color: var(--text);
 }
 
-/* Barrinhas de equalizador */
+/* Equalizador: só mexe enquanto toca */
 .player-eq {
   display: inline-flex;
   align-items: flex-end;
@@ -1055,8 +1332,13 @@ button {
   height: 100%;
   border-radius: 1px;
   background: var(--accent);
+  transform: scaleY(0.35);
   transform-origin: bottom;
-  animation: eq 1s ease-in-out infinite alternate;
+  animation: eq 0.9s ease-in-out infinite alternate paused;
+}
+
+.mini-player.playing .player-eq i {
+  animation-play-state: running;
 }
 
 .player-eq i:nth-child(2) { animation-delay: 0.2s; }
@@ -1076,6 +1358,7 @@ button {
 .player-btn {
   width: 34px;
   height: 34px;
+  flex-shrink: 0;
   display: grid;
   place-items: center;
   background: none;
@@ -1091,19 +1374,18 @@ button {
   background: var(--surface-2);
 }
 
-.player-btn.listen-btn {
+.player-btn.play-btn {
   margin: 0 2px;
   background: var(--accent);
   color: var(--on-accent);
 }
 
-.player-btn.listen-btn:hover {
+.player-btn.play-btn:hover {
   background: var(--accent-hover);
 }
 
 .player-close {
   margin-left: 2px;
-  padding-left: 0;
   border-left: 1px solid var(--line);
   border-radius: 0 8px 8px 0;
 }
@@ -1127,15 +1409,20 @@ body.has-player .site-footer {
   }
 
   .mini-player {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
     max-width: none;
   }
 
-  .player-info {
-    flex: 1;
-    width: auto;
+  .player-bar {
+    gap: 10px;
+  }
+
+  .player-cover {
+    width: 40px;
+    height: 40px;
   }
 
   .back-to-top {
@@ -1145,6 +1432,12 @@ body.has-player .site-footer {
 
   body:not(.has-player) .back-to-top {
     bottom: 16px;
+  }
+
+  /* Com o vídeo aberto, o botão de topo sai do caminho */
+  body:has(.mini-player.expanded) .back-to-top {
+    opacity: 0;
+    visibility: hidden;
   }
 }
 

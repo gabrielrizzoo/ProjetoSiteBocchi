@@ -2,8 +2,13 @@
    FOTOS PAGE — SPECIFIC STYLES
    ================================================ */
 
-.page-hero h1 .hl {
-  white-space: nowrap;
+.page-hero-art .poster--main {
+  --ratio: 16 / 10;
+  --focus: center 30%;
+}
+
+.page-hero-art .poster--small {
+  --focus: 30% center;
 }
 
 /* ================================================

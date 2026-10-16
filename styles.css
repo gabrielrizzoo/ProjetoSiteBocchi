@@ -13,7 +13,7 @@
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
   gap: clamp(36px, 5vw, 72px);
   align-items: center;
 }
@@ -74,40 +74,14 @@
   font-weight: 600;
 }
 
-.hero-art {
-  position: relative;
-  margin: 0;
-}
-
-.hero-art-frame {
-  aspect-ratio: 11 / 10;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: #000;
-  box-shadow: var(--shadow-lg);
-}
-
 /* A imagem tem o logo impresso à esquerda; mostramos só a banda */
-.hero-art-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 100% 30%;
+.hero-art .poster--main {
+  --ratio: 11 / 10;
+  --focus: 100% 30%;
 }
 
-.hero-art .sticker {
-  position: absolute;
-  left: -18px;
-  bottom: 64px;
-  font-size: 1.4rem;
-}
-
-.hero-art figcaption {
-  margin-top: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-align: right;
-  color: var(--text-faint);
+.hero-art .poster--small {
+  --focus: 40% 30%;
 }
 
 /* Entrada do hero */
@@ -422,6 +396,19 @@
   text-transform: uppercase;
 }
 
+.ticket-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticket-kicker .jp {
+  font-family: var(--font-jp);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
 .ticket-title {
   margin: 14px 0 16px;
   font-stretch: 72%;
@@ -493,13 +480,7 @@
   }
 
   .hero-art {
-    max-width: 560px;
-  }
-
-  .hero-art .sticker {
-    left: 12px;
-    bottom: auto;
-    top: -14px;
+    max-width: 600px;
   }
 
   .about-media {
